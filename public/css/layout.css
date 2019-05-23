@@ -1,0 +1,28 @@
+body {
+    background: floralwhite;
+}
+@media (min-width: 1200px) {
+    .container {
+        max-width: 100% !important;
+    }
+}
+.nav.side-menu>li {
+    width: 100%;
+}
+.top_nav .navbar-right {
+    width: unset;
+}
+.toggle {
+    padding-top: unset !important;
+}
+.profile_info {
+    width: 100%;
+}
+.nav-bg {
+    background: #EDEDED;
+}
+.nav-md .container.body .right_col {
+    padding: 10px 20px 0;
+    margin-left: 20%;
+    background: floralwhite;
+}
