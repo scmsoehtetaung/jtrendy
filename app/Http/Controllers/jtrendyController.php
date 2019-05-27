@@ -16,4 +16,8 @@ class jtrendyController extends Controller
         $users = DB::table('users')->where('id',$id)->first();
         return view('profile')->with(compact('users'));    
     }    
+    public function updatesong($id) {
+        $song = DB::table('song')->where('id',$id)->first();
+        return view('UpdateSong', compact('song'));  
+    }
 }
