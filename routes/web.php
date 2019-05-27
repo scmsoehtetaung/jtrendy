@@ -17,4 +17,5 @@ Route::get('/', function () {
 });
 ////////////////////////////////////////////////
 
-Route::get('test', 'jtrendyController@example')->name('example');
+
+Route::get('updateSong/{id}', 'jtrendyController@updatesong');
