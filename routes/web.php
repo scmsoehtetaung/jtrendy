@@ -18,3 +18,4 @@ Route::get('/', function () {
 ////////////////////////////////////////////////
 
 Route::get('test', 'jtrendyController@example')->name('example');
+Route::get('profile/{id}', 'jtrendyController@profile')->name('profile');
