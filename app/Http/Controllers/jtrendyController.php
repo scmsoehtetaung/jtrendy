@@ -11,4 +11,8 @@ class jtrendyController extends Controller
         Log::info("ENTER TO LOG");
         return view('example');
     }
+
+    public function loadSong() {
+        return view('popularSong');
+    }
 }
