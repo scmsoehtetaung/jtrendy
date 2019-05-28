@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Log;
-
+use DB;
 class jtrendyController extends Controller
 {
     public function example() {
@@ -14,5 +14,10 @@ class jtrendyController extends Controller
 
     public function loadSong() {
         return view('popularSong');
+    }
+    
+    public function updatesong($id) {
+        $song = DB::table('song')->where('id',$id)->first();
+        return view('UpdateSong', compact('song'));  
     }
 }
