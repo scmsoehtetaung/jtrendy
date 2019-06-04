@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,4 +21,17 @@ Route::get('/updateSong/{id}','jtrendyController@songUpdate')->name('updateSong'
 Route::post('/search','jtrendyController@songNameSearch')->name('search');
 
 
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
 Route::get('test', 'jtrendyController@example')->name('example');
+Route::get('uploadSong', 'jtrendyController@uploads')->name('uploads');
+Route::post('upload','jtrendyController@create');
+Route::get('uploadSong/index', array('uses' => 'jtrendyController@cancle', 'as' => 'cancle.index'));
+Route::get('songTitle','jtrendyController@show')->name('songTitle');
+Route::post('show','jtrendyController@showSong')->name('showMe');
+Route::get('profile/{id}', 'jtrendyController@profile')->name('profile');
+Route::get('updateSong/{id}', 'jtrendyController@updatesong');
+Route::get('loadSong','jtrendyController@loadSong');
+Route::get('songlist', 'jtrendyController@songlist');//to delete
+Route::get('/songlist/detail/{id}', 'jtrendyController@detail')->name('detail');

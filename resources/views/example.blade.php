@@ -10,8 +10,11 @@
             <div class="panel-body">
                 <div class="container">
                     <div class ="row col-md-12  mb-5">
-
-
+                    @if (session()->has('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
                         <table style="width:100%">
                             <tr>
                                 <th>Firstname</th>
