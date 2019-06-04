@@ -21,3 +21,5 @@ Route::get('test', 'jtrendyController@example')->name('example');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('songlist', 'jtrendyController@songlist');//to delete
+Route::get('/songlist/detail/{id}', 'jtrendyController@detail')->name('detail');
