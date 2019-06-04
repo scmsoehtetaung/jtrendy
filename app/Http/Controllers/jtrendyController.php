@@ -12,6 +12,11 @@ class jtrendyController extends Controller
         return view('example');
     }
 
+    public function profile($id) {
+        $users = DB::table('users')->where('id',$id)->first();
+        return view('profile')->with(compact('users'));    
+    }    
+
     public function loadSong() {
         return view('popularSong');
     }

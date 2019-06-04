@@ -15,11 +15,12 @@ Route::get('/', function () {
 });
 ////////////////////////////////////////////////
 
-
+Route::get('profile/{id}', 'jtrendyController@profile')->name('profile');
 Route::get('updateSong/{id}', 'jtrendyController@updatesong');
 Route::get('test', 'jtrendyController@example')->name('example');
 Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('loadSong','jtrendyController@loadSong');
 Route::get('songlist', 'jtrendyController@songlist');//to delete
