@@ -20,4 +20,15 @@ class jtrendyController extends Controller
         $song = DB::table('song')->where('id',$id)->first();
         return view('UpdateSong', compact('song'));  
     }
+
+    public function songlist() {    //to delete
+        $song = DB::table('song')->select('id','title')->get();
+        return view('songlist', compact('song'));  
+    }
+
+    public function detail($id) {
+        $song = DB::table('song')->where('id',$id)->first();
+        $max = DB::table('song')->max('song_react_count');
+        return view('detail', compact('song','max'));  
+    }
 }
