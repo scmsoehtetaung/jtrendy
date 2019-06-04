@@ -12,6 +12,10 @@ class jtrendyController extends Controller
         return view('example');
     }
 
+    public function loadSong() {
+        return view('popularSong');
+    }
+    
     public function updatesong($id) {
         $song = DB::table('song')->where('id',$id)->first();
         return view('UpdateSong', compact('song'));  
