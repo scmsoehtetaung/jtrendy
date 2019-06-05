@@ -16,7 +16,7 @@ class jtrendyController extends Controller
 
     public function jsongList()
     {
-        $jsongListCompact=DB::table('song')->orderBy('Posted_Date','asc')->paginate(12);
+        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->paginate(12);
         $totalCount=DB::table('song')->count();
         return view('SongListBlade',compact('jsongListCompact','totalCount'));
     }
@@ -30,8 +30,8 @@ class jtrendyController extends Controller
     public function songNameSearch(Request $request)
     {
         $searchSongTitle = $request->input('searchSongTitle');
-        $jsongListCompact=DB::table('song')->where('songTitle','LIKE','%'.$searchSongTitle.'%')->paginate(12);
-        $totalCount=DB::table('song')->where('songTitle','LIKE','%'.$searchSongTitle.'%')->count();
+        $jsongListCompact=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(12);
+        $totalCount=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->count();
         if(count($jsongListCompact) > 0)
             {
                 return view('SongListBlade',compact('jsongListCompact','totalCount'))->withDetails($jsongListCompact)->withQuery($searchSongTitle);
