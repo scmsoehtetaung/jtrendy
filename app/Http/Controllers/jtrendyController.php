@@ -2,15 +2,78 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
+use Illuminate\Html\FormFacade;
 use Log;
 use DB;
 use DateTime;
-
 class jtrendyController extends Controller
 {
     public function example() {
         return view('example');
+    }
+    
+    public function updatesong($id) {
+        $song = DB::table('song')->where('id',$id)->first();
+        return view('UpdateSong', compact('song'));  
+    }
+    
+    public function updated($id,Request $request) {
+        $song = DB::table('song')->where('id',$id)->first();
+        $now = new DateTime();
+      
+        $video=$request->file('myVideo');
+        $oldvideo=$song->video_path;
+    if($request->hasFile('myVideo')){
+        if(file_exists(public_path('videos/'.$oldvideo))){
+           unlink(public_path('videos/'.$oldvideo));
+        }
+        $videoName= $request->file('myVideo')->getClientOriginalName();
+        $video->move(public_path().'/videos/', $videoName);  
+        }
+    else{
+        $videoName=$song->video_path;
+        $request->video_size=$song->video_size;
+        }
+         DB::Table('song')->where('id',$id)->update([
+        'title' => $request->title,
+        'artist' =>$request->artist ,
+        'category' => $request->category,
+        'description' => $request->description,
+        'video_path' => $videoName,
+        'video_size'=> $request->video_size,
+        'updated_at' => $now,
+        ]);
+        return redirect()->back()->with('message','File Updated'); 
+    }
+
+    public function jsongList()
+    {
+        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->paginate(12);
+        $totalCount=DB::table('song')->count();
+        return view('SongListBlade',compact('jsongListCompact','totalCount'));
+    }
+
+    public function songDelete($id,Request $request)
+    {
+        $jsongListCompact=DB::table('song')->where('id',$id)->delete();         
+        return redirect()->route('songList')->with( 'delete','Successfully deleted!!');
+    }
+
+    public function songNameSearch(Request $request)
+    {
+        $searchSongTitle = $request->input('searchSongTitle');
+        $jsongListCompact=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(12);
+        $totalCount=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->count();
+        if(count($jsongListCompact) > 0)
+            {
+                return view('SongListBlade',compact('jsongListCompact','totalCount'))->withDetails($jsongListCompact)->withQuery($searchSongTitle);
+            }
+        else
+            {
+                return view('SongListBlade',compact('jsongListCompact','totalCount'));
+            }
     }
 
     public function uploads() {
@@ -110,11 +173,6 @@ class jtrendyController extends Controller
     public function loadSong() {
         return view('popularSong');
     }
-    
-    public function updatesong($id) {
-        $song = DB::table('song')->where('id',$id)->first();
-        return view('UpdateSong', compact('song'));  
-    }
 
     public function songlist() {    //to delete
         $song = DB::table('song')->select('id','title')->get();
@@ -138,12 +196,11 @@ class jtrendyController extends Controller
         
        if(count($songs) > 0)
         {
-               return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
-            }
-            
+           return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
+        }
        else
-           {
-               return view('uploadedsong',compact('songs'));
-            }
+       {
+           return view('uploadedsong',compact('songs'));
+       }
     }
 }
