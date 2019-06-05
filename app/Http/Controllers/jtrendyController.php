@@ -10,7 +10,6 @@ use DateTime;
 class jtrendyController extends Controller
 {
     public function example() {
-        Log::info("ENTER TO LOG");
         return view('example');
     }
 
@@ -103,6 +102,12 @@ class jtrendyController extends Controller
         }
      return redirect()->route('songtitle')->with(compact('count','shows','type'));
      }
+
+    public function profile($id) {
+        $users = DB::table('users')->where('id',$id)->first();
+        return view('profile')->with(compact('users'));    
+    }    
+
     public function loadSong() {
         return view('popularSong');
     }
