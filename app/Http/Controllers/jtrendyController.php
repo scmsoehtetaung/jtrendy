@@ -8,6 +8,7 @@ use Illuminate\Html\FormFacade;
 use Log;
 use DB;
 use DateTime;
+use Auth;
 class jtrendyController extends Controller
 {
     public function example() {
@@ -113,6 +114,7 @@ class jtrendyController extends Controller
             else{
                 return redirect()->back()->with('videoRequired', 'File Not selected');
             } 
+        $user = Auth::user();   
         DB::table('song')->insert([
         'title' => $title,
         'category' => $request->category,
@@ -121,8 +123,8 @@ class jtrendyController extends Controller
         'video_path' => $videoName,
         'song_react_count' => '0',
         'song_download_count' => '0',
-        'created_user' => '1',
-        'updated_user' => '1',
+        'created_user' => $user->id,
+        'updated_user' =>$user->id,
         'created_at' => $now,
         'updated_at' => $now,
         ]);

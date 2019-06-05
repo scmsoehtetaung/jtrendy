@@ -23,8 +23,8 @@ class CreateSongTable extends Migration
             $table->string('video_size')->nullable();
             $table->integer('song_react_count')->default(0);
             $table->integer('song_download_count')->default(0);
-            $table->integer('created_user')->nullable();
-            $table->integer('updated_user')->nullable();
+            $table->integer('created_user');
+            $table->integer('updated_user');
             $table->timestamps();
         });
     }

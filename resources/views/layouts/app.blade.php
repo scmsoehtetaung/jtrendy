@@ -28,11 +28,13 @@
             <div class="container">
             @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ 'Hello,User!' }}
+                    
                 </a>
                 @else
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ 'Hello,Admin!' }}
+                {{'Hello'}}
+                {{Auth::user()->name}}
+                {{'!'}}
                 </a>
                 @endguest
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -48,10 +50,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
+                            
+                        @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
-                        @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('list') }}">{{ __('Song List') }}</a>
                             </li>
