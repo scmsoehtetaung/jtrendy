@@ -29,3 +29,4 @@ Route::get('updateSong/{id}', 'jtrendyController@updatesong');
 Route::get('loadSong','jtrendyController@loadSong');
 Route::get('songlist', 'jtrendyController@songlist');//to delete
 Route::get('/songlist/detail/{id}', 'jtrendyController@detail')->name('detail');
+Route::post('update/{id}','jtrendyController@updated')->name('update');
