@@ -15,10 +15,10 @@
                     @endif
                         <form action="/search" method="POST">
                             {{ csrf_field() }}
-                            <div class="input-group">
-                                <input type="text" class="fa fa-search" name="searchSongTitle"autocomplete="off"
-                                 placeholder="Search...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
-                                <button type="submit" class="fa fa-search"></button><br><br>                               
+                            <div>
+                                <input type="text"  name="searchSongTitle" autocomplete="off"
+                                 placeholder="Enter text...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
+                                <input type="submit" value="search">                               
                             </div>
                         </form>
                         <label for="total">Total : {{$totalCount}}</label>
@@ -34,16 +34,16 @@
                         @endif
                     <table style="width:100%" border="1">
                         <tr>
-                            <th>Song Title</th>
-                            <th>Artist</th>
-                            <th>Posted Date</th>
-                            <th>Option</th>
+                            <th>title</th>
+                            <th>artist</th>
+                            <th>created_at</th>
+                            <th>option</th>
                         </tr>
                         <tr>
                         @foreach($jsongListCompact as $songInfo)                        
-                            <td>{{$songInfo->songTitle}}</td>
-                            <td>{{$songInfo->songArtist}}</td>
-                            <td>{{$songInfo->Posted_Date}}</td>
+                            <td>{{$songInfo->title}}</td>
+                            <td>{{$songInfo->artist}}</td>
+                            <td>{{$songInfo->created_at}}</td>
                             <td>                           
                             <button onclick="location.href='{{ url('updateSong',$songInfo->id) }}'">Edit</button>
                             <button onclick="location.href='{{ url('delete',$songInfo->id) }}'">Delete</button>
