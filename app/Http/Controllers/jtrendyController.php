@@ -19,7 +19,8 @@ class jtrendyController extends Controller
     }
 
     public function cancle(){
-        return view('example');
+        $song = DB::table('song')->select('id','title')->get();
+        return view('songlist', compact('song'));  
     }
 
     public function create(Request $request){
@@ -52,8 +53,8 @@ class jtrendyController extends Controller
             } 
         DB::table('song')->insert([
         'title' => $title,
+        'category' => $request->category,
         'artist' =>$artist,
-        'name' => $request->category,
         'description' => $request->description,
         'video_path' => $videoName,
         'song_react_count' => '0',
@@ -69,7 +70,7 @@ class jtrendyController extends Controller
 
     public function show(){
         $counts = DB::table('song')->count();
-        return view('songTitle',compact('counts'));    
+        return view('songCategoryList',compact('counts'));    
       }
 
     public function showSong(Request $request){
@@ -77,30 +78,30 @@ class jtrendyController extends Controller
         $count=0;
         $shows=[];
         if($type=="pop"){
-           $count = DB::table('song')->where('name', 'pop')->count();
-           $shows = DB::table('song')->where('name', 'pop')->get();
+           $count = DB::table('song')->where('category', 'pop')->count();
+           $shows = DB::table('song')->where('category', 'pop')->get();
         }
         if($type=="rock"){
-           $count = DB::table('song')->where('name', 'rock')->count();
-           $shows = DB::table('song')->where('name', 'rock')->get();
+           $count = DB::table('song')->where('category', 'rock')->count();
+           $shows = DB::table('song')->where('category', 'rock')->get();
         }
         if($type=="hiphot"){
-           $count = DB::table('song')->where('name', 'hiphot')->count();
-           $shows = DB::table('song')->where('name', 'hiphot')->get();
+           $count = DB::table('song')->where('category', 'hiphot')->count();
+           $shows = DB::table('song')->where('category', 'hiphot')->get();
         }
         if($type=="classic"){
-           $count = DB::table('song')->where('name', 'classic')->count();
-           $shows = DB::table('song')->where('name', 'classic')->get();
+           $count = DB::table('song')->where('category', 'classic')->count();
+           $shows = DB::table('song')->where('category', 'classic')->get();
         }
         if($type=="ost"){
-           $count = DB::table('song')->where('name', 'ost')->count();
-           $shows = DB::table('song')->where('name', 'ost')->get();
+           $count = DB::table('song')->where('category', 'ost')->count();
+           $shows = DB::table('song')->where('category', 'ost')->get();
         }
         if($type=="covered"){
-           $count = DB::table('song')->where('name', 'covered')->count();
-           $shows = DB::table('song')->where('name', 'covered')->get();
+           $count = DB::table('song')->where('category', 'covered')->count();
+           $shows = DB::table('song')->where('category', 'covered')->get();
         }
-     return redirect()->route('songTitle')->with(compact('count','shows','type'));
+     return redirect()->route('songtitle')->with(compact('count','shows','type'));
      }
     public function loadSong() {
         return view('popularSong');
