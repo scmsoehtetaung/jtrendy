@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
+use Illuminate\Html\FormFacade;
 use Log;
 use DB;
 use DateTime;
@@ -45,6 +46,34 @@ class jtrendyController extends Controller
         'updated_at' => $now,
         ]);
         return redirect()->back()->with('message','File Updated'); 
+    }
+
+    public function jsongList()
+    {
+        $jsongListCompact=DB::table('song')->orderBy('Posted_Date','asc')->paginate(12);
+        $totalCount=DB::table('song')->count();
+        return view('SongListBlade',compact('jsongListCompact','totalCount'));
+    }
+
+    public function songDelete($id,Request $request)
+    {
+        $jsongListCompact=DB::table('song')->where('id',$id)->delete();         
+        return redirect()->route('songList')->with( 'delete','Successfully deleted!!');
+    }
+
+    public function songNameSearch(Request $request)
+    {
+        $searchSongTitle = $request->input('searchSongTitle');
+        $jsongListCompact=DB::table('song')->where('songTitle','LIKE','%'.$searchSongTitle.'%')->paginate(12);
+        $totalCount=DB::table('song')->where('songTitle','LIKE','%'.$searchSongTitle.'%')->count();
+        if(count($jsongListCompact) > 0)
+            {
+                return view('SongListBlade',compact('jsongListCompact','totalCount'))->withDetails($jsongListCompact)->withQuery($searchSongTitle);
+            }
+        else
+            {
+                return view('SongListBlade',compact('jsongListCompact','totalCount'));
+            }
     }
 
     public function uploads() {
