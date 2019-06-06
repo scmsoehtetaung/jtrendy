@@ -22,3 +22,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('loadSong','jtrendyController@loadSong');
+Route::get('popularlist','jtrendyController@pouplarSongList')->name('popularList');
+Route::get('/popularSong/displayFullVdo/{id}','jtrendyController@displayfullvdolist')->name('displaySong');
+Route::get('/like/{id}','jtrendyController@likecount')->name('like');
+Route::get('/unlike/{id}','jtrendyController@unlikecount')->name('unlike');
