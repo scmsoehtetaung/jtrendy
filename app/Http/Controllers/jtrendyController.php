@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use Illuminate\Html\FormFacade;
+use Illuminate\Support\Facades\Validator;
 use Log;
 use DB;
 use DateTime;
@@ -192,11 +193,16 @@ class jtrendyController extends Controller
     }
     
     public function userCreate(Request $request){
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
     DB::table('users')->insert([
             'name'=> $request->get('name'),
             'user_type'=> $request->get('user_type'),
             'email'=> $request->get('email'),
-            'password'=> $request->get('password'),
+            'password'=>bcrypt('password'),
         ]);
         return redirect()->back()->with('message','Successfully Registered'); 
     }
@@ -217,17 +223,17 @@ class jtrendyController extends Controller
         return view('uploadedsong', compact('songs'));  
     }
     
-    public function songNameSearch(Request $request){
-        $searchSongTitle = $request->input('searchSongTitle');
-        $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
+    // public function songNameSearch(Request $request){
+    //     $searchSongTitle = $request->input('searchSongTitle');
+    //     $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
         
-       if(count($songs) > 0)
-        {
-           return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
-        }
-       else
-       {
-           return view('uploadedsong',compact('songs'));
-       }
-    }
+    //    if(count($songs) > 0)
+    //     {
+    //        return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
+    //     }
+    //    else
+    //    {
+    //        return view('uploadedsong',compact('songs'));
+    //    }
+    // }
 }

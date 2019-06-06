@@ -11,6 +11,7 @@
                 <div class="container">
                     <div class ="row col-md-12  mb-5">
                     <form method="POST" action="{{ route('memberRegister') }}" method="post" enctype="multipart/form-data" >
+                    
                     @if (session()->has('message'))
                             <div class="alert alert-info">
                             {{ session('message') }}
@@ -80,7 +81,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" onClick="Validate()">
+                                <button type="submit" class="btn btn-primary" onchange="Validate()">
                                Register
                                 </button>
                             </div>
@@ -93,3 +94,14 @@
     </div>
 </div>
 @endsection
+<script>
+    function Validate() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("password-confirm").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
