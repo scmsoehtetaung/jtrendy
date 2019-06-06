@@ -13,7 +13,7 @@ class jtrendyController extends Controller
         return view('example');
     }
     
-    public function updatesong($id,Request $request) {
+    public function updatesong($id) {
         $song = DB::table('song')->where('id',$id)->first();
         return view('UpdateSong', compact('song'));  
     }
@@ -34,6 +34,7 @@ class jtrendyController extends Controller
     else{
         $videoName=$song->video_path;
         $request->video_size=$song->video_size;
+     
         }
          DB::Table('song')->where('id',$id)->update([
         'title' => $request->title,
@@ -155,4 +156,18 @@ class jtrendyController extends Controller
         $max = DB::table('song')->max('song_react_count');
         return view('detail', compact('song','max'));  
     }
+    public function userRegister() {
+        return view('registeruser');
+    }
+    
+    public function userCreate(Request $request){
+             DB::table('users')->insert([
+            'name'=> $request->get('name'),
+            'user_type'=> $request->get('user_type'),
+            'email'=> $request->get('email'),
+            'password'=> $request->get('password'),
+     ]);
+        return redirect()->back()->with('message','Successfully Registered'); 
+        }
+
 }
