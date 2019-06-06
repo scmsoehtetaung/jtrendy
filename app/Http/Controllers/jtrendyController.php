@@ -81,9 +81,8 @@ class jtrendyController extends Controller
         return view('uploadSong');
     }
 
-    public function cancle(){
-        $song = DB::table('song')->select('id','title')->get();
-        return view('songlist', compact('song'));  
+    public function cancle(){ 
+        return redirect()->route('list'); 
     }
 
     public function create(Request $request){
@@ -186,5 +185,16 @@ class jtrendyController extends Controller
         $song = DB::table('song')->where('id',$id)->first();
         $max = DB::table('song')->max('song_react_count');
         return view('detail', compact('song','max'));  
+    }
+
+    public function userlist(){
+        $users=DB::table('users')->select('id','name','email')->get();  
+        return view('userlist',compact('users'));
+    }
+
+        public function deleteuser($id,Request $request)
+    {
+        DB::table('users')->where('id',$id)->delete();         
+        return redirect()->route('user')->with( 'delete','Successfully deleted!!');
     }
 }
