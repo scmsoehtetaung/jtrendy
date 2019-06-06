@@ -7,14 +7,14 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="panel-title">Song Upload</span>
             </div>
             <div class="panel-body">
                 <div class="container">
-                    <div class ="row col-md-12 col-md-offset-0">
+                    <div class ="row col-md-12  mb-5">
                        <form  action="{{url('upload')}}"  method="post" enctype="multipart/form-data">
                             @foreach($errors->all() as $error)
                                 <p class="alert alert-danger">
@@ -32,15 +32,15 @@
                                 </div>
                             @endif
                             {{csrf_field()}}
-                            <div class="row">
-                                <div class=" form-group col-sm-6 col-md-offset-0 ">
-                                    <label for="song">Song Title:</label>
-                                    <input class="form-control" type="text" name="title" placeholder="Enter Song Title" id="title" value="{{ old('title')}}" required> 
+                           
+                                <div class=" row ">
+                                    <div class="form-group col-sm-6 col-md-offset-0 ">
+                                        <label for="song">Song Title:</label>    
+                                        <input class="form-control col-md-8" type="text" name="title" placeholder="Enter Song Title" id="title" value="{{ old('title')}}" required> 
+                                    </div>
                                 </div>
-                            </div>
                             <div class="row">
-                            
-                                <div class="form-group col-sm-6 col-md-offset-0">
+                                <div class="form-group col-sm-6 col-md-offset-0 ">
                                     <label for="name">Artist Name:</label>
                                     <input class="form-control" type="text" name="artist" id="name" placeholder="Enter Artist Name" value="{{ old('artist')}}" required>
                                 </div>
@@ -48,7 +48,7 @@
                             <div class="row">
                                 <div class="form-group col-sm-6 col-md-offset-0">
                                     <label for="category">Categories:</label>
-                                    <select class="form-control"  name="category";>
+                                    <select class="form-control "  name="category";>
                                         <option value="pop">Pop</option>
                                         <option value="rock">Rock</option>
                                         <option value="hiphot">Hip Hop</option>
@@ -61,7 +61,7 @@
                             <div class="row">
                                 <div class="form-group col-sm-6 col-md-offset-0 ">
                                     <label for="comment">Description:</label>
-                                    <textarea class="form-control col-sm-4" rows="5" id="comment" name="description" placeholder="Enter Song Description" maxlength=100 minlength=5 required >{{ old('description') }}</textarea>
+                                    <textarea class="form-control " rows="5" id="comment" name="description" placeholder="Enter Song Description" maxlength=100 minlength=5 required >{{ old('description') }}</textarea>
                                 </div>
                             </div>
                             <div class="row">
