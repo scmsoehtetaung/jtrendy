@@ -11,6 +11,7 @@
                 <div class="container">
                     <div class ="row col-md-12  mb-5">
                     <form method="POST" action="{{ route('memberRegister') }}" method="post" enctype="multipart/form-data" >
+                    
                     @if (session()->has('message'))
                             <div class="alert alert-info">
                             {{ session('message') }}
@@ -80,7 +81,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" onClick="Validate()">
+                                <button type="submit" class="btn btn-primary">
                                Register
                                 </button>
                             </div>
