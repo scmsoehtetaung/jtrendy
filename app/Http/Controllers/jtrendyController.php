@@ -203,7 +203,7 @@ class jtrendyController extends Controller
         return view('uploadedsong', compact('songs'));  
     }
     
-    public function songNameSearch2(Request $request){
+    public function songNameSearch(Request $request){
         $searchSongTitle = $request->input('searchSongTitle');
         $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
         
