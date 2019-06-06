@@ -32,23 +32,23 @@
                                 </div>
                             @endif
                             {{csrf_field()}}
-                            <div class="row">
-                                <div class=" form-group col-sm-4 col-md-offset-0 ">
-                                    <label for="song">Song Title:</label>
-                                    <input class="form-control" type="text" name="title" placeholder="Enter Song Title" id="title" value="{{ old('title')}}" required> 
+                           
+                                <div class=" row ">
+                                    <div class="form-group col-sm-6 col-md-offset-0 ">
+                                        <label for="song">Song Title:</label>    
+                                        <input class="form-control col-md-8" type="text" name="title" placeholder="Enter Song Title" id="title" value="{{ old('title')}}" required> 
+                                    </div>
                                 </div>
-                            </div>
                             <div class="row">
-                            
-                                <div class="form-group col-sm-4 col-md-offset-0">
+                                <div class="form-group col-sm-6 col-md-offset-0 ">
                                     <label for="name">Artist Name:</label>
                                     <input class="form-control" type="text" name="artist" id="name" placeholder="Enter Artist Name" value="{{ old('artist')}}" required>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-sm-4 col-md-offset-0">
+                                <div class="form-group col-sm-6 col-md-offset-0">
                                     <label for="category">Categories:</label>
-                                    <select class="form-control"  name="category";>
+                                    <select class="form-control "  name="category";>
                                         <option value="pop">Pop</option>
                                         <option value="rock">Rock</option>
                                         <option value="hiphot">Hip Hop</option>
@@ -59,13 +59,13 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-sm-4 col-md-offset-0 ">
+                                <div class="form-group col-sm-6 col-md-offset-0 ">
                                     <label for="comment">Description:</label>
-                                    <textarea class="form-control col-sm-4" rows="5" id="comment" name="description" placeholder="Enter Song Description" maxlength=100 minlength=5 required >{{ old('description') }}</textarea>
+                                    <textarea class="form-control " rows="5" id="comment" name="description" placeholder="Enter Song Description" maxlength=100 minlength=5 required >{{ old('description') }}</textarea>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-sm-4 col-md-offset-0">
+                                <div class="form-group col-sm-6 col-md-offset-0">
                                     <label for="video">Video:</label>
                                     <input type="file" accept="video/*" ID="video" name="myVideo" style="display:none"><br>
                                 </div>
@@ -98,7 +98,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
+   <script type="text/javascript">
     $('#browse_file').on('click',function(e){
         $('#video').click();
     });
