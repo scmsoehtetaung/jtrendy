@@ -5,7 +5,7 @@
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title">J-trendy Dashboard</span>
+                <span class="panel-title">Song List</span>
             </div>
             <div class="panel-body">
                 <div class="container">
