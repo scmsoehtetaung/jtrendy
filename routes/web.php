@@ -41,3 +41,6 @@ Route::get('songlist', 'jtrendyController@songlist')->name('list');//to delete
 
 Route::get('/songlist/detail/{id}', 'jtrendyController@detail')->name('detail');
 Route::post('update/{id}','jtrendyController@updated')->name('update');
+
+Route::get('userlist','jtrendyController@userlist')->name('user');
+Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
