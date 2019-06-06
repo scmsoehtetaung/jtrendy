@@ -62,9 +62,6 @@
                                     <button onclick="location.href='{{ url('delete',$songInfo->id) }}'" class="btn btn-danger btn-sm">Delete</button></label>                                                                                                            
                             </div>
                             @endforeach
-                            <div class="paginate text-center">
-                                    {{  $jsongListCompact->links() }}
-                            </div>
                     </div>
                 </div>
             </div>
