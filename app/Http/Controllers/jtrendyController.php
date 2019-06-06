@@ -184,4 +184,23 @@ class jtrendyController extends Controller
         $max = DB::table('song')->max('song_react_count');
         return view('detail', compact('song','max'));  
     }
+
+    public function uploadedsong() {    
+        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);     
+        return view('uploadedsong', compact('songs'));  
+    }
+    
+    public function songNameSearch(Request $request){
+        $searchSongTitle = $request->input('searchSongTitle');
+        $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
+        
+       if(count($songs) > 0)
+        {
+           return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
+        }
+       else
+       {
+           return view('uploadedsong',compact('songs'));
+       }
+    }
 }
