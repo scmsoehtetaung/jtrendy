@@ -1,29 +1,24 @@
 @extends('layouts.app')
 <style>
 
-    .container1{
-        width: 980px;
-        margin-top: 15px;  
-    }
-
-    .container1 .left{
-        
-        float: left;
-    }
-
-    .container2 .right{
-        float: right;
-    }
-
     label {
     width: 200px;
     text-align: left;
     font-size: 15px;
     }​
 
-    .container{
-        width: 20%;
-        margin-top: 20px;   
+    .container1{
+        width: 980px;     
+    }
+
+    .container1 .left{
+        margin-top:5px;
+        float: left;
+    }
+
+    .container1 .right{
+        margin-top:15px;
+        float:left;
     }
 
     .button {
@@ -40,7 +35,9 @@
         cursor: pointer;
     }
 
-    .button1 {borde-radius: 8px;}
+    .button1{
+        borde-radius: 8px;
+    }
 
 </style>
 
@@ -64,22 +61,27 @@
                             <label>Song Title</label>
                             {{$song->title}}
                         </div>
+
                         <div class="block">
                             <label>Artist</label>
                             {{$song->artist}}
                         </div>
+
                         <div class="block">
                             <label> Category</label>
                             {{$song->category}}
                         </div>
+
                         <div class="block">
                             <label>Artist</label>
                             {{$song->description}}
                         </div>
+
                         <div class="block">
                             <label>Favourite Count</label>
                             {{$song->song_react_count}}
                         </div>
+
                         <div class="block">
                             <label>Upload Date</label>
                             {{$song->created_at}}
@@ -89,17 +91,16 @@
                             <div class="left">
                                 <label>Upload Song</label>
                             </div>
+                            
                             <div class="right">
                                <video width="400" controls>
                                     <source src="{{URL::asset('videos/'.$song->video_path )}}" type="video/mp4">
                                 </video>
                             </div>                   
-                        </div><br>
-                           
-                            <a href="javascript:history.back()" button class="btn button button1"><b>OK</b></a>
-                        
+                        </div>                     
                     </div>
-                </div>
+                 <a href="javascript:history.back()" button class="btn button button1"><b>OK</b></a>
+                </div>                         
             </div>
         </div>
     </div>

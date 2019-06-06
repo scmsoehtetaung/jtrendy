@@ -24,6 +24,9 @@ Route::post('/search','jtrendyController@songNameSearch')->name('search');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
+
+Route::get('uploadedsong', 'jtrendyController@uploadedsong')->name('uploadedsong');
+Route::post('/search','jtrendyController@songNameSearch')->name('search');
 Route::get('test', 'jtrendyController@example')->name('example');
 Route::get('uploadSong', 'jtrendyController@uploads')->name('uploads');
 Route::post('upload','jtrendyController@create');

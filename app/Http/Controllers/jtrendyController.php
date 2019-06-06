@@ -192,9 +192,28 @@ class jtrendyController extends Controller
         return view('userlist',compact('users'));
     }
 
-        public function deleteuser($id,Request $request)
+    public function deleteuser($id,Request $request)
     {
         DB::table('users')->where('id',$id)->delete();         
         return redirect()->route('user')->with( 'delete','Successfully deleted!!');
+    }
+    
+    public function uploadedsong() {    
+        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);     
+        return view('uploadedsong', compact('songs'));  
+    }
+    
+    public function songNameSearch2(Request $request){
+        $searchSongTitle = $request->input('searchSongTitle');
+        $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
+        
+       if(count($songs) > 0)
+        {
+           return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
+        }
+       else
+       {
+           return view('uploadedsong',compact('songs'));
+       }
     }
 }
