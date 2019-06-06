@@ -81,7 +81,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" onchange="Validate()">
+                                <button type="submit" class="btn btn-primary">
                                Register
                                 </button>
                             </div>
@@ -94,14 +94,3 @@
     </div>
 </div>
 @endsection
-<script>
-    function Validate() {
-        var password = document.getElementById("password").value;
-        var confirmPassword = document.getElementById("password-confirm").value;
-        if (password != confirmPassword) {
-            alert("Passwords do not match.");
-            return false;
-        }
-        return true;
-    }
-</script>
