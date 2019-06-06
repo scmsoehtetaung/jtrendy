@@ -222,7 +222,7 @@ class jtrendyController extends Controller
             'name'=> $request->get('name'),
             'user_type'=> $request->get('user_type'),
             'email'=> $request->get('email'),
-            'password'=>bcrypt('password'),
+            'password'=>bcrypt($request->get('password')),
         ]);
         return redirect()->back()->with('message','Successfully Registered'); 
     }
@@ -243,7 +243,7 @@ class jtrendyController extends Controller
         return view('uploadedsong', compact('songs'));  
     }
     
-    public function songNameSearch(Request $request){
+    public function songNameSearch2(Request $request){
         $searchSongTitle = $request->input('searchSongTitle');
         $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
        if(count($songs) > 0)
