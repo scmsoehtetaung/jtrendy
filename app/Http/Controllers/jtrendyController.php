@@ -232,20 +232,16 @@ class jtrendyController extends Controller
     }
     
     public function uploadedsong() {    
-        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);     
-        return view('uploadedsong', compact('songs'));  
+        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);   
+        $test="upload";  
+        return view('uploadedsong', compact('songs','test'));  
+        
     }
-    
-    public function songNameSearch2(Request $request){
-        $searchSongTitle = $request->input('searchSongTitle');
-        $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
-       if(count($songs) > 0)
-       {
-           return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
-       }
-       else
-       {
-          return view('uploadedsong',compact('songs'));
-       }
-     }
+
+    public function searchtxt(Request $request){
+        $searchtxt = $request->input('searchtxt');
+        $test="search";
+        $songs=DB::table('song')->where('title','LIKE','%'.$searchtxt.'%')->get();
+        return view('uploadedsong',compact('songs','test'));
+    }
 }
