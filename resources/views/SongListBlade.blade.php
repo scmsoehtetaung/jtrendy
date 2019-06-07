@@ -1,6 +1,6 @@
 @extends('layouts.app')
 <style>
-    #labelStyle00 {
+    #labelStyle {
     width: 165px;
     text-align: left;
     font-size: 16px;
@@ -41,27 +41,34 @@
                                     <div class="alert alert-danger">
                                         {{ session()->get('delete') }}
                                     </div>
-                            @endif 
-                            @if(count($jsongListCompact) <= 0)
+                            @endif
+                            @if($song=="search" && $totalCount==0)
                             <div class="alert alert-danger">
                                 <p>No data match your search.</p>
                             </div> 
                             @endif
                             <div class="block">
-                                <label id="labelStyle00">Song Title</label>
-                                <label id="labelStyle00">Artist</label>
-                                <label id="labelStyle00">Date</label>
-                                <label id="labelStyle00">Option</label>
+                                <label id="labelStyle">Song Title</label>
+                                <label id="labelStyle">Artist</label>
+                                <label id="labelStyle">Date</label>
+                                <label id="labelStyle">Option</label>
                             </div>
                             @foreach($jsongListCompact as $songInfo) 
                             <div class="block">  
-                                <label id="labelStyle00"><a href="{{ url('songlist/detail', $songInfo->id) }}" >{{$songInfo->title}}</a></label>                                                                                                               
-                                <label id="labelStyle00">{{$songInfo->artist}} </label>
-                                <label id="labelStyle00"> {{$songInfo->created_at}} </label>                           
-                                <label id="labelStyle00"><button onclick="location.href='{{ url('updateSong',$songInfo->id) }}'" class="btn btn-info btn-sm">Edit</button>
-                                    <button onclick="location.href='{{ url('delete',$songInfo->id) }}'" class="btn btn-danger btn-sm">Delete</button></label>                                                                                                            
+                                <label id="labelStyle"><a href="{{ url('songlist/detail', $songInfo->id) }}" >{{$songInfo->title}}</a></label>                                                                                                               
+                                <label id="labelStyle">{{$songInfo->artist}} </label>
+                                <label id="labelStyle"> {{$songInfo->created_at}} </label>                           
+                                <label id="labelStyle">
+                                    <button onclick="location.href='{{ url('updateSong',$songInfo->id) }}'" class="btn btn-info btn-sm">Edit</button>
+                                    <button onclick="location.href='{{ url('delete',$songInfo->id) }}'" class="btn btn-danger btn-sm">Delete</button>
+                                </label>                                                                                                            
                             </div>
                             @endforeach
+                            @if($song=="list")
+                            <div class="paginate text-center">
+                                {{ $jsongListCompact->links() }}
+                            </div>
+                            @endif
                     </div>
                 </div>
             </div>

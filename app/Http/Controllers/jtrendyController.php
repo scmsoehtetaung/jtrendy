@@ -53,9 +53,10 @@ class jtrendyController extends Controller
 
     public function jsongList()
     {
-        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->get();
+        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->paginate(2);
         $totalCount=DB::table('song')->count();
-        return view('SongListBlade',compact('jsongListCompact','totalCount'));
+        $song="list";
+        return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
     }
 
     public function songDelete($id,Request $request)
@@ -69,14 +70,8 @@ class jtrendyController extends Controller
         $searchSongTitle = $request->input('searchSongTitle');
         $jsongListCompact=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->get();
         $totalCount=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->count();
-        if(count($jsongListCompact) > 0)
-            {
-                return view('SongListBlade',compact('jsongListCompact','totalCount'))->withDetails($jsongListCompact)->withQuery($searchSongTitle);
-            }
-        else
-            {
-                return view('SongListBlade',compact('jsongListCompact','totalCount'));
-            }
+        $song="search";
+        return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
     }
 
     public function uploads() {
@@ -240,20 +235,16 @@ class jtrendyController extends Controller
     }
     
     public function uploadedsong() {    
-        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);     
-        return view('uploadedsong', compact('songs'));  
+        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);   
+        $test="upload";  
+        return view('uploadedsong', compact('songs','test'));  
+        
     }
-    
-    public function songNameSearch2(Request $request){
-        $searchSongTitle = $request->input('searchSongTitle');
-        $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
-       if(count($songs) > 0)
-       {
-           return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
-       }
-       else
-       {
-          return view('uploadedsong',compact('songs'));
-       }
-     }
+
+    public function searchtxt(Request $request){
+        $searchtxt = $request->input('searchtxt');
+        $test="search";
+        $songs=DB::table('song')->where('title','LIKE','%'.$searchtxt.'%')->get();
+        return view('uploadedsong',compact('songs','test'));
+    }
 }
