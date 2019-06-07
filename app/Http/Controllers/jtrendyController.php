@@ -178,7 +178,6 @@ class jtrendyController extends Controller
         return view('popularSong');
     }
 
-    public function updatesong($id) {
     public function songlist() {    //to delete
         $song = DB::table('song')->select('id','title')->get();
         return view('songlist', compact('song'));  
