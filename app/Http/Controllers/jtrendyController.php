@@ -95,25 +95,24 @@ class jtrendyController extends Controller
         'description'=>'required',
         ]);   
         $now = new DateTime();
-        $title=$request->title;
-        $artist=$request->artist;
-        $song01 =DB::table('song')->where('title',$title)->first();
-        $song02=DB::table('song')->where('artist',$artist)->first();
-        if($song01 && $song02)
-        {
-            return redirect()->back()->with('videoRequired', 'The uploaded song is already exist');
-        }
         $video=$request->file('myVideo');
-            if($request->hasFile('myVideo')){
+            if($request->hasFile('myVideo')){ $title=$request->title;
+                $artist=$request->artist;
+                $song01 =DB::table('song')->where('title',$title)->first();
+                $song02=DB::table('song')->where('artist',$artist)->first();
                 $videoName= $request->file('myVideo')->getClientOriginalName();
                 $file_size=$request->file('myVideo')->getClientSize();
                     if( number_format($file_size / 1048576,2)>80){
                         return redirect()->back()->with('videoRequired', 'Cant Upload! Your video is too large');
                     }
+                    if($song01 && $song02)
+                    {
+                        return redirect()->back()->withInput($request->input())->with('videoRequired', 'The uploaded song is already exist');
+                    }
                 $video->move(public_path().'/videos/', $videoName);  
             }
             else{
-                return redirect()->back()->with('videoRequired', 'File Not selected');
+                return redirect()->back()->withInput($request->input())->with('videoRequired', 'File Not selected');
             } 
         $user = Auth::user();   
         DB::table('song')->insert([

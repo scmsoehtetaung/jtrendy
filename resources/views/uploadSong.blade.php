@@ -49,12 +49,12 @@
                                 <div class="form-group col-sm-6 col-md-offset-0">
                                     <label for="category">Categories:</label>
                                     <select class="form-control "  name="category";>
-                                        <option value="pop">Pop</option>
-                                        <option value="rock">Rock</option>
-                                        <option value="hiphot">Hip Hop</option>
-                                        <option value="classic">Classic</option>
-                                        <option value="ost">Ost</option>
-                                        <option value="covered">Covered</option>
+                                        <option value="pop" {{ old('category') == "pop" ? 'selected' : '' }}>Pop</option>
+                                        <option value="rock" {{ old('category') == "rock" ? 'selected' : '' }}>Rock</option>
+                                        <option value="hiphot" {{ old('category') == "hiphot" ? 'selected' : '' }}>Hip Hop</option>
+                                        <option value="classic" {{ old('category') == "ckassic" ? 'selected' : '' }}>Classic</option>
+                                        <option value="ost" {{ old('category') == "ost" ? 'selected' : '' }}>Ost</option>
+                                        <option value="covered" {{ old('category') == "covered" ? 'selected' : '' }}>Covered</option>
                                     </select>
                                 </div>
                             </div>
@@ -99,6 +99,8 @@
     </div>
 </div>
    <script type="text/javascript">
+   
+
     $('#browse_file').on('click',function(e){
         $('#video').click();
     });
