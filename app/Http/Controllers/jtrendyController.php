@@ -110,7 +110,7 @@ class jtrendyController extends Controller
                     if( number_format($file_size / 1048576,2)>80){
                         return redirect()->back()->with('videoRequired', 'Cant Upload! Your video is too large');
                     }
-                $video->move(public_path().'/video/', $videoName);  
+                $video->move(public_path().'/videos/', $videoName);  
             }
             else{
                 return redirect()->back()->with('videoRequired', 'File Not selected');
