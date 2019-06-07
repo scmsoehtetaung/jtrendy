@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use Illuminate\Html\FormFacade;
+use Illuminate\Support\Facades\Validator;
 use Log;
 use DB;
 use DateTime;
@@ -36,6 +37,7 @@ class jtrendyController extends Controller
     else{
         $videoName=$song->video_path;
         $request->video_size=$song->video_size;
+     
         }
          DB::Table('song')->where('id',$id)->update([
         'title' => $request->title,
@@ -51,7 +53,7 @@ class jtrendyController extends Controller
 
     public function jsongList()
     {
-        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->paginate(12);
+        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->get();
         $totalCount=DB::table('song')->count();
         return view('SongListBlade',compact('jsongListCompact','totalCount'));
     }
@@ -65,7 +67,7 @@ class jtrendyController extends Controller
     public function songNameSearch(Request $request)
     {
         $searchSongTitle = $request->input('searchSongTitle');
-        $jsongListCompact=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(12);
+        $jsongListCompact=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->get();
         $totalCount=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->count();
         if(count($jsongListCompact) > 0)
             {
@@ -186,6 +188,24 @@ class jtrendyController extends Controller
         $max = DB::table('song')->max('song_react_count');
         return view('detail', compact('song','max'));  
     }
+    public function userRegister() {
+        return view('registeruser');
+    }
+    
+    public function userCreate(Request $request){
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+    DB::table('users')->insert([
+            'name'=> $request->get('name'),
+            'user_type'=> $request->get('user_type'),
+            'email'=> $request->get('email'),
+            'password'=>bcrypt($request->get('password')),
+        ]);
+        return redirect()->back()->with('message','Successfully Registered'); 
+    }
 
     public function userlist(){
         $users=DB::table('users')->orderBy('name','asc')->get();  
@@ -206,14 +226,13 @@ class jtrendyController extends Controller
     public function songNameSearch2(Request $request){
         $searchSongTitle = $request->input('searchSongTitle');
         $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
-        
        if(count($songs) > 0)
-        {
+       {
            return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
-        }
+       }
        else
        {
-           return view('uploadedsong',compact('songs'));
+          return view('uploadedsong',compact('songs'));
        }
-    }
+     }
 }
