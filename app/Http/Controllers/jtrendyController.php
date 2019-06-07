@@ -51,9 +51,10 @@ class jtrendyController extends Controller
 
     public function jsongList()
     {
-        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->get();
+        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->paginate(2);
         $totalCount=DB::table('song')->count();
-        return view('SongListBlade',compact('jsongListCompact','totalCount'));
+        $song="list";
+        return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
     }
 
     public function songDelete($id,Request $request)
@@ -67,14 +68,8 @@ class jtrendyController extends Controller
         $searchSongTitle = $request->input('searchSongTitle');
         $jsongListCompact=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->get();
         $totalCount=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->count();
-        if(count($jsongListCompact) > 0)
-            {
-                return view('SongListBlade',compact('jsongListCompact','totalCount'))->withDetails($jsongListCompact)->withQuery($searchSongTitle);
-            }
-        else
-            {
-                return view('SongListBlade',compact('jsongListCompact','totalCount'));
-            }
+        $song="search";
+        return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
     }
 
     public function uploads() {
