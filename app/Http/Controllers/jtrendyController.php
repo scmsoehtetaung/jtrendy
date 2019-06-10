@@ -53,7 +53,7 @@ class jtrendyController extends Controller
 
     public function jsongList()
     {
-        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->paginate(12);
+        $jsongListCompact=DB::table('song')->orderBy('updated_at','desc')->paginate(12);
         $totalCount=DB::table('song')->count();
         $song="list";
         return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
