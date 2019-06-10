@@ -39,6 +39,7 @@ class jtrendyController extends Controller
         $request->video_size=$song->video_size;
      
         }
+        $user = Auth::user();   
          DB::Table('song')->where('id',$id)->update([
         'title' => $request->title,
         'artist' =>$request->artist ,
@@ -46,6 +47,7 @@ class jtrendyController extends Controller
         'description' => $request->description,
         'video_path' => $videoName,
         'video_size'=> $request->video_size,
+        'updated_user' =>$user->id,
         'updated_at' => $now,
         ]);
         return redirect()->back()->with('message','File Updated'); 
