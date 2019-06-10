@@ -197,7 +197,9 @@ class jtrendyController extends Controller
     public function displayfullvdolist($id){
         $popular =DB::table('song')->where('id',$id)->first();         
         $categories= DB::table('song')->where('category',$popular->category)->get();
-        return view('displayFullVdo',compact('popular','categories'));
+        $commentdisplay=DB::table('comment')->where('song_id',$id)->get();
+        log::info($commentdisplay);
+        return view('displayFullVdo',compact('popular','categories','commentdisplay'));
     }
     
     public function likecount($id){
@@ -254,4 +256,21 @@ class jtrendyController extends Controller
           return view('uploadedsong',compact('songs'));
        }
      }
+     
+    public function Comment(Request $request){
+       log::info("enter");
+       log::info($request->commentwrite);
+       $user = Auth::user();   
+       $now=new DateTime();
+        $commentletter=DB::table('comment')->orderBy('updated_at','desc')->insert([
+            'song_id'=>$request->c,
+            'created_user'=> $user->id,
+            'updated_user'=> $user->id,
+            'comment'=> $request->commentwrite,
+            'created_at'=> $now,
+            'updated_at'=> $now,
+            ]);
+            log::info( $request->commentwrite);
+            return redirect()->back();
+    }
 }
