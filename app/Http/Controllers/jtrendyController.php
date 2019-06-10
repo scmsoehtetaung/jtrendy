@@ -79,7 +79,7 @@ class jtrendyController extends Controller
     }
 
     public function cancle(){ 
-        return redirect()->route('list'); 
+        return redirect()->route('songList'); 
     }
 
     public function create(Request $request){
@@ -91,13 +91,15 @@ class jtrendyController extends Controller
         ]);   
         $now = new DateTime();
         $video=$request->file('myVideo');
-            if($request->hasFile('myVideo')){ $title=$request->title;
+            if($request->hasFile('myVideo')){ 
+                $title=$request->title;
                 $artist=$request->artist;
                 $song01 =DB::table('song')->where('title',$title)->first();
                 $song02=DB::table('song')->where('artist',$artist)->first();
                 $videoName= $request->file('myVideo')->getClientOriginalName();
                 $file_size=$request->file('myVideo')->getClientSize();
-                    if( number_format($file_size / 1048576,2)>80){
+                $size=number_format($file_size / 1048576,2);
+                    if( $size>80){
                         return redirect()->back()->with('videoRequired', 'Cant Upload! Your video is too large');
                     }
                     if($song01 && $song02)
@@ -116,6 +118,7 @@ class jtrendyController extends Controller
         'artist' =>$artist,
         'description' => $request->description,
         'video_path' => $videoName,
+        'video_size'=> $size,
         'song_react_count' => '0',
         'song_download_count' => '0',
         'created_user' => $user->id,
