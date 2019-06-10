@@ -17,10 +17,11 @@
                             {{ csrf_field() }}
                             <div class="navbar-right">
                                 <input type="text"  name="searchSongTitle" autocomplete="off"
-                                        placeholder="Enter text...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
-                                <input type="submit" value="search">                      
+                                        placeholder="Search...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
+                                <input type="submit" value="search"><br><br> 
+                                <a href="{{ route('songtitle') }}">Search By Category...</a>                    
                             </div>
-                            </form><br>
+                            </form><br><br>
                             <label for="total" style="font-size:22px">Total : {{$totalCount}}</label><br><br>
                             @if(session()->has('delete'))
                                     <div class="alert alert-danger">
@@ -29,12 +30,13 @@
                             @endif
                             @if($song=="search" && $totalCount==0)
                             <div class="alert alert-danger">
-                                <p>No data match your search.</p>
+                                <p>No Song.</p>
                             </div>
                             @endif
-                            <table style="width:100%" class="table-bordered table table-hover">
+                            <table style="width:100%" class="table table-bordered table-hover">
                                 <tr>
                                 <th style="font-size:20px">Song Title</th>
+                                <th style="font-size:20px">Like Count</th>
                                 <th style="font-size:20px">Artist</th>
                                 <th style="font-size:20px">Date</th>
                                 <th style="font-size:20px">Option</th>
@@ -42,6 +44,7 @@
                                 @foreach($jsongListCompact as $songInfo)
                                 <tr> 
                                     <td style="font-size:16px"><a href="{{ url('songlist/detail', $songInfo->id) }}" >{{$songInfo->title}}</td>
+                                    <td style="font-size:16px">{{$songInfo->song_react_count}}</td> 
                                     <td style="font-size:16px">{{$songInfo->artist}}</td>
                                     <td style="font-size:16px">{{$songInfo->created_at}}</td>
                                     <td style="font-size:16px">
@@ -52,7 +55,12 @@
                                 @endforeach
                                 @if($song=="search" && $totalCount==0)
                                 <tr>
-                                    <td colspan="4" class="text-center">No song exist!</td>
+                                    <td colspan="4" class="text-center alert alert-danger">No song exist!</td>
+                                </tr>
+                                @endif
+                                @if($song=="list" && $totalCount==0)
+                                <tr>
+                                    <td colspan="4" class="text-center alert alert-danger">No song exist!</td>
                                 </tr>
                                 @endif
                             </table>
