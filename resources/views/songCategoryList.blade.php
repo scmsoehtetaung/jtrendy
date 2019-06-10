@@ -46,7 +46,7 @@
                                         @foreach(session()->get('shows') as $show)
                                             <div class="form-group col-md-4 col-md-offset-0">
                                                 <video width="320" height="240" controls autoplay>
-                                                    <source src="{{url('/video/')}}/{{$show->video_path}}" type="video/mp4">
+                                                    <source src="{{url('/videos/')}}/{{$show->video_path}}" type="video/mp4">
                                                 </video>
                                                 <div>Title:{{$show->title}}</div>
                                                 <div>Artist Name:{{$show->artist}}</div>

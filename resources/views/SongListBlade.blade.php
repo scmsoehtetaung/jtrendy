@@ -1,20 +1,5 @@
 @extends('layouts.app')
-<style>
-    #labelStyle00 {
-    width: 165px;
-    text-align: left;
-    font-size: 16px;
-    margin-left: 105px;
-    padding: 5px;
-    }
-    #labelStyle01 {
-        margin-left:820px;
-    }
-    #labelStyle02 {
-        margin-left:105px;
-        font-size: 20px;
-    }
-</style>
+
 @section('content')
 <div class="row">
     <div class="col-md-13 col-md-offset-0">
@@ -30,38 +15,52 @@
                         @endif
                             <form action="/search" method="POST">
                             {{ csrf_field() }}
-                            <div id="labelStyle01">
+                            <div class="navbar-right">
                                 <input type="text"  name="searchSongTitle" autocomplete="off"
                                         placeholder="Enter text...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
                                 <input type="submit" value="search">                      
                             </div>
                             </form><br>
-                            <label for="total" id="labelStyle02">Total : {{$totalCount}}</label><br><br>
+                            <label for="total" style="font-size:22px">Total : {{$totalCount}}</label><br><br>
                             @if(session()->has('delete'))
                                     <div class="alert alert-danger">
                                         {{ session()->get('delete') }}
-                                    </div>
-                            @endif 
-                            @if(count($jsongListCompact) <= 0)
+                                    </div>                                
+                            @endif
+                            @if($song=="search" && $totalCount==0)
                             <div class="alert alert-danger">
                                 <p>No data match your search.</p>
-                            </div> 
+                            </div>
                             @endif
-                            <div class="block">
-                                <label id="labelStyle00">Song Title</label>
-                                <label id="labelStyle00">Artist</label>
-                                <label id="labelStyle00">Date</label>
-                                <label id="labelStyle00">Option</label>
+                            <table style="width:100%" class="table-bordered table table-hover">
+                                <tr>
+                                <th style="font-size:20px">Song Title</th>
+                                <th style="font-size:20px">Artist</th>
+                                <th style="font-size:20px">Date</th>
+                                <th style="font-size:20px">Option</th>
+                                </tr>
+                                @foreach($jsongListCompact as $songInfo)
+                                <tr> 
+                                    <td style="font-size:16px"><a href="{{ url('songlist/detail', $songInfo->id) }}" >{{$songInfo->title}}</td>
+                                    <td style="font-size:16px">{{$songInfo->artist}}</td>
+                                    <td style="font-size:16px">{{$songInfo->created_at}}</td>
+                                    <td style="font-size:16px">
+                                        <button onclick="location.href='{{ url('updateSong',$songInfo->id) }}'" class="btn btn-info">Edit</button>
+                                        <button onclick="location.href='{{ url('delete',$songInfo->id) }}'" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @if($song=="search" && $totalCount==0)
+                                <tr>
+                                    <td colspan="4" class="text-center">No song exist!</td>
+                                </tr>
+                                @endif
+                            </table>
+                            @if($song=="list")
+                            <div class="paginate text-center">
+                                {{ $jsongListCompact->links() }}
                             </div>
-                            @foreach($jsongListCompact as $songInfo) 
-                            <div class="block">  
-                                <label id="labelStyle00"><a href="{{ url('songlist/detail', $songInfo->id) }}" >{{$songInfo->title}}</a></label>                                                                                                               
-                                <label id="labelStyle00">{{$songInfo->artist}} </label>
-                                <label id="labelStyle00"> {{$songInfo->created_at}} </label>                           
-                                <label id="labelStyle00"><button onclick="location.href='{{ url('updateSong',$songInfo->id) }}'" class="btn btn-info btn-sm">Edit</button>
-                                    <button onclick="location.href='{{ url('delete',$songInfo->id) }}'" class="btn btn-danger btn-sm">Delete</button></label>                                                                                                            
-                            </div>
-                            @endforeach
+                            @endif
                     </div>
                 </div>
             </div>

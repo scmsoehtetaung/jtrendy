@@ -25,8 +25,14 @@ Route::post('/search','jtrendyController@songNameSearch')->name('search');
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
+Route::get('loadSong','jtrendyController@loadSong');
+Route::get('popularlist','jtrendyController@pouplarSongList')->name('popularList');
+Route::get('/popularSong/displayFullVdo/{id}','jtrendyController@displayfullvdolist')->name('displaySong');
+Route::get('/like/{id}','jtrendyController@likecount')->name('like');
+Route::get('/unlike/{id}','jtrendyController@unlikecount')->name('unlike');
+
 Route::get('uploadedsong', 'jtrendyController@uploadedsong')->name('uploadedsong');
-Route::post('/search','jtrendyController@songNameSearch')->name('search');
+Route::post('/searchsong','jtrendyController@searchtxt')->name('searchsong');
 Route::get('test', 'jtrendyController@example')->name('example');
 Route::get('uploadSong', 'jtrendyController@uploads')->name('uploads');
 Route::post('upload','jtrendyController@create');
@@ -46,3 +52,4 @@ Route::post('userRegister', 'jtrendyController@userCreate')->name('memberRegiste
 
 Route::get('userlist','jtrendyController@userlist')->name('user');
 Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
+

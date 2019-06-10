@@ -33,64 +33,58 @@
                             @endif
                             {{csrf_field()}}
                            
-                                <div class=" row ">
-                                    <div class="form-group col-sm-6 col-md-offset-0 ">
-                                        <label for="song">Song Title:</label>    
-                                        <input class="form-control col-md-8" type="text" name="title" placeholder="Enter Song Title" id="title" value="{{ old('title')}}" required> 
-                                    </div>
-                                </div>
-                            <div class="row">
-                                <div class="form-group col-sm-6 col-md-offset-0 ">
-                                    <label for="name">Artist Name:</label>
-                                    <input class="form-control" type="text" name="artist" id="name" placeholder="Enter Artist Name" value="{{ old('artist')}}" required>
+                            <div class="form-group row">
+                                <label for="song"  class="col-md-4 col-form-label text-md-right">Song Title:</label>
+                                <div class="col-md-6">    
+                                    <input class="form-control col-md-8" type="text" name="title" placeholder="Enter Song Title" id="title" value="{{ old('title')}}" required> 
+                                </div>  
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">Artist Name:</label>
+                                <div class="col-md-6">  
+                                     <input class="form-control" type="text" name="artist" id="name" placeholder="Enter Artist Name" value="{{ old('artist')}}" required>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-6 col-md-offset-0">
-                                    <label for="category">Categories:</label>
+                            <div class="form-group row">
+                                <label for="category" class="col-md-4 col-form-label text-md-right">Categories:</label>
+                                <div class="col-md-6">
                                     <select class="form-control "  name="category";>
-                                        <option value="pop">Pop</option>
-                                        <option value="rock">Rock</option>
-                                        <option value="hiphot">Hip Hop</option>
-                                        <option value="classic">Classic</option>
-                                        <option value="ost">Ost</option>
-                                        <option value="covered">Covered</option>
+                                        <option value="pop" {{ old('category') == "pop" ? 'selected' : '' }}>Pop</option>
+                                        <option value="rock" {{ old('category') == "rock" ? 'selected' : '' }}>Rock</option>
+                                        <option value="hiphot" {{ old('category') == "hiphot" ? 'selected' : '' }}>Hip Hop</option>
+                                        <option value="classic" {{ old('category') == "ckassic" ? 'selected' : '' }}>Classic</option>
+                                        <option value="ost" {{ old('category') == "ost" ? 'selected' : '' }}>Ost</option>
+                                        <option value="covered" {{ old('category') == "covered" ? 'selected' : '' }}>Covered</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-6 col-md-offset-0 ">
-                                    <label for="comment">Description:</label>
+                            <div class="form-group row">
+                                <label for="comment" class="col-md-4 col-form-label text-md-right">Description:</label>
+                                <div class="col-md-6">
                                     <textarea class="form-control " rows="5" id="comment" name="description" placeholder="Enter Song Description" maxlength=100 minlength=5 required >{{ old('description') }}</textarea>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-6 col-md-offset-0">
-                                    <label for="video">Video:</label>
+                            <div class="form-group row">
+                                <label for="video" class="col-md-4 col-form-label text-md-right">Video:</label>
+                                <div class="col-md-6">
                                     <input type="file" accept="video/*" ID="video" name="myVideo" style="display:none"><br>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="form-group row">
                                 <div class="form-group col-sm-4 col-md-offset-0">
                                     <input type="button" name="" value="Browse" id="browse_file" class="btn btn-primary">
-                                </div>  
+                                </div>
+                                <input type="submit" value="Upload" class="btn btn-primary active"> 
+                                <button type="button" class="btn btn-default" onclick="window.location='{{ route("cancle.index") }}'">Cancle</button> 
                             </div >
                             <div class="row">
                                 <div class="form-group col-sm-4 col-md-offset-0 ">
                                     <video hidden height="150px" controls="controls" autoplay class="video-preview"></video>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-4 col-md-offset-0 ">
+                            <div class="row form-group">
                                     <label for="size" id="size"></label>
-                                </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-4 col-md-offset-0">
-                                    <input type="submit" value="Upload" class="btn btn-primary active"> 
-                                    <button type="button" class="btn btn-default" onclick="window.location='{{ route("cancle.index") }}'">Cancle</button> 
-                                </div>
-                            </div> 
                        </form>   
                     </div>
                 </div>
@@ -99,6 +93,8 @@
     </div>
 </div>
    <script type="text/javascript">
+   
+
     $('#browse_file').on('click',function(e){
         $('#video').click();
     });
