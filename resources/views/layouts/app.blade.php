@@ -38,13 +38,13 @@
                     
                 </a>
                 @elseif(auth()->user()->user_type== 1)
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{url('/profile', [Auth::user()->id])}}">
                 {{'Hello Admin '}}
                 {{Auth::user()->name}}
                 {{'!'}}
                 </a>
                 @else
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/profile', [Auth::user()->id]) }}">
                 {{'Hello Member '}}
                 {{Auth::user()->name}}
                 {{'!'}}
@@ -66,7 +66,7 @@
                                 <a class="nav-link" href="{{ route('user') }}">{{ __('User') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('registeruser') }}">{{ __('Register') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('songList') }}">{{ __('Song List') }}</a>
@@ -78,7 +78,7 @@
                                 <a class="nav-link" href="{{ route('uploadedsong') }}">{{ __('Uploaded Song') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('popular') }}">{{ __('Popular Songs') }}</a>
+                                <a class="nav-link" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('songtitle') }}">{{ __('Category List') }}</a>

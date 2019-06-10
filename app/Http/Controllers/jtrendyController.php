@@ -53,9 +53,10 @@ class jtrendyController extends Controller
 
     public function jsongList()
     {
-        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->get();
+        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->paginate(12);
         $totalCount=DB::table('song')->count();
-        return view('SongListBlade',compact('jsongListCompact','totalCount'));
+        $song="list";
+        return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
     }
 
     public function songDelete($id,Request $request)
@@ -69,14 +70,8 @@ class jtrendyController extends Controller
         $searchSongTitle = $request->input('searchSongTitle');
         $jsongListCompact=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->get();
         $totalCount=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->count();
-        if(count($jsongListCompact) > 0)
-            {
-                return view('SongListBlade',compact('jsongListCompact','totalCount'))->withDetails($jsongListCompact)->withQuery($searchSongTitle);
-            }
-        else
-            {
-                return view('SongListBlade',compact('jsongListCompact','totalCount'));
-            }
+        $song="search";
+        return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
     }
 
     public function uploads() {
@@ -84,7 +79,7 @@ class jtrendyController extends Controller
     }
 
     public function cancle(){ 
-        return redirect()->route('list'); 
+        return redirect()->route('songList'); 
     }
 
     public function create(Request $request){
@@ -95,25 +90,26 @@ class jtrendyController extends Controller
         'description'=>'required',
         ]);   
         $now = new DateTime();
-        $title=$request->title;
-        $artist=$request->artist;
-        $song01 =DB::table('song')->where('title',$title)->first();
-        $song02=DB::table('song')->where('artist',$artist)->first();
-        if($song01 && $song02)
-        {
-            return redirect()->back()->with('videoRequired', 'The uploaded song is already exist');
-        }
         $video=$request->file('myVideo');
-            if($request->hasFile('myVideo')){
+            if($request->hasFile('myVideo')){ 
+                $title=$request->title;
+                $artist=$request->artist;
+                $song01 =DB::table('song')->where('title',$title)->first();
+                $song02=DB::table('song')->where('artist',$artist)->first();
                 $videoName= $request->file('myVideo')->getClientOriginalName();
                 $file_size=$request->file('myVideo')->getClientSize();
-                    if( number_format($file_size / 1048576,2)>80){
+                $size=number_format($file_size / 1048576,2);
+                    if( $size>80){
                         return redirect()->back()->with('videoRequired', 'Cant Upload! Your video is too large');
                     }
-                $video->move(public_path().'/video/', $videoName);  
+                    if($song01 && $song02)
+                    {
+                        return redirect()->back()->withInput($request->input())->with('videoRequired', 'The uploaded song is already exist');
+                    }
+                $video->move(public_path().'/videos/', $videoName);  
             }
             else{
-                return redirect()->back()->with('videoRequired', 'File Not selected');
+                return redirect()->back()->withInput($request->input())->with('videoRequired', 'File Not selected');
             } 
         $user = Auth::user();   
         DB::table('song')->insert([
@@ -122,6 +118,7 @@ class jtrendyController extends Controller
         'artist' =>$artist,
         'description' => $request->description,
         'video_path' => $videoName,
+        'video_size'=> $size,
         'song_react_count' => '0',
         'song_download_count' => '0',
         'created_user' => $user->id,
@@ -240,26 +237,20 @@ class jtrendyController extends Controller
     }
     
     public function uploadedsong() {    
-        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);     
-        return view('uploadedsong', compact('songs'));  
+        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);   
+        $test="upload";  
+        return view('uploadedsong', compact('songs','test'));  
+        
     }
-    
-    public function songNameSearch2(Request $request){
-        $searchSongTitle = $request->input('searchSongTitle');
-        $songs=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(6);
-       if(count($songs) > 0)
-       {
-           return view('uploadedsong',compact('songs'))->withDetails($songs)->withQuery($searchSongTitle);
-       }
-       else
-       {
-          return view('uploadedsong',compact('songs'));
-       }
-     }
+
+    public function searchtxt(Request $request){
+        $searchtxt = $request->input('searchtxt');
+        $test="search";
+        $songs=DB::table('song')->where('title','LIKE','%'.$searchtxt.'%')->get();
+        return view('uploadedsong',compact('songs','test'));
+    }
      
     public function Comment(Request $request){
-       log::info("enter");
-       log::info($request->commentwrite);
        $user = Auth::user();   
        $now=new DateTime();
         $commentletter=DB::table('comment')->orderBy('updated_at','desc')->insert([
@@ -270,7 +261,6 @@ class jtrendyController extends Controller
             'created_at'=> $now,
             'updated_at'=> $now,
             ]);
-            log::info( $request->commentwrite);
             return redirect()->back();
     }
 }

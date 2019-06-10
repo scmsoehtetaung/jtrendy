@@ -19,7 +19,7 @@
                             <tr>
                                 <th>User Name</th>
                                 <th>Email</th> 
-                                <th></th>
+                                <th>Option</th>
                             </tr> 
                         @foreach ($users as $user)                                               
                             <tr>
