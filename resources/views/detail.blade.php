@@ -14,6 +14,7 @@
     .container1 .left{
         margin-top:5px;
         float: left;
+        margin-top:5px;   
     }
 
     .container1 .right{
@@ -35,8 +36,8 @@
         cursor: pointer;
     }
 
-    .button1{
-        borde-radius: 8px;
+    .button1:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
 
 </style>
@@ -51,12 +52,12 @@
             <div class="panel-body">
                 <div class="container">
                     <div class ="row col-md-12  mb-5">
-                        @if($song->song_react_count ==$max)  
-                            <div style="background-color:#F0C4DF;color:#A4678B;padding:10px;width:30%;textalign:center;font-size:18px">   
+                        @if($song->song_react_count ==$max && $song->song_react_count!='0')  
+                            <div style="background-color:#F0C4DF;color:#A4678B;padding:10px;width:30%;textalign:center;font-size:18px; box-shadow: 5px 10px #888888;">   
                                 <strong>That's being most favourite song!!!</strong>
-                            </div><br>
-                        @endif   
-                    
+                            </div><br><br>
+                        @endif 
+                       
                         <div class="block">
                             <label>Song Title</label>
                             {{$song->title}}
@@ -97,7 +98,7 @@
                                     <source src="{{URL::asset('videos/'.$song->video_path )}}" type="video/mp4">
                                 </video>
                             </div>                   
-                        </div>                     
+                        </div>        
                     </div>
                  <a href="javascript:history.back()" button class="btn button button1"><b>OK</b></a>
                 </div>                         

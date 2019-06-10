@@ -32,7 +32,7 @@ Route::get('/like/{id}','jtrendyController@likecount')->name('like');
 Route::get('/unlike/{id}','jtrendyController@unlikecount')->name('unlike');
 
 Route::get('uploadedsong', 'jtrendyController@uploadedsong')->name('uploadedsong');
-Route::post('/search','jtrendyController@songNameSearch')->name('search');
+Route::post('/searchsong','jtrendyController@searchtxt')->name('searchsong');
 Route::get('test', 'jtrendyController@example')->name('example');
 Route::get('uploadSong', 'jtrendyController@uploads')->name('uploads');
 Route::post('upload','jtrendyController@create');
