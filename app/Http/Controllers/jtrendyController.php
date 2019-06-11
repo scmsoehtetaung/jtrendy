@@ -44,7 +44,7 @@ class jtrendyController extends Controller
         if($id!=$title01 && $id!=$artist01){
         if($title01 && $artist01)
         {
-            return redirect()->back()->with('alreadyExist', 'The updated song is already exist');
+            return redirect()->back()->withInput($request->input())->with('alreadyExist', 'The updated song is already exist');
         }
     }
         $user = Auth::user();   
@@ -58,7 +58,7 @@ class jtrendyController extends Controller
         'updated_user' =>$user->id,
         'updated_at' => $now,
         ]);
-        return redirect()->back()->with('message','File Updated!'); 
+        return redirect()->back()->with('message','Song Updated!'); 
     }
 
     public function jsongList()
@@ -221,16 +221,20 @@ class jtrendyController extends Controller
     }
     
     public function userCreate(Request $request){
+        $now=new DateTime();
         $this->validate($request, [
             'name' => 'required|string|max:255',
+            'phone_number' => 'required|regex:/(09)[0-9]{9}/',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
     DB::table('users')->insert([
             'name'=> $request->get('name'),
             'user_type'=> $request->get('user_type'),
+            'phone_number'=>$request->get('phone_number'),
             'email'=> $request->get('email'),
             'password'=>bcrypt($request->get('password')),
+            'created_at'=>$now,
         ]);
         return redirect()->back()->with('message','Successfully Registered'); 
     }
