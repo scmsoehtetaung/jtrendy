@@ -63,7 +63,7 @@ class jtrendyController extends Controller
 
     public function jsongList()
     {
-        $jsongListCompact=DB::table('song')->orderBy('updated_at','asc')->paginate(12);
+        $jsongListCompact=DB::table('song')->orderBy('updated_at','desc')->paginate(12);
         $totalCount=DB::table('song')->count();
         $song="list";
         return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
@@ -204,7 +204,9 @@ class jtrendyController extends Controller
     public function displayfullvdolist($id){
         $popular =DB::table('song')->where('id',$id)->first();         
         $categories= DB::table('song')->where('category',$popular->category)->get();
-        return view('displayFullVdo',compact('popular','categories'));
+        $commentdisplay=DB::table('comment')->where('song_id',$id)->get();
+        log::info($commentdisplay);
+        return view('displayFullVdo',compact('popular','categories','commentdisplay'));
     }
     
     public function likecount($id){
@@ -256,5 +258,19 @@ class jtrendyController extends Controller
         $test="search";
         $songs=DB::table('song')->where('title','LIKE','%'.$searchtxt.'%')->get();
         return view('uploadedsong',compact('songs','test'));
+    }
+     
+    public function Comment(Request $request){
+       $user = Auth::user();   
+       $now=new DateTime();
+        $commentletter=DB::table('comment')->orderBy('updated_at','desc')->insert([
+            'song_id'=>$request->c,
+            'created_user'=> $user->id,
+            'updated_user'=> $user->id,
+            'comment'=> $request->commentwrite,
+            'created_at'=> $now,
+            'updated_at'=> $now,
+            ]);
+            return redirect()->back();
     }
 }
