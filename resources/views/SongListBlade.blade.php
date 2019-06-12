@@ -33,6 +33,11 @@
                                 <p>No Song.</p>
                             </div>
                             @endif
+                            @if (session()->has('message'))
+                            <div class="alert alert-success">
+                            {{ session('message') }}
+                            </div>
+                            @endif
                             <table style="width:100%" class="table table-bordered table-hover">
                                 <tr>
                                 <th style="font-size:20px">Song Title</th>

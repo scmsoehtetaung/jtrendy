@@ -43,7 +43,7 @@ class jtrendyController extends Controller
         $title01 =DB::table('song')->where('title',$title)->value('id');
         $artist01=DB::table('song')->where('artist',$artist)->value('id');
         if($id!=$title01 && $id!=$artist01){
-        if($title01 && $artist01)
+        if($title01==$artist01)
         {
             return redirect()->back()->withInput($request->input())->with('alreadyExist', 'The updated song is already exist');
         }
@@ -59,7 +59,8 @@ class jtrendyController extends Controller
         'updated_user' =>$user->id,
         'updated_at' => $now,
         ]);
-        return redirect()->back()->with('message','Song Updated!'); 
+        return redirect()->route('songList')->with( 'message','Song Updated!'); 
+       
     }
 
     public function jsongList()

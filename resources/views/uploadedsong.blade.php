@@ -65,12 +65,13 @@
                               </ul>
                             @endforeach
                         </div>                                            
-                          <div style="margin-left:550px">
+                                                                         
+              </div>
+              <div style="margin-left:550px">
                             @if($test=="upload")
                               {{ $songs->links() }}                        
                             @endif  
-                          </div>                                                   
-              </div>
+                          </div>    
             </div>
           </div>
         </div>
