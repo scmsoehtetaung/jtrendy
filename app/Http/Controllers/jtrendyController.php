@@ -228,8 +228,14 @@ class jtrendyController extends Controller
     }
 
     public function userlist(){
-        $users=DB::table('users')->orderBy('name','asc')->get();  
+        $users=DB::table('users')->orderBy('id','name','asc')->get();  
         return view('userlist',compact('users'));
+    }
+
+    public function userdetail($id) {
+        $users = DB::table('users')->where('id',$id)->first();
+        
+        return view('userdetail', compact('users'));  
     }
 
     public function deleteuser($id,Request $request)

@@ -23,7 +23,7 @@
                             </tr> 
                         @foreach ($users as $user)                                               
                             <tr>
-                                <td>{{$user->name}}</td>
+                                <td> <a href="{{ url('userlist/userdetail', $user->id) }}" >{{$user->name}}</a></td>
                                 <td>{{$user->email}}</td>
                                 <td> <button onclick="location.href='{{ url('deleteuser',$user->id) }}'" class="btn btn-danger btn-sm">Delete</button>
                                  </td> 

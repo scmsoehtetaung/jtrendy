@@ -52,4 +52,6 @@ Route::post('userRegister', 'jtrendyController@userCreate')->name('memberRegiste
 
 Route::get('userlist','jtrendyController@userlist')->name('user');
 Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
+Route::get('/userlist/userdetail/{id}', 'jtrendyController@userdetail')->name('userdetail');
+
 Route::post('/comment','jtrendyController@Comment')->name('comment');
