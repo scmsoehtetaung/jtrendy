@@ -31,7 +31,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel navbar-default  navbar-fixed-top">
             <div class="container">
             @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -81,7 +81,7 @@
                                 <a class="nav-link" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('songtitle') }}">{{ __('Category List') }}</a>
+                                <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
                             
                             <li class="dropdown show">
@@ -108,10 +108,10 @@
                                 <a class="nav-link" href="{{ route('uploadedsong') }}">{{ __('Uploaded Song') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('popular') }}">{{ __('Popular Songs') }}</a>
+                                <a class="nav-link" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('songtitle') }}">{{ __('Category List') }}</a>
+                                <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
                             <li class="dropdown show">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

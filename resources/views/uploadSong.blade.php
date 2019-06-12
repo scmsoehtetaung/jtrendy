@@ -6,7 +6,7 @@
 </style>
 
 @section('content')
-<div class="row">
+<div>
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -65,26 +65,22 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="video" class="col-md-4 col-form-label text-md-right">Video:</label>
-                                <div class="col-md-6">
-                                    <input type="file" accept="video/*" ID="video" name="myVideo" style="display:none"><br>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="form-group col-sm-4 col-md-offset-0">
+                                <label for="video" class="col-md-4 col-sm-1 col-form-label text-md-right">Song:</label>
+                                <div class="form-group col-md-6 col-sm-1">
                                     <input type="button" name="" value="Browse" id="browse_file" class="btn btn-primary">
+                                    <input type="file" accept="video/*" ID="video" name="myVideo" style="display:none">  
                                 </div>
-                                <input type="submit" value="Upload" class="btn btn-primary active"> 
-                                <button type="button" class="btn btn-default" onclick="window.location='{{ route("cancle.index") }}'">Cancle</button> 
-                            </div >
-                            <div class="row">
-                                <div class="form-group col-sm-4 col-md-offset-0 ">
+                                <div class="form-group col-md-8 col-sm-1 col-md-offset-4">
                                     <video hidden height="150px" controls="controls" autoplay class="video-preview"></video>
                                 </div>
-                            </div>
-                            <div class="row form-group">
+                                <div class="form-group col-md-8 col-sm-1 col-md-offset-4">
                                     <label for="size" id="size"></label>
-                            </div>
+                                </div>
+                                <div class="form-group col-md-8 col-sm-1 col-md-offset-4">
+                                    <input type="submit" value="Upload" class="btn btn-primary active"> 
+                                    <button type="button" class="btn btn-default" onclick="window.location='{{ route("cancle.index") }}'">Cancle</button> 
+                                </div >
+                            </div>   
                        </form>   
                     </div>
                 </div>
