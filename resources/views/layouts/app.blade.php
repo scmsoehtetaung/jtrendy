@@ -89,8 +89,8 @@ body { padding-top: 50px; }
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
+                            <li class="dropdown nav-item">
                             
-                            <li class="dropdown show">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-user"></i>{{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
