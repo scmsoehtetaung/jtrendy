@@ -11,7 +11,7 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin-left: 110px;
+    margin-left: 190px;
     cursor: pointer;
     margin-top:20px;
 }
@@ -37,6 +37,13 @@
 
                                 <div class="col-md-4">
                                 {{$users->name}}
+                                </div>
+                        </div>
+                        <div class="form-group row">
+                                <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('PhoneNo') }}</label>
+
+                                <div class="col-md-4">
+                                {{$users->phone_number}}
                                 </div>
                         </div>
                         <div class="form-group row">
