@@ -24,7 +24,7 @@
 
     .button {
         width: 100px;
-        background-color: #58ACFA;
+        background-color: #A0C6DA;
         border: none;
         color: #0B0B61;
         padding: 15px 32px;
@@ -32,8 +32,9 @@
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin: 4px 2px;
+        margin-left: 200px;
         cursor: pointer;
+        margin-top:30px;
     }
 
     .button1:hover {
@@ -47,13 +48,13 @@
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title">J-trendy Dashboard</span>
+                <span class="panel-title">Song Detail</span>
             </div>
             <div class="panel-body">
                 <div class="container">
                     <div class ="row col-md-12  mb-5">
                         @if($song->song_react_count ==$max && $song->song_react_count!='0')  
-                            <div style="background-color:#F0C4DF;color:#A4678B;padding:10px;width:30%;textalign:center;font-size:18px; box-shadow: 5px 10px #888888;">   
+                            <div style="background-color:#CEF6EC;color:#21610B;padding:10px;width:40%;textalign:center;font-size:18px; box-shadow: 5px 10px #888888;">   
                                 <strong>That's being most favourite song!!!</strong>
                             </div><br><br>
                         @endif 
@@ -74,7 +75,7 @@
                         </div>
 
                         <div class="block">
-                            <label>Artist</label>
+                            <label>Description</label>
                             {{$song->description}}
                         </div>
 
