@@ -32,7 +32,7 @@
                                   placeholder="Search..." value="<?php echo isset($_POST["searchtxt"]) ? $_POST["searchtxt"] : ''; ?>" >                                
                                   <input type="submit" value="search">                           
                                 </div>                                
-                                <br><a href="{{ route('songtitle') }}">Search By Category</a><br>   
+                                <br><a href="{{ route('songcategory') }}">Search By Category</a><br>   
                                 </div>
                               </form>
                             </div>  
@@ -64,13 +64,15 @@
                                 </li>
                               </ul>
                             @endforeach
-                        </div>                                                                                   
+                        </div>                                                                                 
+                        </div>                                                                                                          
               </div>
               <div style="margin-left:550px">
                             @if($test=="upload")
                               {{ $songs->links() }}                        
                             @endif  
-                          </div>                 
+                          </div>                
+                          </div>    
             </div>
           </div>
         </div>
