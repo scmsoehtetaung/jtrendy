@@ -51,10 +51,13 @@ Route::get('test', 'jtrendyController@example')->name('example');
 Route::get('loadSong','jtrendyController@loadSong')->name('popular');
 Route::get('songlist', 'jtrendyController@songlist')->name('list');//to delete
 Route::get('/songlist/detail/{id}', 'jtrendyController@detail')->name('detail');
-
+Route::post('update/{id}','jtrendyController@updated')->name('update');
+Route::get('Cancel','jtrendyController@cancle')->name('cancle');
 Route::get('memberRegister', 'jtrendyController@userRegister')->name('registeruser');
 Route::post('userRegister', 'jtrendyController@userCreate')->name('memberRegister');
                                                 
 Route::get('userlist','jtrendyController@userlist')->name('user');
 Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
+Route::get('/userlist/userdetail/{id}', 'jtrendyController@userdetail')->name('userdetail');
+
 Route::post('/comment','jtrendyController@Comment')->name('comment');
