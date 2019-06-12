@@ -88,12 +88,12 @@
                             </div>
                             <div class="form-group row">
                                
-                            <div class="col-md-6" style="margin-left:25%; margin-top:30px">
+                            <div class="col-md-6" style="margin-left:25%;">
                                 <video  name="video" id="videoid" src="{{URL::asset('videos/'.$song->video_path)}}"  width="320" height="240"  type="video/mp4" controls></video>
                             </div>
                             </div>
                             <div class="form-group row">
-                            <div class="col-md-6" style="margin-left:25%; margin-top:30px">
+                            <div class="col-md-6" style="margin-left:25%;">
                                 <label id="size" name="video_size" value="{{'video_size', $song->video_size}}"></label>
                                 </div>
                                 <input type="hidden" id="video_size" name="video_size" value=" document.getElementById(size)">
@@ -133,7 +133,7 @@
             document.getElementById('myVideo').value = "";
          } else {
             document.getElementById("videoid").style.visibility = "visible";
-            document.getElementById("size").innerText = FileSize+'MB';
+            document.getElementById("size").innerText = 'video size:'+FileSize+'MB';
             document.getElementById("video_size").value = FileSize+'MB';
             }
         }
