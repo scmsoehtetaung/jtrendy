@@ -19,7 +19,7 @@
                                 <input type="text"  name="searchSongTitle" autocomplete="off"
                                         placeholder="Search...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
                                 <input type="submit" value="search"><br><br> 
-                                <a href="{{ route('songtitle') }}">Search By Category...</a>                    
+                                <a href="{{ route('songcategory') }}">Search By Category...</a>                    
                             </div>
                             </form><br><br>
                             <label for="total" style="font-size:22px">Total : {{$totalCount}}</label><br><br>
