@@ -17,8 +17,7 @@
                   <div class ="row">
                     <div class="row row justify-content-center">
                       <div class="col-9">
-                        <div class="row">    
-                                         
+                        <div class="row">                                            
                           <div class="search" style="margin-left:1000px" >
                             <form action="/searchsong" method="POST">
 
@@ -31,10 +30,12 @@
                             <div>
                                   <input type="text"  name="searchtxt" autocomplete="off"
                                   placeholder="Search..." value="<?php echo isset($_POST["searchtxt"]) ? $_POST["searchtxt"] : ''; ?>" >                                
-                                  <input type="submit" value="search">                               
+                                  <input type="submit" value="search">                           
+                                </div>                                
+                                <br><a href="{{ route('songtitle') }}">Search By Category</a><br>   
                                 </div>
                               </form>
-                            </div>                          
+                            </div>  
 
                             @if($test=="search" && count($songs) <= 0)
                             <div class="alert alert-danger">
@@ -63,10 +64,10 @@
                                 </li>
                               </ul>
                             @endforeach
-                        </div>                      
+                        </div>                                            
                           <div style="margin-left:550px">
                             @if($test=="upload")
-                              {{ $songs->links() }}
+                              {{ $songs->links() }}                        
                             @endif  
                           </div>                                                   
               </div>
