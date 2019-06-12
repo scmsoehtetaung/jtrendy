@@ -55,5 +55,6 @@ Route::get('/songlist/detail/{id}', 'jtrendyController@detail')->name('detail');
 Route::get('memberRegister', 'jtrendyController@userRegister')->name('registeruser');
 Route::post('userRegister', 'jtrendyController@userCreate')->name('memberRegister');
                                                 
-
-
+Route::get('userlist','jtrendyController@userlist')->name('user');
+Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
+Route::post('/comment','jtrendyController@Comment')->name('comment');

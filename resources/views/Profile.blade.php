@@ -29,7 +29,11 @@ input[type=button]{
             E-mail:
             <label for="email"></label>{{ $users->email}}
             <br><br><br>
-            <a href="{{ route('example') }}"><input type="button" Value="OK"></a>     
+            @if($users->user_type=='1')
+            <a href="{{ route('songList') }}"><input type="button" Value="OK"></a>
+            @else
+            <a href="{{ route('uploadedsong') }}"><input type="button" Value="OK"></a>
+            @endif
             </div>
             </div>
             </div>
