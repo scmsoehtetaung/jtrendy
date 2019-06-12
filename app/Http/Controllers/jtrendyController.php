@@ -62,7 +62,14 @@ class jtrendyController extends Controller
     public function songDelete($id,Request $request)
     {
         $jsongListCompact=DB::table('song')->where('id',$id)->delete();         
-        return redirect()->route('songList')->with( 'delete','Successfully deleted!!');
+        return redirect()->route('songList')->with( 'delete','Song has been deleted successfully!!');
+    }
+
+    public function multiDelete(Request $request)
+    {
+        $multiDel_id=$request->input('multiDel_id');
+        $jsongListCompact=DB::table('song')->whereIn('id',$multiDel_id)->delete();
+        return redirect()->route('songList')->with( 'del','Selected songs have been deleted successfully!!');
     }
 
     public function songNameSearch(Request $request)

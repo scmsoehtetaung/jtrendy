@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/songList','jtrendyController@jsongList')->name('songList');
 Route::get('/delete/{id}','jtrendyController@songDelete')->name('delete');
+Route::post('/multiDel','jtrendyController@multiDelete')->name('multiDel');
 Route::get('/updateSong/{id}','jtrendyController@updatesong')->name('updateSong');
 Route::post('/search','jtrendyController@songNameSearch')->name('search');
 
