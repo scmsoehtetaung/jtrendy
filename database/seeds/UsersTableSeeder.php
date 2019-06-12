@@ -13,6 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'Aye Aye',
+            'phone_number'=>'09966237551',
             'email' => 'aye@gmail.com',
             'password' => bcrypt('secret'),
             'user_type' => '1',
@@ -23,6 +24,7 @@ class UsersTableSeeder extends Seeder
 
          DB::table('users')->insert([
             'name' => 'Stella',
+            'phone_number'=>'09966237552',
             'email' => 'stella@gmail.com',
             'password' => bcrypt('secret'),
             'user_type' => '1',
@@ -33,6 +35,7 @@ class UsersTableSeeder extends Seeder
          
          DB::table('users')->insert([
             'name' => 'John',
+            'phone_number'=>'09966237553',
             'email' => 'john@gmail.com',
             'password' => bcrypt('secret'),
             'user_type' => '1',
@@ -43,6 +46,7 @@ class UsersTableSeeder extends Seeder
 
          DB::table('users')->insert([
             'name' => 'Evy',
+            'phone_number'=>'09966237554',
             'email' => 'evy@gmail.com',
             'password' => bcrypt('member'),
             'user_type' => '2',
@@ -53,6 +57,7 @@ class UsersTableSeeder extends Seeder
 
          DB::table('users')->insert([
             'name' => 'Fanco',
+            'phone_number'=>'09966237555',
             'email' => 'franco@gmail.com',
             'password' => bcrypt('member'),
             'user_type' => '2',

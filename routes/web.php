@@ -55,3 +55,9 @@ Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser'
 Route::get('/userlist/userdetail/{id}', 'jtrendyController@userdetail')->name('userdetail');
 
 Route::post('/comment','jtrendyController@Comment')->name('comment');
+Route::get('userupdate/{id}','jtrendyController@userupdate');
+Route::post('updateur/{id}','jtrendyController@updateur')->name('updateur');
+
+
+
+

@@ -271,4 +271,33 @@ class jtrendyController extends Controller
             ]);
             return redirect()->back();
     }
+
+    public function userupdate($id) {
+        $users = DB::table('users')->where('id',$id)->first();
+        return view('userupdate', compact('users'));  
+    }
+
+    public function updateur($id,Request $request) {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone_number' => 'required|regex:/(09)[0-9]{9}/',
+            
+        ]);
+        $users = DB::table('users')->where('id',$id)->first();
+        $now = new DateTime();
+
+        $user = Auth::user();   
+        $update= DB::Table('users')->where('id',$id)->update([
+            'name'=> $request->get('name'),        
+            'email'=> $request->get('email'),
+            'phone_number'=> $request->get('phone_number'),
+            'updated_at'=> $now,
+           
+        ]);
+        return redirect()->back()->with('message','User Updated'); 
+
+    }
+        
+
 }
