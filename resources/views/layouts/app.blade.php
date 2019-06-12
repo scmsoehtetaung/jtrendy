@@ -45,7 +45,7 @@ body { padding-top: 50px; }
            
             @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    
+                    Hello From jTrendy!
                 </a>
                 @elseif(auth()->user()->user_type== 1)
                 <a class="navbar-brand" href="{{url('/profile', [Auth::user()->id])}}">
@@ -66,13 +66,8 @@ body { padding-top: 50px; }
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            
+                        @guest    
                         @elseif(auth()->user()->user_type== 1)
-
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user') }}">{{ __('User') }}</a>
                             </li>
