@@ -39,11 +39,7 @@
                             {{$error}}
                             </p>
                             @endforeach
-                            @if (session()->has('message'))
-                            <div class="alert alert-success">
-                            {{ session('message') }}
-                            </div>
-                            @endif
+                            
                             @if (session()->has('alreadyExist'))
                             <div class="alert alert-danger">
                             {{ session('alreadyExist') }}
@@ -91,15 +87,15 @@
                             </div>
                             </div>
                             <div class="form-group row">
-                                <label for="video"  class="col-md-3 col-form-label text-md-right"></label>
-                            <div class="col-md-6">
+                               
+                            <div class="col-md-6" style="margin-left:25%; margin-top:30px">
                                 <video  name="video" id="videoid" src="{{URL::asset('videos/'.$song->video_path)}}"  width="320" height="240"  type="video/mp4" controls></video>
                             </div>
                             </div>
                             <div class="form-group row">
-                                <label for="video"  class="col-md-3 col-form-label text-md-right"></label>
-                            <div class="col-md-6">
-                                <label id="size" name="video_size" value="{{'video_size', $song->video_size}}"></label></div>
+                            <div class="col-md-6" style="margin-left:25%; margin-top:30px">
+                                <label id="size" name="video_size" value="{{'video_size', $song->video_size}}"></label>
+                                </div>
                                 <input type="hidden" id="video_size" name="video_size" value=" document.getElementById(size)">
                             </div>
                             </div>

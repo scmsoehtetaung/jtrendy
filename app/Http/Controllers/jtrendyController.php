@@ -59,7 +59,8 @@ class jtrendyController extends Controller
         'updated_user' =>$user->id,
         'updated_at' => $now,
         ]);
-        return redirect()->back()->with('message','Song Updated!'); 
+        return redirect()->route('songList')->with( 'message','Song Updated!'); 
+       
     }
 
     public function jsongList()
