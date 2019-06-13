@@ -1,4 +1,11 @@
 @extends('layouts.app')
+<style>
+    div a:hover {
+        text-decoration:none;
+        color: black;
+        font-weight: bold;
+    }
+</style>
 @section('content')
 <div>
     <div class="col-md-13 col-md-offset-0">
@@ -19,28 +26,28 @@
                             {{ csrf_field() }}
                             <div style="float:right">
                                 <input type="text"  name="searchSongTitle" autocomplete="off"
-                                        placeholder="Search...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
-                                <input type="submit" value="search" class="btn btn-primary"> 
+                                    placeholder="Search...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
+                                <input type="submit" value="search"> 
                             </div><br><br>
                             <div style="float:right">
-                                <a href="{{ route('songcategory') }}">Search By Category...</a>
+                                <a href="{{ route('songcategory') }}">Search By Category</a>
                             </div>
                             </form>
                             <label for="total" style="font-size:22px">Total : {{$totalCount}}</label><br>
                             @if(session()->has('delete'))
-                                    <div class="alert alert-danger">
-                                        {{ session()->get('delete') }}
-                                    </div>                                
+                                <div class="alert alert-danger">
+                                    {{ session()->get('delete') }}
+                                </div>                                
                             @endif
                             @if(session()->has('del'))
-                                    <div class="alert alert-danger">
-                                        {{ session()->get('del') }}
-                                    </div>                                
+                                <div class="alert alert-danger">
+                                    {{ session()->get('del') }}
+                                </div>                                
                             @endif
                             @if($song=="search" && $totalCount==0)
-                            <div class="alert alert-danger">
-                                <p>No Song.</p>
-                            </div>
+                                <div class="alert alert-danger">
+                                    <p>No Song.</p>
+                                </div>
                             @endif
                             <form action="{{ url('/multiDel')}}" method="POST">
                             {{ csrf_field() }}
@@ -65,8 +72,8 @@
                                         <td>{{$songInfo->updated_at}}</td>
                                         <td>
                                             <div style="text-align:center">
-                                                    <a href="{{ url('updateSong',$songInfo->id) }}" class="label label-primary">Edit</a>
-                                                    <a href="{{  url('delete',$songInfo->id) }}" class="label label-danger">Delete</a>                                                
+                                                <a href="{{ url('updateSong',$songInfo->id) }}" class="btn btn-primary">Edit</a>
+                                                <a href="{{  url('delete',$songInfo->id) }}" class="btn btn-danger">Delete</a>                                                
                                             </div>
                                         </td>
                                     </tr>

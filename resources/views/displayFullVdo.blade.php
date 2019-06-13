@@ -37,6 +37,14 @@
   display: table;
   clear: both;
 }
+.fa-download{
+  color:green;
+}
+img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+}
 </style>
 @section('content')
 <div class="row">
@@ -62,7 +70,7 @@
                                     <i onclick="reactCount()"class="fas fa-heart  fa-2x  " >
                                     </i>
                                     &nbsp;&nbsp; 
-                                    <i class="fas fa-download fa-2x "></i>
+                                    <a href="{{URL::asset('videos/'.$popular->video_path )}}" ><i class="fas fa-download fa-2x " download></i></a>
                                 </span>
                                 <input type="hidden" id="myText" value="{{$popular->id}}">      
                               </li>
@@ -73,18 +81,28 @@
                             ( {{ $popular->artist}} )</p><br>
                             <p>Description: &nbsp;{{$popular->description}} </p><br>
                         </li>
-                          <form>
-                              <div class="row">
-                                <div class="column left">
-                                  <h4>Comment : </h4>
-                                </div>
-                                <div class="column right">
-                                    <textarea rows="5" cols="120">
-                                    </textarea><br><br>
-                                    <button type="button" class="btn btn-default">Submit Comment</button>
-                                </div>
-                              </div>
-                          </form> 
+                        <form  action="{{url('comment')}}"  method="post">
+                        {{csrf_field()}}
+                          <div class="row">
+                            <div class="column left">
+                              <h4>Comment : </h4>
+                            </div>
+                            <div class="column right">
+                                <textarea rows="5" cols="120" name="commentwrite">
+                                </textarea><br><br>
+                                <input type="hidden" name="c" value="{{$popular->id}}">
+                                <input type="submit"  class="btn btn-default nav navbar-nav navbar-right" value="Comment">
+                            </div>
+                          </div>
+                        </form>
+                        <div>
+                            @foreach($commentdisplay as $commentList)
+                           <img src="{{URL::asset('user/user2.png')}}">&nbsp;&nbsp;
+                           <b>{{Auth::user()->name}}</b> &nbsp;&nbsp;{{$commentList->updated_at}}<br> 
+                           &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                           {{$commentList->comment}}<br>
+                            @endforeach
+                        </div>
                     </ul>                        
                   </div>
                 </div>
