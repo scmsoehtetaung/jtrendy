@@ -1,5 +1,11 @@
 @extends('layouts.app')
-
+<style>
+ div a:hover {
+        text-decoration:none;
+        color: black;
+        font-weight: bold;
+    }
+</style>
 @section('content')
 <div>
     <div class="col-md-13 col-md-offset-0">
@@ -29,8 +35,8 @@
                                 <td>{{$user->user_type}}</td>
                                 <td>{{$user->phone_number}}</td>
                                 <td>{{$user->email}}</td>
-                                <td> <button onclick="location.href='{{ url('userupdate',$user->id) }}'" class="btn btn-info btn-sm">Edit</button>
-                                     <button onclick="location.href='{{ url('deleteuser',$user->id) }}'" class="btn btn-danger btn-sm">Delete</button>
+                                <td> <a href="{{ url('userupdate',$user->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                     <a href="{{ url('deleteuser',$user->id) }}" class="btn btn-danger btn-sm">Delete</a>
                                  </td> 
                             </tr>
                         @endforeach   

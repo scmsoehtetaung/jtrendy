@@ -19,8 +19,11 @@
 }
 body { padding-top: 50px; }
 .navbar.my-navbar {
- background-color:#063f5b;
- border:#2bbbad;
+    text-decoration:none;
+    color: black;
+    font-weight: bold;
+    background-color:#063f5b;
+    border:#2bbbad;
 }
 .navbar-brand{
     color:white;
@@ -34,7 +37,7 @@ body { padding-top: 50px; }
 	transition: background-color .2s, color .2s;
 }
 
-#app .navbar-nav li.active  a {
+#app .navbar-nav li.active a {
 	background-color:#6b9dbb;
 	color: #fff;
 }
@@ -51,6 +54,7 @@ body { padding-top: 50px; }
     <!-- Scripts -->
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
    
 
     <!-- Fonts -->
@@ -95,25 +99,25 @@ body { padding-top: 50px; }
                         @guest    
                         @elseif(auth()->user()->user_type== 1)
                             <li class="nav-item {{ request()->routeIs('user') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('user') }}">{{ __('User') }}</a>
+                                <a class="nav-link btn" href="{{ route('user') }}">{{ __('User') }}</a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('registeruser') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('registeruser') }}">{{ __('Register') }}</a>
+                                <a class="nav-link btn" href="{{ route('registeruser') }}">{{ __('Register') }}</a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('songList') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('songList') }}">{{ __('Song List') }}</a>
+                                <a class="nav-link btn" href="{{ route('songList') }}">{{ __('Song List') }}</a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('uploads') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('uploads') }}">{{ __('Upload Song') }}</a>
+                                <a class="nav-link btn" href="{{ route('uploads') }}">{{ __('Upload Song') }}</a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('uploadedsong') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('uploadedsong') }}">{{ __('Uploaded Song') }}</a>
+                                <a class="nav-link btn" href="{{ route('uploadedsong') }}">{{ __('Uploaded Song') }}</a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('popularList') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
+                                <a class="nav-link btn" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('songcategory') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
+                                <a class="nav-link btn" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
                             <li class="dropdown nav-item">
                             
@@ -122,7 +126,7 @@ body { padding-top: 50px; }
                                 </a>
                                 <ul class="dropdown-menu dropdown-default" role="menu" aria-labelledby="menu1">
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        <a class="dropdown-item btn" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                              {{ __('Logout') }}
@@ -137,13 +141,13 @@ body { padding-top: 50px; }
                            
                                
                             <li class="nav-item {{ request()->routeIs('uploadedsong') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('uploadedsong') }}">{{ __('Uploaded Song') }}</a>
+                                <a class="nav-link btn" href="{{ route('uploadedsong') }}">{{ __('Uploaded Song') }}</a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('popularList') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
+                                <a class="nav-link btn" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('songcategory') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
+                                <a class="nav-link btn" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
                             <li class="dropdown nav-item">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -152,7 +156,7 @@ body { padding-top: 50px; }
 
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        <a class="dropdown-item btn" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -160,7 +164,8 @@ body { padding-top: 50px; }
                                     </li>
                                 </ul>    
                             </li>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
                                      @csrf
                                 </form>
                         @endguest
