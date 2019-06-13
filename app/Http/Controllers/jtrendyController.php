@@ -40,14 +40,10 @@ class jtrendyController extends Controller
         }
         $title=$request->title;
         $artist=$request->artist;
-        $title01 =DB::table('song')->where('title',$title)->value('id');
-        $artist01=DB::table('song')->where('artist',$artist)->value('id');
-        if($id!=$title01 && $id!=$artist01){
-        if($title01 && $artist01)
-        {
+        $exist =DB::table('song')->where('title',$title)->where('artist',$artist)->where('id','!=',$id)->count();
+        if($exist>0){
             return redirect()->back()->withInput($request->input())->with('alreadyExist', 'The updated song is already exist');
         }
-    }
         $user = Auth::user();   
          DB::Table('song')->where('id',$id)->update([
         'title' => $request->title,
@@ -73,8 +69,20 @@ class jtrendyController extends Controller
 
     public function songDelete($id,Request $request)
     {
+        $jsongListCompact=DB::table('song')->where('id',$id)->first();
+        $vdoDel=$jsongListCompact->video_path;
+        if(file_exists(public_path('videos/'.$vdoDel))){
+        unlink(public_path('videos/'.$vdoDel));
+        }
         $jsongListCompact=DB::table('song')->where('id',$id)->delete();         
-        return redirect()->route('songList')->with( 'delete','Successfully deleted!!');
+        return redirect()->route('songList')->with( 'delete','Song has been deleted successfully!!');
+    }
+
+    public function multiDelete(Request $request)
+    {
+        $multiDel_id=$request->input('multiDel_id');
+        $jsongListCompact=DB::table('song')->whereIn('id',$multiDel_id)->delete();
+        return redirect()->route('songList')->with( 'del','Selected songs have been deleted successfully!!');
     }
 
     public function songNameSearch(Request $request)
@@ -186,20 +194,27 @@ class jtrendyController extends Controller
         return view('popularSong',compact('popular'));
     }
 
-    public function displayfullvdolist($id){
-        $popular =DB::table('song')->where('id',$id)->first();         
-        $categories= DB::table('song')->where('category',$popular->category)->get();
-        $commentdisplay=DB::table('comment')->where('song_id',$id)->get();
-        log::info($commentdisplay);
-        return view('displayFullVdo',compact('popular','categories','commentdisplay'));
+    public function displayfullvdolist($id,Request $request){
+        $popular =DB::table('song')->where('id',$id)->first(); 
+        $likedcolor=DB::table('liked_song')->where('song_id',$id)->where('user_id',Auth::user()->id)->get();
+        $categories= DB::table('song')->where('category',$popular->category)->paginate(3);
+        $commentdisplay=DB::table('comment')->where('song_id',$id)->orderBy('updated_at','desc')->get();
+        return view('displayFullVdo',compact('popular','categories','commentdisplay','likedcolor'));
     }
     
-    public function likecount($id){
+    public function likecount($id,Request $request){
         $like=DB::table('song')->where('id',$id)->increment('song_react_count');
+        $likecount=DB::table('liked_song')->insert([
+        'user_id'=> Auth::user()->id,
+        'song_id'=>$id,
+        ]);
     }
    
     public function unlikecount($id){
         $unlike=DB::table('song')->where('id',$id)->decrement('song_react_count');
+      $user=Auth::user()->id;
+        $unlikecount=DB::table('liked_song')->where('song_id',$id)
+        ->where('user_id',$user)->delete();
     }
     public function userRegister() {
         return view('registeruser');
@@ -256,17 +271,17 @@ class jtrendyController extends Controller
     }
      
     public function Comment(Request $request){
-       $user = Auth::user();   
-       $now=new DateTime();
-        $commentletter=DB::table('comment')->orderBy('updated_at','desc')->insert([
-            'song_id'=>$request->c,
-            'created_user'=> $user->id,
-            'updated_user'=> $user->id,
-            'comment'=> $request->commentwrite,
-            'created_at'=> $now,
-            'updated_at'=> $now,
-            ]);
-            return redirect()->back();
+        $user = Auth::user();   
+        $now=new DateTime();
+        $commentletter=DB::table('comment')->insert([
+        'song_id'=>$request->c,
+        'created_user'=> $user->id,
+        'updated_user'=> $user->id,
+        'comment'=> $request->commentwrite,
+        'created_at'=> $now,
+        'updated_at'=> $now,
+        ]);
+        return redirect()->back();
     }
 
     public function userupdate($id) {
@@ -314,3 +329,4 @@ class jtrendyController extends Controller
         
 
 }
+    
