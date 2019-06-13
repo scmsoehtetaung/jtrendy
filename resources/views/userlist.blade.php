@@ -21,6 +21,11 @@
                                 {{session()->get('delete')}}
                                 </div>
                             @endif
+                            @if (session()->has('message'))
+                            <div class="alert alert-info">
+                            {{ session('message') }}
+                            </div>
+                            @endif
                     <table class="table table-striped table-responsive">
                             <tr>
                                 <th>User Name</th>

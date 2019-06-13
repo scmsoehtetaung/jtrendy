@@ -81,6 +81,11 @@ class jtrendyController extends Controller
     public function multiDelete(Request $request)
     {
         $multiDel_id=$request->input('multiDel_id');
+        $jsongListCompact=DB::table('song')->where('id',$multiDel_id)->first();
+        $vdoDel=$jsongListCompact->video_path;
+        if(file_exists(public_path('videos/'.$vdoDel))){
+        unlink(public_path('videos/'.$vdoDel));
+        }
         $jsongListCompact=DB::table('song')->whereIn('id',$multiDel_id)->delete();
         return redirect()->route('songList')->with( 'del','Selected songs have been deleted successfully!!');
     }
@@ -197,7 +202,7 @@ class jtrendyController extends Controller
     public function displayfullvdolist($id,Request $request){
         $popular =DB::table('song')->where('id',$id)->first(); 
         $likedcolor=DB::table('liked_song')->where('song_id',$id)->where('user_id',Auth::user()->id)->get();
-        $categories= DB::table('song')->where('category',$popular->category)->paginate(3);
+        $categories= DB::table('song')->where('category',$popular->category)->where('id','!=',$popular->id)->paginate(3);
         $commentdisplay=DB::table('comment')->where('song_id',$id)->orderBy('updated_at','desc')->get();
         return view('displayFullVdo',compact('popular','categories','commentdisplay','likedcolor'));
     }
@@ -293,11 +298,11 @@ class jtrendyController extends Controller
         
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email',
-            'phone_number' => 'required|regex:/(09)[0-9]{9}/',
+            'email' => 'required|string|email|unique:users,email,'.$id,
+            'phone_number' => 'required|regex:/(09)[0-9]{9}/|unique:users,phone_number,'.$id,
         ]);
 
-        $song = DB::table('users')->where('id',$id)->first();
+       
         $now = new DateTime();
         $name=$request->name;
         $email=$request->email;
@@ -309,7 +314,7 @@ class jtrendyController extends Controller
         if($id!=$names & $id!=$emails & $id!=$phone_numbers ){
         if($names && $emails && $phone_numbers){
         {
-        return redirect()->back()->withInput($request->input())->with('alreadyExist', 'The Data is already exist');
+        return redirect()->back()->withInput($request->input())->with('alreadyExist', 'Name is already exist');
         }
         }
         $user = Auth::user(); 
@@ -319,7 +324,7 @@ class jtrendyController extends Controller
         'email'=>$request->get('email'),
         'updated_at' => $now,
         ]);
-        return redirect()->back()->with('message','User Updated!'); 
+        return redirect()->route('user')->with('message','User Updated!'); 
         }
     }
 
