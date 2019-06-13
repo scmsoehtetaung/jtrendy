@@ -63,7 +63,7 @@ Route::get('/userlist/userdetail/{id}', 'jtrendyController@userdetail')->name('u
 Route::post('/comment','jtrendyController@Comment')->name('comment');
 Route::get('userupdate/{id}','jtrendyController@userupdate');
 Route::post('updateur/{id}','jtrendyController@updateur')->name('updateur');
-Route::get('Cancel','jtrendyController@back')->name('back');
+Route::get('Back','jtrendyController@back')->name('back');
 
 
 

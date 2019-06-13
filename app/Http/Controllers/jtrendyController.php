@@ -278,11 +278,11 @@ class jtrendyController extends Controller
         
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email',
-            'phone_number' => 'required|regex:/(09)[0-9]{9}/',
+            'email' => 'required|string|email|unique:users,email,'.$id,
+            'phone_number' => 'required|regex:/(09)[0-9]{9}/|unique:users,phone_number,'.$id,
         ]);
 
-        $song = DB::table('users')->where('id',$id)->first();
+       
         $now = new DateTime();
         $name=$request->name;
         $email=$request->email;
@@ -294,7 +294,7 @@ class jtrendyController extends Controller
         if($id!=$names & $id!=$emails & $id!=$phone_numbers ){
         if($names && $emails && $phone_numbers){
         {
-        return redirect()->back()->withInput($request->input())->with('alreadyExist', 'The Data is already exist');
+        return redirect()->back()->withInput($request->input())->with('alreadyExist', 'Name is already exist');
         }
         }
         $user = Auth::user(); 
@@ -304,7 +304,7 @@ class jtrendyController extends Controller
         'email'=>$request->get('email'),
         'updated_at' => $now,
         ]);
-        return redirect()->back()->with('message','User Updated!'); 
+        return redirect()->route('user')->with('message','User Updated!'); 
         }
     }
 
