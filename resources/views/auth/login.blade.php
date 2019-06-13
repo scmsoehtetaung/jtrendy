@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+<style>
+.row{
+    padding-top: 20px;
+}
+</style>
 @section('content')
 
 <div class="row">

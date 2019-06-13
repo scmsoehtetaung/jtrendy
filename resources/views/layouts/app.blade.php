@@ -6,6 +6,20 @@
     min-width: 4rem !important;
     height: 40px !important;
 }
+body { padding-top: 50px; }
+.navbar.my-navbar {
+ background-color:#063f5b;
+ border:#2bbbad;
+}
+.navbar-brand{
+    color:white;
+}
+.nav-item .nav-link{
+    color:white;
+}
+.nav-item .nav-link:hover{
+    background-color:#6b9dbb;
+}
 </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,37 +48,34 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
+        <nav class="navbar my-navbar navbar-fixed-top">
+            <div class="container-fluid">
+           
             @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    
+                    Hello From jTrendy!
                 </a>
                 @elseif(auth()->user()->user_type== 1)
                 <a class="navbar-brand" href="{{url('/profile', [Auth::user()->id])}}">
-                {{'Hello Admin '}}
+                {{'Hello '}}
                 {{Auth::user()->name}}
                 {{'!'}}
                 </a>
                 @else
                 <a class="navbar-brand" href="{{ url('/profile', [Auth::user()->id]) }}">
-                {{'Hello Member '}}
+                {{'Hello  '}}
                 {{Auth::user()->name}}
                 {{'!'}}
                 @endguest
+             
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto"> </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            
+                        @guest    
                         @elseif(auth()->user()->user_type== 1)
-
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user') }}">{{ __('User') }}</a>
                             </li>
@@ -84,14 +95,14 @@
                                 <a class="nav-link" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('songtitle') }}">{{ __('Category List') }}</a>
+                                <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
+                            <li class="dropdown nav-item">
                             
-                            <li class="dropdown show">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user"></i>{{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <ul class="dropdown-menu dropdown-default" role="menu" aria-labelledby="menu1">
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -111,14 +122,14 @@
                                 <a class="nav-link" href="{{ route('uploadedsong') }}">{{ __('Uploaded Song') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('popular') }}">{{ __('Popular Songs') }}</a>
+                                <a class="nav-link" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('songtitle') }}">{{ __('Category List') }}</a>
+                                <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
-                            <li class="dropdown show">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                            <li class="dropdown nav-item">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user"></i>{{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
@@ -136,6 +147,7 @@
                                 </form>
                         @endguest
                     </ul>
+                    
                 </div>
             </div>
         </nav>

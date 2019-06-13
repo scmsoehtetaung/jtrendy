@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
+<div>
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -18,14 +18,17 @@
                     <table class="table table-striped table-responsive">
                             <tr>
                                 <th>User Name</th>
+                                <th>Phone No</th>
                                 <th>Email</th> 
                                 <th>Option</th>
                             </tr> 
                         @foreach ($users as $user)                                               
                             <tr>
-                                <td>{{$user->name}}</td>
+                                <td> <a href="{{ url('userlist/userdetail', $user->id) }}" >{{$user->name}}</a></td>
+                                <td>{{$user->phone_number}}</td>
                                 <td>{{$user->email}}</td>
-                                <td> <button onclick="location.href='{{ url('deleteuser',$user->id) }}'" class="btn btn-danger btn-sm">Delete</button>
+                                <td> <button onclick="location.href='{{ url('userupdate',$user->id) }}'" class="btn btn-info btn-sm">Edit</button>
+                                     <button onclick="location.href='{{ url('deleteuser',$user->id) }}'" class="btn btn-danger btn-sm">Delete</button>
                                  </td> 
                             </tr>
                         @endforeach   
