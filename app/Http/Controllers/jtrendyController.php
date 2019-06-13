@@ -121,7 +121,7 @@ class jtrendyController extends Controller
                 $video->move(public_path().'/videos/', $videoName);  
             }
             else{
-                return redirect()->back()->withInput($request->input())->with('videoRequired', 'File Not selected');
+                return redirect()->back()->withInput($request->input())->with('videoRequired', 'Song Not selected');
             } 
         $user = Auth::user();   
         DB::table('song')->insert([
@@ -225,7 +225,7 @@ class jtrendyController extends Controller
     }
 
     public function userlist(){
-        $users=DB::table('users')->orderBy('id','name','asc')->get();  
+        $users=DB::table('users')->orderBy('name','asc')->get();  
         return view('userlist',compact('users'));
     }
 
