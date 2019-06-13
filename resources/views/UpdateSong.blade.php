@@ -69,6 +69,7 @@
                                 <option >Hip Hop</option>
                                 <option >Classic</option>
                                 <option >Covered</option>
+                                <option >Ost</option>
                                 </select>
                             </div>
                             </div>
