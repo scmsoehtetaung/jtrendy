@@ -14,7 +14,12 @@ body { padding-top: 50px; }
 .navbar-brand{
     color:white;
 }
-
+.nav-item .nav-link{
+    color:white;
+}
+.nav-item .nav-link:hover{
+    background-color:#6b9dbb;
+}
 </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
