@@ -14,7 +14,12 @@ body { padding-top: 50px; }
 .navbar-brand{
     color:white;
 }
-
+.nav-item .nav-link{
+    color:white;
+}
+.nav-item .nav-link:hover{
+    background-color:#6b9dbb;
+}
 </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,6 +42,9 @@ body { padding-top: 50px; }
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -89,10 +97,9 @@ body { padding-top: 50px; }
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
-                            
                             <li class="dropdown nav-item">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
+                            
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-user"></i>{{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-default" role="menu" aria-labelledby="menu1">
@@ -120,9 +127,8 @@ body { padding-top: 50px; }
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
-                            <li class="dropdown show">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
+                            <li class="dropdown nav-item">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-user"></i>{{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
 
