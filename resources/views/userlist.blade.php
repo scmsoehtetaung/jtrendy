@@ -18,6 +18,7 @@
                     <table class="table table-striped table-responsive">
                             <tr>
                                 <th>User Name</th>
+                                <th>User Type</th>
                                 <th>Phone No</th>
                                 <th>Email</th> 
                                 <th>Option</th>
@@ -25,6 +26,7 @@
                         @foreach ($users as $user)                                               
                             <tr>
                                 <td> <a href="{{ url('userlist/userdetail', $user->id) }}" >{{$user->name}}</a></td>
+                                <td>{{$user->user_type}}</td>
                                 <td>{{$user->phone_number}}</td>
                                 <td>{{$user->email}}</td>
                                 <td> <button onclick="location.href='{{ url('userupdate',$user->id) }}'" class="btn btn-info btn-sm">Edit</button>

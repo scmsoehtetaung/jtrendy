@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+
 <style>
 .dropdown-menu {
     min-width: 4rem !important;
     height: 40px !important;
+    background-color:#063f5b !important;
+}
+.dropdown-menu a:hover{
+    background-color:#6b9dbb !important;
+}
+#navbarDropdown{
+    background-color:#063f5b;
+}
+#navbarDropdown:hover{
+    background-color:#6b9dbb !important;
 }
 body { padding-top: 50px; }
 .navbar.my-navbar {
@@ -14,11 +25,18 @@ body { padding-top: 50px; }
 .navbar-brand{
     color:white;
 }
-.nav-item .nav-link{
-    color:white;
-}
 .nav-item .nav-link:hover{
     background-color:#6b9dbb;
+}
+#app .navbar-nav li a {
+	text-transform: capitalize;
+	color: #fff;
+	transition: background-color .2s, color .2s;
+}
+
+#app .navbar-nav li.active  a {
+	background-color:#6b9dbb;
+	color: #fff;
 }
 </style>
     <meta charset="utf-8">
@@ -72,29 +90,29 @@ body { padding-top: 50px; }
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto"> </ul>
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right ">
                         <!-- Authentication Links -->
                         @guest    
                         @elseif(auth()->user()->user_type== 1)
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('user') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('user') }}">{{ __('User') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('registeruser') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('registeruser') }}">{{ __('Register') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('songList') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('songList') }}">{{ __('Song List') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('uploads') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('uploads') }}">{{ __('Upload Song') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('uploadedsong') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('uploadedsong') }}">{{ __('Uploaded Song') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('popularList') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('songcategory') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
                             <li class="dropdown nav-item">
@@ -118,13 +136,13 @@ body { padding-top: 50px; }
                                @else
                            
                                
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('uploadedsong') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('uploadedsong') }}">{{ __('Uploaded Song') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('popularList') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('popularList') }}">{{ __('Popular Songs') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->routeIs('songcategory') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('songcategory') }}">{{ __('Category List') }}</a>
                             </li>
                             <li class="dropdown nav-item">
@@ -156,5 +174,6 @@ body { padding-top: 50px; }
             @yield('content')
         </main>
     </div>
+   
 </body>
 </html>
