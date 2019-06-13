@@ -3,9 +3,16 @@
 .subcat-li,.subcat{
     margin-left:66px;
 }
+.panel-title{
+    margin-left:10px;
+}
+video{
+  box-shadow:3px 3px #d9d9d9;
+  border:1px solid black;
+}
 </style>
 @section('content')
-<div class="row">
+<div>
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -44,7 +51,6 @@
         </div>
     </div>
 </div>
-   
 @endsection
    
                    
