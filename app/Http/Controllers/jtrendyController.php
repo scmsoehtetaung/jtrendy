@@ -85,6 +85,11 @@ class jtrendyController extends Controller
     public function multiDelete(Request $request)
     {
         $multiDel_id=$request->input('multiDel_id');
+        $jsongListCompact=DB::table('song')->where('id',$multiDel_id)->first();
+        $vdoDel=$jsongListCompact->video_path;
+        if(file_exists(public_path('videos/'.$vdoDel))){
+        unlink(public_path('videos/'.$vdoDel));
+        }
         $jsongListCompact=DB::table('song')->whereIn('id',$multiDel_id)->delete();
         return redirect()->route('songList')->with( 'del','Selected songs have been deleted successfully!!');
     }
