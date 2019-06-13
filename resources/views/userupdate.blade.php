@@ -5,7 +5,7 @@
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title">Register</span>
+                <span class="panel-title">User Update</span>
             </div>
             <div class="panel-body">
                 <div class="container">
@@ -21,7 +21,11 @@
                             {{ session('message') }}
                             </div>
                             @endif
-                          
+                            @if (session()->has('alreadyExist'))
+                            <div class="alert alert-danger">
+                            {{ session('alreadyExist') }}
+                            </div>
+                            @endif
                             @csrf
 
                         <div class="form-group row">
@@ -51,13 +55,12 @@
                             </div>
                         </div>
                         
-                        <div class="form-group row mb-0" style="margin-left:33%; margin-top:30px">
-                            <div class="col-md-2 offset-md-4">
-                                <button type="submit" class="btn btn-primary" >
-                                    {{ __('Update') }}
-                                </button>
+                        <div class="form-group row" style="margin-left:34.25%; margin-top:30px">
+                            <div class="button">
+                                <input type="submit"  value="Update" class="btn btn-primary active"> 
+                                <button type="button"  class="btn btn-default"  onclick="window.location='{{ route("back") }}'">Cancle</button> 
+                            </div>    
                             </div>
-                        </div>
                     </form>
                     </form>
                     </div>
