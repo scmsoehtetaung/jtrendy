@@ -202,7 +202,7 @@ class jtrendyController extends Controller
     public function displayfullvdolist($id,Request $request){
         $popular =DB::table('song')->where('id',$id)->first(); 
         $likedcolor=DB::table('liked_song')->where('song_id',$id)->where('user_id',Auth::user()->id)->get();
-        $categories= DB::table('song')->where('category',$popular->category)->paginate(3);
+        $categories= DB::table('song')->where('category',$popular->category)->where('id','!=',$popular->id)->paginate(3);
         $commentdisplay=DB::table('comment')->where('song_id',$id)->orderBy('updated_at','desc')->get();
         return view('displayFullVdo',compact('popular','categories','commentdisplay','likedcolor'));
     }

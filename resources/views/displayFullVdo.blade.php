@@ -58,9 +58,11 @@ img{
   text-align:center;
   padding-left:5px;
   font-size:15px;
+  margin-right:30px;
 }
 .cmt{
-  margin-bottom:100px;
+  margin-top:-20px;
+  margin-left:250px;
 }
 form{
   margin-top:20px;
@@ -119,6 +121,7 @@ p{
                           </li>
                         </ul>
                         @endforeach
+                      </div>
                         <div class="paginate text-center">
                         {{$categories->links() }}
                         </div>
@@ -145,8 +148,7 @@ p{
                            {{$commentList->comment}}<br>
                             @endforeach
                         </div>
-                    </ul>                        
-                  </div>
+                    </ul>
                 </div>
             </div>
         </div>
