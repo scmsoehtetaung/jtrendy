@@ -40,14 +40,10 @@ class jtrendyController extends Controller
         }
         $title=$request->title;
         $artist=$request->artist;
-        $title01 =DB::table('song')->where('title',$title)->value('id');
-        $artist01=DB::table('song')->where('artist',$artist)->value('id');
-        if($id!=$title01 && $id!=$artist01){
-        if($title01 && $artist01)
-        {
+        $exist =DB::table('song')->where('title',$title)->where('artist',$artist)->where('id','!=',$id)->count();
+        if($exist>0){
             return redirect()->back()->withInput($request->input())->with('alreadyExist', 'The updated song is already exist');
         }
-    }
         $user = Auth::user();   
          DB::Table('song')->where('id',$id)->update([
         'title' => $request->title,
