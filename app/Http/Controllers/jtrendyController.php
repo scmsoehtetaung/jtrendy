@@ -275,25 +275,41 @@ class jtrendyController extends Controller
     }
 
     public function updateur($id,Request $request) {
+        
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email',
             'phone_number' => 'required|regex:/(09)[0-9]{9}/',
-            
         ]);
-        $users = DB::table('users')->where('id',$id)->first();
+
+        $song = DB::table('users')->where('id',$id)->first();
         $now = new DateTime();
+        $name=$request->name;
+        $email=$request->email;
+        $phone_number=$request->phone_number;
 
-        $user = Auth::user();   
-        $update= DB::Table('users')->where('id',$id)->update([
-            'name'=> $request->get('name'),        
-            'email'=> $request->get('email'),
-            'phone_number'=> $request->get('phone_number'),
-            'updated_at'=> $now,
-           
+        $names =DB::table('users')->where('name',$name)->first();
+        $emails =DB::table('users')->where('email',$email)->first();
+        $phone_numbers=DB::table('users')->where('phone_number',$phone_number)->first();
+        if($id!=$names & $id!=$emails & $id!=$phone_numbers ){
+        if($names && $emails && $phone_numbers){
+        {
+        return redirect()->back()->withInput($request->input())->with('alreadyExist', 'The Data is already exist');
+        }
+        }
+        $user = Auth::user(); 
+        DB::Table('users')->where('id',$id)->update([
+        'name'=>$request->get('name'),
+        'phone_number'=>$request->get('phone_number'),
+        'email'=>$request->get('email'),
+        'updated_at' => $now,
         ]);
-        return redirect()->back()->with('message','User Updated'); 
+        return redirect()->back()->with('message','User Updated!'); 
+        }
+    }
 
+    public function back(){ 
+        return redirect()->route('user'); 
     }
         
 
