@@ -58,7 +58,7 @@
                             <form action="/search" method="POST">
                             {{ csrf_field() }}
                             <div style="float:right">
-                                <input class="btnStyle00" type="text"  name="searchSongTitle" autocomplete="off"
+                                <input class="btnStyle00" type="text" name="searchSongTitle" autocomplete="off"
                                     placeholder="Search...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
                                 <button type="submit" class="btnStyle01" value="search"><i class="fa fa-search"></i></button> 
                             </div><br><br>
@@ -85,7 +85,7 @@
                             <form action="{{ url('/multiDel')}}" method="POST">
                             {{ csrf_field() }}
                             @if($totalCount!=0)
-                                <button style="margin-bottom: 15px" class="btn btn-danger" type="submit">Delete All Selected</button>                                                                                      
+                                <button style="margin-bottom: 15px" class="btn btn-danger" type="submit" id="btnSubmit">Delete All Selected</button>                                                                                      
                             @endif
                                 <table style="width:100%" class="table table-bordered table-hover">
                                     <tr style="font-size:20px">
@@ -137,23 +137,36 @@
     </div>
 </div>
 @endsection
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<SCRIPT language="javascript">
-$(function(){
-	$("#selectall").click(function () {
-		  $('.multiDel_id').attr('checked', this.checked);
-	});
+<script language="javascript">
 
-	$(".case").clik(function(){
+$(document).ready(function() {
 
-		if($(".multiDel_id").length == $(".multiDel_id:checked").length) {
-			$("#selectall").attr("checked", "checked");
-		} else {
-			$("#selectall").removeAttr("checked");
-		}
+    $("#selectall").change(function () {
+        $("input:checkbox").prop('checked', $(this).prop("checked"));
+    });
 
-	});
 });
-</SCRIPT>
+
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript">
+ 
+ $(document).ready(function() { 
+  
+    $('#btnSubmit').attr("disabled",true);
+
+    $('.multiDel_id').change(function() {
+       $('#btnSubmit').attr('disabled', $('.multiDel_id:checked').length == 0);
+    });
+  
+    $('#selectall').change(function() {
+       $('#btnSubmit').attr('disabled', $('#selectall:checked').length == 0);
+    });
+  
+ });
+  
+ </script>
 
 
