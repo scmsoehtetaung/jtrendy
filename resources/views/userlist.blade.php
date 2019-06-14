@@ -49,7 +49,10 @@
                                  </td> 
                             </tr>
                         @endforeach   
-                        </table>   
+                        </table>
+                        <div class="paginate text-center">
+                                {{ $users->links() }}
+                            </div>   
                     </div>
                 </div>
             </div>

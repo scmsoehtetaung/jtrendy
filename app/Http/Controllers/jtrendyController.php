@@ -244,7 +244,7 @@ class jtrendyController extends Controller
     }
 
     public function userlist(){
-        $users=DB::table('users')->orderBy('user_type','asc')->get();  
+        $users=DB::table('users')->orderBy('user_type','asc')->paginate(5);  
         return view('userlist',compact('users'));
     }
 
