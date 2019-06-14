@@ -3,7 +3,6 @@
     div a:hover {
         text-decoration:none;
         color: black;
-        font-weight: bold;
     }
     .btnStyle00 {
   padding: 10px;
@@ -31,10 +30,11 @@
     }
     .btnStyle11 {
         width: 75px;
-        height: 38px;
+        height: 35px;
     }
 </style>
 @section('content')
+
 <div>
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
@@ -79,11 +79,12 @@
                             @endif
                             <form action="{{ url('/multiDel')}}" method="POST">
                             {{ csrf_field() }}
-                                <button style="margin-bottom: 15px" class="btn btn-danger" type="submit">Delete All Selected</button>                            
-                               
+                            @if($totalCount!=0)
+                                <button style="margin-bottom: 15px" class="btn btn-danger" type="submit">Delete All Selected</button>                                                                                      
+                            @endif
                                 <table style="width:100%" class="table table-bordered table-hover">
                                     <tr style="font-size:20px">
-                                        <th>#</th>
+                                        <th><input type="checkbox" id="selectall"></th>
                                         <th>Song Title</th>
                                         <th>Like Count</th>
                                         <th>Artist</th>
@@ -93,7 +94,7 @@
                                     @if(count($jsongListCompact)>0)
                                     @foreach($jsongListCompact as $songInfo)
                                     <tr style="font-size:16px">
-                                        <td><input type="checkbox" class="sub_chk" name="multiDel_id[]" value="{{$songInfo->id}}"></td>   
+                                        <td><input type="checkbox" class="multiDel_id" name="multiDel_id[]" value="{{$songInfo->id}}"></td>
                                         <td><a href="{{ url('songlist/detail', $songInfo->id) }}" >{{$songInfo->title}}</td>
                                         <td>{{$songInfo->song_react_count}}</td> 
                                         <td>{{$songInfo->artist}}</td>
@@ -131,3 +132,23 @@
     </div>
 </div>
 @endsection
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<SCRIPT language="javascript">
+$(function(){
+	$("#selectall").click(function () {
+		  $('.multiDel_id').attr('checked', this.checked);
+	});
+
+	$(".case").clik(function(){
+
+		if($(".multiDel_id").length == $(".multiDel_id:checked").length) {
+			$("#selectall").attr("checked", "checked");
+		} else {
+			$("#selectall").removeAttr("checked");
+		}
+
+	});
+});
+</SCRIPT>
+
+
