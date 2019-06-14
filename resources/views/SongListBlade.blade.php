@@ -44,6 +44,11 @@
             <div class="panel-body">
                 <div class="container">
                     <div class ="row col-md-12  mb-5">
+                    @if(session()->has('complete'))
+                            <div class="alert alert-success">
+                                {{ session()->get('complete') }}
+                            </div>
+                        @endif
                         @if(session()->has('searchSongTitle'))                               
                                         {{ session()->get('searchSongTitle') }}
                         @endif

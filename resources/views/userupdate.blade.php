@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
+
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -16,17 +16,14 @@
                             {{$error}}
                             </p>
                             @endforeach
-                            @if (session()->has('message'))
-                            <div class="alert alert-info">
-                            {{ session('message') }}
-                            </div>
-                            @endif
+                            
                             @if (session()->has('alreadyExist'))
                             <div class="alert alert-danger">
                             {{ session('alreadyExist') }}
                             </div>
                             @endif
                             @csrf
+
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -61,12 +58,12 @@
                                 <button type="button"  class="btn btn-default"  onclick="window.location='{{ route("back") }}'">Cancle</button> 
                             </div>    
                             </div>
-                    </form>
+                    
                     </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 @endsection
