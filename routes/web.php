@@ -18,13 +18,15 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth','App\Http\Middleware\AdminMiddleware']], function() {
     Route::get('/songList','jtrendyController@jsongList')->name('songList');
     Route::get('uploadSong', 'jtrendyController@uploads')->name('uploads');
+
     Route::get('userlist','jtrendyController@userlist')->name('user'); 
+    Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
+   
     Route::get('/delete/{id}','jtrendyController@songDelete')->name('delete');
     Route::post('/multiDel','jtrendyController@multiDelete')->name('multiDel');
     Route::get('/updateSong/{id}','jtrendyController@updatesong')->name('updateSong');
     Route::get('uploadSong/index', array('uses' => 'jtrendyController@cancle', 'as' => 'cancle.index'));
     Route::get('updateSong/{id}', 'jtrendyController@updatesong');
-    Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
     Route::post('update/{id}','jtrendyController@updated')->name('update');
 });
  Route::group(['middleware'=>['auth']],function(){
