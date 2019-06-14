@@ -81,6 +81,11 @@ class jtrendyController extends Controller
     public function multiDelete(Request $request)
     {
         $multiDel_id=$request->input('multiDel_id');
+        $jsongListCompact=DB::table('song')->where('id',$multiDel_id)->first();
+        $vdoDel=$jsongListCompact->video_path;
+        if(file_exists(public_path('videos/'.$vdoDel))){
+        unlink(public_path('videos/'.$vdoDel));
+        }
         $jsongListCompact=DB::table('song')->whereIn('id',$multiDel_id)->delete();
         return redirect()->route('songList')->with( 'del','Selected songs have been deleted successfully!!');
     }
@@ -129,7 +134,7 @@ class jtrendyController extends Controller
                 $video->move(public_path().'/videos/', $videoName);  
             }
             else{
-                return redirect()->back()->withInput($request->input())->with('videoRequired', 'File Not selected');
+                return redirect()->back()->withInput($request->input())->with('videoRequired', 'Song Not selected');
             } 
         $user = Auth::user();   
         DB::table('song')->insert([
@@ -146,8 +151,7 @@ class jtrendyController extends Controller
         'created_at' => $now,
         'updated_at' => $now,
         ]);
-        //return redirect()->route('example')->with('status', 'Song was Uploaded!');
-        return redirect()->back()->with('complete', 'Song was Uploaded!');  
+        return redirect()->route('songList')->with('complete', 'Song was Uploaded!');  
     }
 
     public function show(){
@@ -197,7 +201,7 @@ class jtrendyController extends Controller
     public function displayfullvdolist($id,Request $request){
         $popular =DB::table('song')->where('id',$id)->first(); 
         $likedcolor=DB::table('liked_song')->where('song_id',$id)->where('user_id',Auth::user()->id)->get();
-        $categories= DB::table('song')->where('category',$popular->category)->paginate(3);
+        $categories= DB::table('song')->where('category',$popular->category)->where('id','!=',$popular->id)->paginate(3);
         $commentdisplay=DB::table('comment')->where('song_id',$id)->orderBy('updated_at','desc')->get();
         return view('displayFullVdo',compact('popular','categories','commentdisplay','likedcolor'));
     }
@@ -240,7 +244,7 @@ class jtrendyController extends Controller
     }
 
     public function userlist(){
-        $users=DB::table('users')->orderBy('id','name','asc')->get();  
+        $users=DB::table('users')->orderBy('user_type','asc')->get();  
         return view('userlist',compact('users'));
     }
 

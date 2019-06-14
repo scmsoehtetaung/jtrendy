@@ -5,6 +5,34 @@
         color: black;
         font-weight: bold;
     }
+    .btnStyle00 {
+  padding: 10px;
+  height:35px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+.btnStyle01 {
+    float: left;
+    width: 20%;
+    height:35px;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none; 
+    cursor: pointer;
+    }
+    .btnStyle01:hover {
+    background: #0b7dda;
+    }
+    .btnStyle11 {
+        width: 75px;
+        height: 38px;
+    }
 </style>
 @section('content')
 <div>
@@ -16,6 +44,11 @@
             <div class="panel-body">
                 <div class="container">
                     <div class ="row col-md-12  mb-5">
+                    @if(session()->has('complete'))
+                            <div class="alert alert-success">
+                                {{ session()->get('complete') }}
+                            </div>
+                        @endif
                         @if(session()->has('searchSongTitle'))                               
                                         {{ session()->get('searchSongTitle') }}
                         @endif
@@ -25,9 +58,9 @@
                             <form action="/search" method="POST">
                             {{ csrf_field() }}
                             <div style="float:right">
-                                <input type="text"  name="searchSongTitle" autocomplete="off"
+                                <input class="btnStyle00" type="text"  name="searchSongTitle" autocomplete="off"
                                     placeholder="Search...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
-                                <input type="submit" value="search"> 
+                                <button type="submit" class="btnStyle01" value="search"><i class="fa fa-search"></i></button> 
                             </div><br><br>
                             <div style="float:right">
                                 <a href="{{ route('songcategory') }}">Search By Category</a>
@@ -72,8 +105,8 @@
                                         <td>{{$songInfo->updated_at}}</td>
                                         <td>
                                             <div style="text-align:center">
-                                                <a href="{{ url('updateSong',$songInfo->id) }}" class="btn btn-primary">Edit</a>
-                                                <a href="{{  url('delete',$songInfo->id) }}" class="btn btn-danger">Delete</a>                                                
+                                                <a href="{{ url('updateSong',$songInfo->id) }}" class="btn btn-primary btnStyle11">Edit</a>
+                                                <a href="{{  url('delete',$songInfo->id) }}" class="btn btn-danger btnStyle11">Delete</a>                                                
                                             </div>
                                         </td>
                                     </tr>
