@@ -10,6 +10,7 @@
 }
 .dropdown-menu a:hover{
     background-color:#6b9dbb !important;
+
 }
 #navbarDropdown{
     background-color:#063f5b;
@@ -24,12 +25,19 @@ body { padding-top: 50px; }
     font-weight: bold;
     background-color:#063f5b;
     border:#2bbbad;
+    font-size:17px;
 }
 .navbar-brand{
     color:white;
+    font-size:17px;
+}
+.navbar-brand:hover{
+    color:#6b9dbb;
+    font-size:16px;
 }
 .nav-item .nav-link:hover{
     background-color:#6b9dbb;
+    font-size:12px;
 }
 #app .navbar-nav li a {
 	text-transform: capitalize;
