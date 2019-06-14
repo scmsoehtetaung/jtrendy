@@ -151,8 +151,7 @@ class jtrendyController extends Controller
         'created_at' => $now,
         'updated_at' => $now,
         ]);
-        //return redirect()->route('example')->with('status', 'Song was Uploaded!');
-        return redirect()->back()->with('complete', 'Song was Uploaded!');  
+        return redirect()->route('songList')->with('complete', 'Song was Uploaded!');  
     }
 
     public function show(){
@@ -245,7 +244,7 @@ class jtrendyController extends Controller
     }
 
     public function userlist(){
-        $users=DB::table('users')->orderBy('name','asc')->get();  
+        $users=DB::table('users')->orderBy('user_type','asc')->get();  
         return view('userlist',compact('users'));
     }
 

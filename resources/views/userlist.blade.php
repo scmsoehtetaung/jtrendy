@@ -37,7 +37,11 @@
                         @foreach ($users as $user)                                               
                             <tr>
                                 <td> <a href="{{ url('userlist/userdetail', $user->id) }}" >{{$user->name}}</a></td>
-                                <td>{{$user->user_type}}</td>
+                                @if($user->user_type=='1')
+                                    <td>{{'Admin'}}</td>
+                                @else
+                                    <td>{{'Member'}}</td>
+                                @endif
                                 <td>{{$user->phone_number}}</td>
                                 <td>{{$user->email}}</td>
                                 <td> <a href="{{ url('userupdate',$user->id) }}" class="btn btn-info btn-sm">Edit</a>
