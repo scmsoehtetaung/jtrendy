@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
+
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -11,22 +11,26 @@
                 <div class="container">
                     <div class ="row col-md-12  mb-5">
                     <form action="{{route('updateur',$users->id)}}"  method="post" enctype="multipart/form-data">
+                   
                             @foreach($errors->all() as $error)
                             <p class="alert alert-danger">
                             {{$error}}
                             </p>
                             @endforeach
-                            @if (session()->has('message'))
-                            <div class="alert alert-info">
-                            {{ session('message') }}
+                            
+                            @if (session()->has('alreadyExists'))
+                            <div class="alert alert-danger">
+                            {{ session('alreadyExists') }}
                             </div>
                             @endif
+                              
                             @if (session()->has('alreadyExist'))
                             <div class="alert alert-danger">
                             {{ session('alreadyExist') }}
                             </div>
                             @endif
                             @csrf
+
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -54,6 +58,23 @@
            
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="password" value="{{ old( 'password', $users->password) }}" required>
+
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" value="{{ old( 'password', $users->password) }}" required>
+                            </div>
+                        </div>
                         
                         <div class="form-group row" style="margin-left:34.25%; margin-top:30px">
                             <div class="button">
@@ -61,12 +82,12 @@
                                 <button type="button"  class="btn btn-default"  onclick="window.location='{{ route("back") }}'">Cancle</button> 
                             </div>    
                             </div>
-                    </form>
+                    
                     </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 @endsection

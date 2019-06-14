@@ -61,7 +61,7 @@ class jtrendyController extends Controller
 
     public function jsongList()
     {
-        $jsongListCompact=DB::table('song')->orderBy('updated_at','desc')->paginate(12);
+        $jsongListCompact=DB::table('song')->orderBy('updated_at','desc')->paginate(5);
         $totalCount=DB::table('song')->count();
         $song="list";
         return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
@@ -81,6 +81,11 @@ class jtrendyController extends Controller
     public function multiDelete(Request $request)
     {
         $multiDel_id=$request->input('multiDel_id');
+        $jsongListCompact=DB::table('song')->where('id',$multiDel_id)->first();
+        $vdoDel=$jsongListCompact->video_path;
+        if(file_exists(public_path('videos/'.$vdoDel))){
+        unlink(public_path('videos/'.$vdoDel));
+        }
         $jsongListCompact=DB::table('song')->whereIn('id',$multiDel_id)->delete();
         return redirect()->route('songList')->with( 'del','Selected songs have been deleted successfully!!');
     }
@@ -129,7 +134,7 @@ class jtrendyController extends Controller
                 $video->move(public_path().'/videos/', $videoName);  
             }
             else{
-                return redirect()->back()->withInput($request->input())->with('videoRequired', 'File Not selected');
+                return redirect()->back()->withInput($request->input())->with('videoRequired', 'Song Not selected');
             } 
         $user = Auth::user();   
         DB::table('song')->insert([
@@ -146,8 +151,7 @@ class jtrendyController extends Controller
         'created_at' => $now,
         'updated_at' => $now,
         ]);
-        //return redirect()->route('example')->with('status', 'Song was Uploaded!');
-        return redirect()->back()->with('complete', 'Song was Uploaded!');  
+        return redirect()->route('songList')->with('complete', 'Song was Uploaded!');  
     }
 
     public function show(){
@@ -224,11 +228,11 @@ class jtrendyController extends Controller
         $now=new DateTime();
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'phone_number' => 'required|regex:/(09)[0-9]{9}/',
+            'phone_number' => 'required|regex:/^([+]959)?(09)?[0-9]{9}$/|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
-    DB::table('users')->insert([
+        DB::table('users')->insert([
             'name'=> $request->get('name'),
             'user_type'=> $request->get('user_type'),
             'phone_number'=>$request->get('phone_number'),
@@ -238,9 +242,9 @@ class jtrendyController extends Controller
         ]);
         return redirect()->back()->with('message','Successfully Registered'); 
     }
-
+    
     public function userlist(){
-        $users=DB::table('users')->orderBy('id','name','asc')->get();  
+        $users=DB::table('users')->orderBy('user_type','asc')->paginate(5);  
         return view('userlist',compact('users'));
     }
 
@@ -290,43 +294,43 @@ class jtrendyController extends Controller
     }
 
     public function updateur($id,Request $request) {
-        
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
+       
+        $this->validate($request, [          
             'email' => 'required|string|email',
             'phone_number' => 'required|regex:/(09)[0-9]{9}/',
+            'password' => 'required|string|min:6|confirmed',
         ]);
-
-        $song = DB::table('users')->where('id',$id)->first();
+  
         $now = new DateTime();
-        $name=$request->name;
         $email=$request->email;
         $phone_number=$request->phone_number;
+        $user =DB::table('users')->where('email',$email)->where('id','!=',$id)->count();
+        $phone =DB::table('users')->where('phone_number',$phone_number)->where('id','!=',$id)->count();
+       
+        if($user>0){
+            return redirect()->back()->withInput($request->input())->with('alreadyExists', 'Email is already exist');
+        }
 
-        $names =DB::table('users')->where('name',$name)->first();
-        $emails =DB::table('users')->where('email',$email)->first();
-        $phone_numbers=DB::table('users')->where('phone_number',$phone_number)->first();
-        if($id!=$names & $id!=$emails & $id!=$phone_numbers ){
-        if($names && $emails && $phone_numbers){
-        {
-        return redirect()->back()->withInput($request->input())->with('alreadyExist', 'The Data is already exist');
+        if($phone>0){
+            return redirect()->back()->withInput($request->input())->with('alreadyExist', 'PhoneNumber is already exist');
         }
-        }
+
         $user = Auth::user(); 
         DB::Table('users')->where('id',$id)->update([
         'name'=>$request->get('name'),
         'phone_number'=>$request->get('phone_number'),
         'email'=>$request->get('email'),
+        'password'=>$request->get('password'),
         'updated_at' => $now,
         ]);
-        return redirect()->back()->with('message','User Updated!'); 
+        return redirect()->route('user')->with('message','User Updated!'); 
         }
-    }
+    
 
     public function back(){ 
         return redirect()->route('user'); 
     }
-        
+   
 
 }
     
