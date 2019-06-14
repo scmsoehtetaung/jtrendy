@@ -290,43 +290,43 @@ class jtrendyController extends Controller
     }
 
     public function updateur($id,Request $request) {
-        
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email,'.$id,
-            'phone_number' => 'required|regex:/(09)[0-9]{9}/|unique:users,phone_number,'.$id,
-        ]);
-
        
+        $this->validate($request, [          
+            'email' => 'required|string|email',
+            'phone_number' => 'required|regex:/(09)[0-9]{9}/',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+  
         $now = new DateTime();
-        $name=$request->name;
         $email=$request->email;
         $phone_number=$request->phone_number;
+        $user =DB::table('users')->where('email',$email)->where('id','!=',$id)->count();
+        $phone =DB::table('users')->where('phone_number',$phone_number)->where('id','!=',$id)->count();
+       
+        if($user>0){
+            return redirect()->back()->withInput($request->input())->with('alreadyExists', 'Email is already exist');
+        }
 
-        $names =DB::table('users')->where('name',$name)->first();
-        $emails =DB::table('users')->where('email',$email)->first();
-        $phone_numbers=DB::table('users')->where('phone_number',$phone_number)->first();
-        if($id!=$names & $id!=$emails & $id!=$phone_numbers ){
-        if($names && $emails && $phone_numbers){
-        {
-        return redirect()->back()->withInput($request->input())->with('alreadyExist', 'Name is already exist');
+        if($phone>0){
+            return redirect()->back()->withInput($request->input())->with('alreadyExist', 'PhoneNumber is already exist');
         }
-        }
+
         $user = Auth::user(); 
         DB::Table('users')->where('id',$id)->update([
         'name'=>$request->get('name'),
         'phone_number'=>$request->get('phone_number'),
         'email'=>$request->get('email'),
+        'password'=>$request->get('password'),
         'updated_at' => $now,
         ]);
         return redirect()->route('user')->with('message','User Updated!'); 
         }
-    }
+    
 
     public function back(){ 
         return redirect()->route('user'); 
     }
-        
+   
 
 }
     
