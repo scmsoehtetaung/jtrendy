@@ -205,11 +205,11 @@ class jtrendyController extends Controller
         $now=new DateTime();
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'phone_number' => 'required|regex:/(09)[0-9]{9}/',
+            'phone_number' => 'required|regex:/^([+]959)?(09)?[0-9]{9}$/|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
-    DB::table('users')->insert([
+        DB::table('users')->insert([
             'name'=> $request->get('name'),
             'user_type'=> $request->get('user_type'),
             'phone_number'=>$request->get('phone_number'),
@@ -219,7 +219,7 @@ class jtrendyController extends Controller
         ]);
         return redirect()->back()->with('message','Successfully Registered'); 
     }
-
+    
     public function userlist(){
         $users=DB::table('users')->orderBy('id','name','asc')->get();  
         return view('userlist',compact('users'));
