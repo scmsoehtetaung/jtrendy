@@ -11,12 +11,19 @@
                 <div class="container">
                     <div class ="row col-md-12  mb-5">
                     <form action="{{route('updateur',$users->id)}}"  method="post" enctype="multipart/form-data">
+                   
                             @foreach($errors->all() as $error)
                             <p class="alert alert-danger">
                             {{$error}}
                             </p>
                             @endforeach
                             
+                            @if (session()->has('alreadyExists'))
+                            <div class="alert alert-danger">
+                            {{ session('alreadyExists') }}
+                            </div>
+                            @endif
+                              
                             @if (session()->has('alreadyExist'))
                             <div class="alert alert-danger">
                             {{ session('alreadyExist') }}
@@ -49,6 +56,23 @@
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old( 'email', $users->email) }}" required>
            
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="password" value="{{ old( 'password', $users->password) }}" required>
+
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" value="{{ old( 'password', $users->password) }}" required>
                             </div>
                         </div>
                         
