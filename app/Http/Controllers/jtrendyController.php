@@ -93,7 +93,7 @@ class jtrendyController extends Controller
     public function songNameSearch(Request $request)
     {
         $searchSongTitle = $request->input('searchSongTitle');
-        $jsongListCompact=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->get();
+        $jsongListCompact=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->paginate(5);
         $totalCount=DB::table('song')->where('title','LIKE','%'.$searchSongTitle.'%')->count();
         $song="search";
         return view('SongListBlade',compact('jsongListCompact','totalCount','song'));

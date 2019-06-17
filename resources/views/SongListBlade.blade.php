@@ -48,12 +48,10 @@ div a:hover {
     padding-top: 10px;
     padding-left: 5px;
     border: 1px solid #d9d9d9;
+    border-left: none;
     background: #f1f1f1;
     height: 35px;
     width: 9.1%;
-}
-.iStyle:hover {
-    border: 2px solid #6B9DBB;
 }
 .linkStyle {
     float: right;
@@ -89,7 +87,7 @@ div a:hover {
                             <div class="slinput" style="float:right">
                                 <input class="btnStyle00" type="text" name="searchSongTitle" autocomplete="off" id="myInput"
                                     placeholder="Search...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >                                
-                                <a class="fa fa-close right-icon iStyle" onclick="document.getElementById('myInput').value = ''"></a>
+                                <span class="fa fa-close right-icon iStyle" onclick="document.getElementById('myInput').value = ''"></span>
                                 <button type="submit" class="btnStyle01" value="search"><i class="fa fa-search"></i></button>
                             </div><br><br>
                         </form>
@@ -154,13 +152,10 @@ div a:hover {
                                 </tr>
                                 @endif
                             </table>
-                        </form> 
-                        @if($song=="list")
-                        <div class="paginate text-center">
-                            {{ $jsongListCompact->links() }}
+                        </form>
+                        <div class="paginate text-center form-group">
+                            {{ $jsongListCompact->appends(request()->except('page'))->links() }}
                         </div>
-                        @endif
-                    </div>
                 </div>
             </div>
         </div>
