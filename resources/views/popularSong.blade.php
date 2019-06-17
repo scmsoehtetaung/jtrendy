@@ -3,6 +3,13 @@
 .subcat-li,.subcat{
     margin-left:66px;
 }
+.subcat{
+    width:220px;
+    height:120px;
+    word-wrap:break-word;
+    margin-left:66px;
+    font-weight:bold;
+}
 .panel-title{
     margin-left:10px;
 }
@@ -35,7 +42,7 @@ video{
                                             </a>
                                         </li>
                                         <li class="subcat">
-                                            <b>Song Title: {{ $list->title}}</b> 
+                                            <b>Song&nbsp;Title:&nbsp;{{ $list->title}}</b> 
                                             <b>  ( {{ $list->artist}}</b> )<br> 
                                             <b>Uploaded On: &nbsp;{{$list->updated_at}}</b><br>
                                             <b> {{$list->song_react_count}} &nbsp;users liked</b><br><br>
