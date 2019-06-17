@@ -243,8 +243,11 @@ class jtrendyController extends Controller
         return redirect()->back()->with('message','Successfully Registered'); 
     }
 
-    public function userlist(Request $request){
-        $users=DB::table('users')->where('id', '!=', auth()->id())->orderBy('user_type','asc')->paginate(5); 
+    public function userlist(){
+        $users=DB::table('users')->where('id', '!=', auth()->id())
+                                ->orderBy('user_type','asc')
+                                ->orderBy('id','desc')
+                                ->paginate(5); 
         return view('userlist',compact('users'));
     }
 
