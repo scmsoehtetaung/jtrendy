@@ -29,6 +29,12 @@
                             {{ session('alreadyExist') }}
                             </div>
                             @endif
+                               
+                            @if (session()->has('password'))
+                            <div class="alert alert-danger">
+                            {{ session('password') }}
+                            </div>
+                            @endif
                             @csrf
 
 
@@ -63,8 +69,9 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" value="{{ old( 'password', $users->password) }}" required>
+                                <input id="password" type="password" class="form-control" placeholder="Enter at least 6 values" name="password" >
 
+                               
                             </div>
                         </div>
                         
@@ -72,7 +79,8 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" value="{{ old( 'password', $users->password) }}" required>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
+                            
                             </div>
                         </div>
                         

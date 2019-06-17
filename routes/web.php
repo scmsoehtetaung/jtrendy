@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth','App\Http\Middleware\AdminMiddleware']], f
  });
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::post('/searchUser','jtrendyController@searchUser')->name('searchUser');
 Auth::routes();
 Route::any('/search','jtrendyController@songNameSearch')->name('search');
 Route::get('loadSong','jtrendyController@loadSong');

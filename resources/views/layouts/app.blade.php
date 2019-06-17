@@ -10,10 +10,10 @@
 }
 .dropdown-menu a:hover{
     background-color:#6b9dbb !important;
-
 }
 #navbarDropdown{
     background-color:#063f5b;
+
 }
 #navbarDropdown:hover{
     background-color:#6b9dbb !important;
@@ -25,7 +25,7 @@ body { padding-top: 50px; }
     font-weight: bold;
     background-color:#063f5b;
     border:#2bbbad;
-    font-size:17px;
+    font-size:15px;
 }
 .navbar-brand{
     color:white;
@@ -37,17 +37,16 @@ body { padding-top: 50px; }
 }
 .nav-item .nav-link:hover{
     background-color:#6b9dbb;
-    font-size:12px;
 }
 #app .navbar-nav li a {
 	text-transform: capitalize;
 	color: #fff;
 	transition: background-color .2s, color .2s;
 }
-
 #app .navbar-nav li.active a {
 	background-color:#6b9dbb;
 	color: #fff;
+    font-size:13px;
 }
 </style>
     <meta charset="utf-8">
