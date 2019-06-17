@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth','App\Http\Middleware\AdminMiddleware']], f
 
     Route::get('userlist','jtrendyController@userlist')->name('user'); 
     Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
+    Route::post('/searchUser','jtrendyController@searchUser')->name('searchUser');
    
     Route::get('/delete/{id}','jtrendyController@songDelete')->name('delete');
     Route::post('/multiDel','jtrendyController@multiDelete')->name('multiDel');
@@ -28,6 +29,10 @@ Route::group(['middleware' => ['auth','App\Http\Middleware\AdminMiddleware']], f
     Route::get('uploadSong/index', array('uses' => 'jtrendyController@cancle', 'as' => 'cancle.index'));
     Route::get('updateSong/{id}', 'jtrendyController@updatesong');
     Route::post('update/{id}','jtrendyController@updated')->name('update');
+                                             
+    Route::get('userlist','jtrendyController@userlist')->name('user');
+    Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
+    Route::get('/userlist/userdetail/{id}', 'jtrendyController@userdetail')->name('userdetail');
 });
  Route::group(['middleware'=>['auth']],function(){
     Route::get('popularlist','jtrendyController@pouplarSongList')->name('popularList');
@@ -39,7 +44,7 @@ Route::group(['middleware' => ['auth','App\Http\Middleware\AdminMiddleware']], f
  });
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/searchUser','jtrendyController@searchUser')->name('searchUser');
+
 Auth::routes();
 Route::post('/search','jtrendyController@songNameSearch')->name('search');
 Route::get('loadSong','jtrendyController@loadSong');
@@ -58,10 +63,7 @@ Route::post('update/{id}','jtrendyController@updated')->name('update');
 Route::get('cancel','jtrendyController@cancle')->name('cancle');
 Route::get('memberRegister', 'jtrendyController@userRegister')->name('registeruser');
 Route::post('userRegister', 'jtrendyController@userCreate')->name('memberRegister');
-                                                
-Route::get('userlist','jtrendyController@userlist')->name('user');
-Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
-Route::get('/userlist/userdetail/{id}', 'jtrendyController@userdetail')->name('userdetail');
+
 
 Route::post('/comment','jtrendyController@Comment')->name('comment');
 Route::get('userupdate/{id}','jtrendyController@userupdate');

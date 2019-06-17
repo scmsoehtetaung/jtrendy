@@ -160,7 +160,7 @@ class jtrendyController extends Controller
         $type="pop";
         $shows=[];
         $count = DB::table('song')->where('category', $type)->count();
-        $shows = DB::table('song')->where('category', $type)->paginate(3);
+        $shows = DB::table('song')->where('category', $type)->paginate(6);
         return view('songCategoryList')->with(compact('count','shows','type','counttotal'));    
       }
 
@@ -170,7 +170,7 @@ class jtrendyController extends Controller
         $count=0;
         $shows=[];
         $count = DB::table('song')->where('category', $type)->count();
-        $shows = DB::table('song')->where('category', $type)->paginate(3);
+        $shows = DB::table('song')->where('category', $type)->paginate(6);
      return view('songCategoryList')->with(compact('count','shows','type','counttotal'));
      }
 
@@ -258,9 +258,8 @@ class jtrendyController extends Controller
     public function searchUser(Request $request){
         $searchUser=$request->input('searchUser');
         $users=DB::table('users')->where('name','LIKE','%'.$searchUser.'%')->paginate(5); 
-        Log::info(count($users));
         return view('userlist',compact('users'));
-}
+    }
 
     public function userdetail($id) {
         $users = DB::table('users')->where('id',$id)->first();

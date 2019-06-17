@@ -5,7 +5,7 @@
         color: black;
         font-weight: bold;
     }
-     .btnStyle00 {
+.btnStyle00 {
   padding: 10px;
   height:35px;
   font-size: 17px;
@@ -28,7 +28,7 @@
     }
     .btnStyle01:hover {
     background: #0b7dda;
-    }
+}
 </style>
 @section('content')
 <div>
@@ -58,7 +58,7 @@
                         <form action="/searchUser" method="POST" role="search">
                             {{ csrf_field() }}
                             <div style="float:right">
-                                <input class="btnStyle00" type="text" name="searchUser"  placeholder="Search..." value="">   
+                                <input class="btnStyle00" type="text" name="searchUser"  placeholder="Search...">   
                                 <button type="submit" class="btnStyle01" value="search"><i class="fa fa-search"></i></button> 
                             </div><br><br>
                             <table class="table table-striped table-responsive">
