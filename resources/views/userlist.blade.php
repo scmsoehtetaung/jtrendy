@@ -45,14 +45,14 @@
                                 <td>{{$user->phone_number}}</td>
                                 <td>{{$user->email}}</td>
                                 <td> <a href="{{ url('userupdate',$user->id) }}" class="btn btn-info btn-sm">Edit</a>
-                                     <a href="{{ url('deleteuser',$user->id) }}" class="btn btn-danger btn-sm">Delete</a>
-                                 </td> 
+                                    <a  onclick="return confirm('Are you sure?')" href="{{ url('deleteuser',$user->id) }}" class="btn btn-danger btn-sm">Delete</a>     
+                                </td> 
                             </tr>
                         @endforeach   
                         </table>
                         <div class="paginate text-center">
-                                {{ $users->links() }}
-                            </div>   
+                            {{ $users->links() }}
+                        </div> 
                     </div>
                 </div>
             </div>

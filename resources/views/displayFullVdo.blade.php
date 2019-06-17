@@ -16,11 +16,20 @@ video{
 .fa-heart,.fa-download{
     color:gray;
 }
+.fa-heart:hover{
+  cursor: pointer;
+}
 .intro{
   color:red;
 }
 * {
   box-sizing: border-box;
+}
+.subcat .title,.subcat .description{
+  font-weight:bold;
+  font-size:1.8rem;
+  font-family: Helvetica;
+  color:dimgray;
 }
 .column {
   float: left;
@@ -61,11 +70,12 @@ img{
   margin-right:30px;
 }
 .cmt{
-  margin-top:-20px;
-  margin-left:250px;
+  margin-top:-12px;
+  margin-right:5px;
+  font-size:16px;
 }
 form{
-  margin-top:20px;
+  margin-top:-10px;
 }
 textarea{
   box-shadow: 3px 3px #d9d9d9;
@@ -73,6 +83,13 @@ textarea{
 p{
   font-style:normal;
   font-size:20px;
+}
+.description{
+  max-width:1250px;
+  word-wrap:break-word;
+}
+h4{
+  font-size:23px;
 }
 </style>
 @section('content')
@@ -100,16 +117,16 @@ p{
                                     <i onclick="like()" {{(count($likedcolor)>0) ? "hidden" : ""}} class="fas fa-heart fa-2x unlike">
                                     </i>
                                     &nbsp;&nbsp; 
-                                    <a href="{{URL::asset('videos/'.$popular->video_path )}}" ><i class="fas fa-download fa-2x " download></i></a>
+                                    <a href="{{URL::asset('videos/'.$popular->video_path )}}" download><i class="fas fa-download fa-2x "></i></a>
                                 </span>
                                 <input type="hidden" id="myText" value="{{$popular->id}}">      
                               </li>
                             </ul>
                           </li><br>
                         <li class="subcat">
-                          <p>Song Title: {{ $popular->title}}   
+                          <p class="title">Song Title: {{ $popular->title}}   
                             ( {{ $popular->artist}} )</p><br>
-                          <p>Description: &nbsp;{{$popular->description}} </p><br>
+                          <p class="description">Description: &nbsp;{{$popular->description}} </p><br>
                         </li>
                         <h4>Related Videos</h4><br><br>
                         @foreach($categories as $vdo)
@@ -133,7 +150,7 @@ p{
                               <h4>Comment :</h4>
                             </div>
                             <div class="column right">
-                              <textarea rows="8" cols="120" name="commentwrite">
+                              <textarea rows="8" cols="120" name="commentwrite" required>
                               </textarea><br><br>
                               <input type="hidden" name="c" value="{{$popular->id}}">
                               <input type="submit"  class="btn btn-info nav navbar-nav navbar-right" value="Comment" id="commentbtn">
