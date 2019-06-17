@@ -60,21 +60,20 @@
                                   </video>                                    
                                 </li>
                                 <li class="subcat">
-                                  <b>Song Title: &nbsp; {{ $song->title}}  </b> 
-                                  <b>  ( {{ $song->artist}}</b> )<br> 
-                                  <b>Category: &nbsp;{{$song->category}} </b>
+                                  <b>Song Title:&nbsp;&nbsp; </b>  {{$song->title}}<br>  
+                                  <b>Artist:&nbsp;&nbsp;  </b>   {{ $song->artist}}<br> 
+                                  <b>Category:&nbsp;&nbsp; </b>   {{$song->category}} </b>
                                 </li>
                               </ul>
                             @endforeach
                                                                                                                                                                                                                                    
-                      </div>
+                      </div>             
+                </div>
                           <div style="margin-left:550px">
                             @if($test=="upload")
                               {{ $songs->links() }}                        
                             @endif  
-                          </div>                                 
-            
-          </div>
+                          </div>  
         </div>
       </div>
     </div>
