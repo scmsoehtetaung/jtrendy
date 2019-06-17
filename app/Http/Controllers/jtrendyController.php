@@ -228,8 +228,8 @@ class jtrendyController extends Controller
         $now=new DateTime();
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'phone_number' => 'required|regex:/^([+]959)?(09)?[0-9]{9}$/|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
+            'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/|unique:users',
+            'email' => 'required|string|email|max:255|regex:/^\S+@gmail.com$/|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
         DB::table('users')->insert([
