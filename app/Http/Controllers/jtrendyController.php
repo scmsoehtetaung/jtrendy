@@ -98,6 +98,7 @@ class jtrendyController extends Controller
         $song="search";
         return view('SongListBlade',compact('jsongListCompact','totalCount','song'));
     }
+    
 
     public function uploads() {
         return view('uploadSong');
@@ -246,7 +247,7 @@ class jtrendyController extends Controller
         ]);
         return redirect()->back()->with('message','Successfully Registered'); 
     }
-
+   
     public function userlist(){
         $users=DB::table('users')->where('id', '!=', auth()->id())
                                 ->orderBy('user_type','asc')
@@ -254,6 +255,12 @@ class jtrendyController extends Controller
                                 ->paginate(5); 
         return view('userlist',compact('users'));
     }
+    public function searchUser(Request $request){
+        $searchUser=$request->input('searchUser');
+        $users=DB::table('users')->where('name','LIKE','%'.$searchUser.'%')->paginate(5); 
+        Log::info(count($users));
+        return view('userlist',compact('users'));
+}
 
     public function userdetail($id) {
         $users = DB::table('users')->where('id',$id)->first();
