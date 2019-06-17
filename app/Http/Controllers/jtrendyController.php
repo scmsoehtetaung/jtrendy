@@ -228,17 +228,21 @@ class jtrendyController extends Controller
         $now=new DateTime();
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'phone_number' => 'required|regex:/^([+]959)?(09)?[0-9]{9}$/|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
+            'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/|unique:users',
+            'email' => 'required|string|email|max:255|regex:/^\S+@gmail.com$/|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+        $user = Auth::user();   
         DB::table('users')->insert([
             'name'=> $request->get('name'),
             'user_type'=> $request->get('user_type'),
             'phone_number'=>$request->get('phone_number'),
             'email'=> $request->get('email'),
             'password'=>bcrypt($request->get('password')),
+            'created_user'=>$user->id,
+            'updated_user'=>$user->id,
             'created_at'=>$now,
+            'updated_at'=>$now,
         ]);
         return redirect()->back()->with('message','Successfully Registered'); 
     }

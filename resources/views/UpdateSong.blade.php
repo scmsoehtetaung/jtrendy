@@ -66,10 +66,11 @@
                                 <option>{{ old( 'category', $song->category) }}</option>
                                 <option >Pop</option>
                                 <option>Rock</option>
-                                <option >Hip Hop</option>
                                 <option >Classic</option>
-                                <option >Covered</option>
-                                <option >Ost</option>
+                                <option >Hip-Hop</option>
+                                <option >Cover songs</option>
+                                <option >Country Music</option>
+                                <option >Jazz</option>
                                 </select>
                             </div>
                             </div>
