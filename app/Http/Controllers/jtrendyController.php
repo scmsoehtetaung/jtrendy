@@ -170,7 +170,7 @@ class jtrendyController extends Controller
         $shows=[];
         $count = DB::table('song')->where('category', $type)->count();
         $shows = DB::table('song')->where('category', $type)->paginate(3);
-     return view('songCategoryList')->with(compact('count','shows','type','counttotal'));
+        return view('songCategoryList')->with(compact('count','shows','type','counttotal'));
      }
 
     public function profile($id) {
@@ -297,15 +297,27 @@ class jtrendyController extends Controller
        
         $this->validate($request, [          
             'email' => 'required|string|email',
-            'phone_number' => 'required|regex:/(09)[0-9]{9}/',
-            'password' => 'required|string|min:6|confirmed',
+            'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/',
+           
         ]);
   
         $now = new DateTime();
         $email=$request->email;
         $phone_number=$request->phone_number;
+        $password_confirmations=$request->password_confirmation;
+      
         $user =DB::table('users')->where('email',$email)->where('id','!=',$id)->count();
         $phone =DB::table('users')->where('phone_number',$phone_number)->where('id','!=',$id)->count();
+       
+        if(  $password=$request->password){
+            $this->validate($request, [ 
+            'password' => 'min:6',
+              ]);
+        }
+
+        if(  $password_confirmations!=$password){
+            return redirect()->back()->withInput($request->input())->with('password', 'Password confimation shoud be match');        
+        } 
        
         if($user>0){
             return redirect()->back()->withInput($request->input())->with('alreadyExists', 'Email is already exist');
@@ -320,7 +332,7 @@ class jtrendyController extends Controller
         'name'=>$request->get('name'),
         'phone_number'=>$request->get('phone_number'),
         'email'=>$request->get('email'),
-        'password'=>$request->get('password'),
+        'password' => bcrypt($request['password']),
         'updated_at' => $now,
         ]);
         return redirect()->route('user')->with('message','User Updated!'); 
