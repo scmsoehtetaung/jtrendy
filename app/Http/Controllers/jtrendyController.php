@@ -232,13 +232,17 @@ class jtrendyController extends Controller
             'email' => 'required|string|email|max:255|regex:/^\S+@gmail.com$/|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+        $user = Auth::user();   
         DB::table('users')->insert([
             'name'=> $request->get('name'),
             'user_type'=> $request->get('user_type'),
             'phone_number'=>$request->get('phone_number'),
             'email'=> $request->get('email'),
             'password'=>bcrypt($request->get('password')),
+            'created_user'=>$user->id,
+            'updated_user'=>$user->id,
             'created_at'=>$now,
+            'updated_at'=>$now,
         ]);
         return redirect()->back()->with('message','Successfully Registered'); 
     }
