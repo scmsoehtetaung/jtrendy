@@ -194,7 +194,7 @@ class jtrendyController extends Controller
     }
 
     public function pouplarSongList(){
-        $popular = DB::table('song')->orderBy('song_react_count','desc')->take(6)->get();
+        $popular = DB::table('song')->where('song_react_count','>',0)->orderBy('song_react_count','desc')->take(6)->get();
         return view('popularSong',compact('popular'));
     }
 
@@ -261,7 +261,7 @@ class jtrendyController extends Controller
     }
     
     public function uploadedsong() {    
-        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);   
+        $songs = DB::table('song')->where('song_react_count','>',0)->orderBy('created_at', 'DESC')->paginate(6);   
         $test="upload";  
         return view('uploadedsong', compact('songs','test'));  
         
