@@ -225,13 +225,19 @@ class jtrendyController extends Controller
     }
     
     public function userCreate(Request $request){
+      
         $now=new DateTime();
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/|unique:users',
+            'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/',
             'email' => 'required|string|email|max:255|regex:/^\S+@gmail.com$/|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+        $phone=$request->phone_number%10000000000;
+        $phones =DB::table('users')->where('phone_number','LIKE', "%{$phone}")->count();
+        if($phones>0){
+            return redirect()->back()->withInput($request->input())->with('phone', 'The phone number has already been taken.');
+        }
         $user = Auth::user();   
         DB::table('users')->insert([
             'name'=> $request->get('name'),
@@ -247,11 +253,8 @@ class jtrendyController extends Controller
         return redirect()->back()->with('message','Successfully Registered'); 
     }
 
-    public function userlist(){
-        $users=DB::table('users')->where('id', '!=', auth()->id())
-                                ->orderBy('user_type','asc')
-                                ->orderBy('id','desc')
-                                ->paginate(5); 
+    public function userlist(Request $request){
+        $users=DB::table('users')->where('id', '!=', auth()->id())->orderBy('user_type','asc')->paginate(5); 
         return view('userlist',compact('users'));
     }
 
