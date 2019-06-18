@@ -86,7 +86,7 @@
                             @endforeach   
                             </table>
                             <div class="paginate text-center">
-                                {{ $users->links() }}
+                                {{ $users->appends(request()->except('page'))->links() }}
                             </div> 
                         </form>
                     </div>

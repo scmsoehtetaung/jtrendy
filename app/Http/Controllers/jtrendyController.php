@@ -144,7 +144,7 @@ class jtrendyController extends Controller
         'artist' =>$artist,
         'description' => $request->description,
         'video_path' => $videoName,
-        'video_size'=> $size,
+        'video_size'=> $size."MB",
         'song_react_count' => '0',
         'song_download_count' => '0',
         'created_user' => $user->id,
