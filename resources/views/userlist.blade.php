@@ -44,8 +44,8 @@
                                 @endif
                                 <td>{{$user->phone_number}}</td>
                                 <td>{{$user->email}}</td>
-                                <td> <a href="{{ url('userupdate',$user->id) }}" class="btn btn-info btn-sm">Edit</a>
-                                    <a  onclick="return confirm('Are you sure?')" href="{{ url('deleteuser',$user->id) }}" class="btn btn-danger btn-sm">Delete</a>     
+                                <td> <a href="{{ url('userupdate',$user->id) }}" style="width:65px" class="btn btn-primary btnStyle11">Edit</a>
+                                    <a  onclick="return confirm('Are you sure?')" href="{{ url('deleteuser',$user->id) }}" class="btn btn-danger btnStyle11">Delete</a>     
                                 </td> 
                             </tr>
                         @endforeach   

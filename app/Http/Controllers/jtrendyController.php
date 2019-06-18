@@ -270,7 +270,7 @@ class jtrendyController extends Controller
     public function searchtxt(Request $request){
         $searchtxt = $request->input('searchtxt');
         $test="search";
-        $songs=DB::table('song')->where('title','LIKE','%'.$searchtxt.'%')->get();
+        $songs=DB::table('song')->where('title','LIKE','%'.$searchtxt.'%')->paginate(6);
         return view('uploadedsong',compact('songs','test'));
     }
      
@@ -293,8 +293,7 @@ class jtrendyController extends Controller
         return view('userupdate', compact('users'));  
     }
 
-    public function updateur($id,Request $request) {
-       
+    public function updateur($id,Request $request) {     
         $this->validate($request, [          
             'email' => 'required|string|email',
             'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/',
@@ -303,18 +302,18 @@ class jtrendyController extends Controller
   
         $now = new DateTime();
         $email=$request->email;
-        $phone_number=$request->phone_number;
+        $phone_number=$request->phone_number%10000000000;
         $password_confirmations=$request->password_confirmation;
       
         $user =DB::table('users')->where('email',$email)->where('id','!=',$id)->count();
-        $phone =DB::table('users')->where('phone_number',$phone_number)->where('id','!=',$id)->count();
+        $phone =DB::table('users')->where('phone_number','like',"%{$phone_number}%")->where('id','!=',$id)->count();
        
         if(  $password=$request->password){
             $this->validate($request, [ 
             'password' => 'min:6',
               ]);
         }
-
+  
         if(  $password_confirmations!=$password){
             return redirect()->back()->withInput($request->input())->with('password', 'Password confimation shoud be match');        
         } 
@@ -338,11 +337,8 @@ class jtrendyController extends Controller
         return redirect()->route('user')->with('message','User Updated!'); 
         }
     
-
     public function back(){ 
         return redirect()->route('user'); 
     }
-   
-
 }
     
