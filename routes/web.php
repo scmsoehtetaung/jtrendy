@@ -45,6 +45,7 @@ Route::any('/search','jtrendyController@songNameSearch')->name('search');
 Route::get('loadSong','jtrendyController@loadSong');
 
 Route::get('/popularSong/displayFullVdo/{id}','jtrendyController@displayfullvdolist')->name('displaySong');
+Route::get('/uploadedSong/displayFullVdo/{id}','jtrendyController@displayfullvdolist');
 Route::get('/like/{id}','jtrendyController@likecount')->name('like');
 Route::get('/unlike/{id}','jtrendyController@unlikecount')->name('unlike');
 
