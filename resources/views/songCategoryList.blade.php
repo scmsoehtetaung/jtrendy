@@ -59,7 +59,7 @@
                                         @endforeach   
                                         </div>
                                         <div class="paginate text-center form-group ">
-                                            {{$shows->links()}}
+                                            {{$shows->appends(request()->except('page'))->links()}}
                                         </div> 
                                     </div>
                                 </div>

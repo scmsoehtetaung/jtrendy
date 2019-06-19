@@ -18,9 +18,16 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
-        }
 
+            if(Auth::user()->user_type=='1'){
+
+                return redirect('/songList');
+            }
+         else{
+            return redirect('/uploadedsong');
+         }
+            
+        }
         return $next($request);
     }
 }
