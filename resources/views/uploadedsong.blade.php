@@ -49,15 +49,16 @@
                               <p>No uploaded song!</p>
                             </div>
                             @endif     
-
+                            
                             @foreach ($songs as $song)
+                            <a href="{{url('uploadedSong/displayFullVdo',$song->id)}}" >
                               <ul class="col-sm-4 list-unstyled" style="margin-top:15px">
                                 <li class="subcat-li">                                   
                                   <video  width="300" height="200"  controls>
                                     <source src="{{URL::asset('videos/'.$song->video_path )}}" type="video/mp4">
+                            </a>
                                   </video>                                    
                                 </li>
-
                                 <li class="subcat">
                                   <b>Song Title:&nbsp;&nbsp; </b>  {{$song->title}}<br>  
                                   <b>Artist:&nbsp;&nbsp;  </b>   {{ $song->artist}}<br> 
