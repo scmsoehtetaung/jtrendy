@@ -42,8 +42,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old( 'name', $users->name) }}" required >
-  
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old( 'name', $users->name) }}" required > 
                             </div>
                         </div>
 
@@ -62,6 +61,15 @@
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old( 'email', $users->email) }}" required>
            
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
+
+                            <div class="col-md-6">                         
+                            <input class="form-check-input" type="radio" name="gender" value="0" @if(old('gender',$users->gender)=="0") checked @endif>Male
+                            <input class="form-check-input" type="radio" name="gender" value="1" @if(old('gender',$users->gender)=="1") checked @endif>Female                           
                             </div>
                         </div>
 

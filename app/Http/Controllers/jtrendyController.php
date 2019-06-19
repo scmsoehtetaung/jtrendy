@@ -304,7 +304,7 @@ class jtrendyController extends Controller
         $email=$request->email;
         $phone_number=$request->phone_number%10000000000;
         $password_confirmations=$request->password_confirmation;
-      
+            
         $user =DB::table('users')->where('email',$email)->where('id','!=',$id)->count();
         $phone =DB::table('users')->where('phone_number','like',"%{$phone_number}%")->where('id','!=',$id)->count();
        
@@ -313,7 +313,7 @@ class jtrendyController extends Controller
             'password' => 'min:6',
               ]);
         }
-  
+
         if(  $password_confirmations!=$password){
             return redirect()->back()->withInput($request->input())->with('password', 'Password confimation shoud be match');        
         } 
@@ -332,6 +332,7 @@ class jtrendyController extends Controller
         'phone_number'=>$request->get('phone_number'),
         'email'=>$request->get('email'),
         'password' => bcrypt($request['password']),
+        'gender'=>$request->get('gender'),
         'updated_at' => $now,
         ]);
         return redirect()->route('user')->with('message','User Updated!'); 
