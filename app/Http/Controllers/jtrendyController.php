@@ -275,10 +275,9 @@ class jtrendyController extends Controller
     }
     
     public function uploadedsong() {    
-        $songs = DB::table('song')->where('song_react_count','>',0)->orderBy('created_at', 'DESC')->paginate(6);   
+        $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);   
         $test="upload";  
-        return view('uploadedsong', compact('songs','test'));  
-        
+        return view('uploadedsong', compact('songs','test'));
     }
 
     public function searchtxt(Request $request){
