@@ -51,10 +51,12 @@
                                     <select class="form-control "  name="category";>
                                         <option value="pop" {{ old('category') == "pop" ? 'selected' : '' }}>Pop</option>
                                         <option value="rock" {{ old('category') == "rock" ? 'selected' : '' }}>Rock</option>
+                                        <option value="classic" {{ old('category') == "classic" ? 'selected' : '' }}>Classic</option>
                                         <option value="hiphot" {{ old('category') == "hiphot" ? 'selected' : '' }}>Hip Hop</option>
-                                        <option value="classic" {{ old('category') == "ckassic" ? 'selected' : '' }}>Classic</option>
-                                        <option value="ost" {{ old('category') == "ost" ? 'selected' : '' }}>Ost</option>
-                                        <option value="covered" {{ old('category') == "covered" ? 'selected' : '' }}>Covered</option>
+                                        <option value="covered" {{ old('category') == "covered" ? 'selected' : '' }}>Cover Songs</option>
+                                        <option value="country" {{ old('category') == "country" ? 'selected' : '' }}>Country</option>
+                                        <option value="jazz" {{ old('category') == "jazz" ? 'selected' : '' }}>Jazz</option>
+                                       
                                     </select>
                                 </div>
                             </div>

@@ -25,10 +25,11 @@
                                     <select class="form-control" id="choose" name="category";>
                                         <option value="pop">Pop</option>
                                         <option value="rock">Rock</option>
-                                        <option value="hiphot">Hip Hop</option>
                                         <option value="classic">Classic</option>
-                                        <option value="ost">Ost</option>
-                                        <option value="covered">Covered</option>
+                                        <option value="hiphot">Hip Hop</option>
+                                        <option value="covered">Cover Songs</option>
+                                        <option value="country">Country Music</option>
+                                        <option value="jazz">Jazz</option>
                                     </select>
                                 </div>
                                 <div  class="form-group col-sm-4 col-md-offset-0">
@@ -58,7 +59,7 @@
                                         @endforeach   
                                         </div>
                                         <div class="paginate text-center form-group ">
-                                            {{$shows->links()}}
+                                            {{$shows->appends(request()->except('page'))->links()}}
                                         </div> 
                                     </div>
                                 </div>

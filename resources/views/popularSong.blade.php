@@ -32,6 +32,7 @@ video{
                         <div class="row row justify-content-center">
                             <div class="col-9">
                                 <div class="row">
+                                    @if(count($popular)>0)
                                     @foreach ($popular as $list)
                                     <ul class="col-sm-4 list-unstyled">
                                         <li class="subcat-li">
@@ -49,6 +50,9 @@ video{
                                         </li>
                                     </ul>
                                     @endforeach
+                                    @else
+                                    <button type="button" class="btn btn-danger" style="width:100%;height:40px;text-align:left;margin-top:20px;">No Popular Songs</button>
+                                    @endif
                                 </div>
                             </div>
                         </div>

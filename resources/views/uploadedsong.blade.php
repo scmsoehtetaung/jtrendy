@@ -55,31 +55,31 @@
                           @endif     
                                                                        
                           <div class="search" style="float:right; margin-button:15px" >
-                          <form action="/searchsong" method="POST" style="float:right">
-                              {{ csrf_field() }}
-                        <div class="btn-group">
-                            <input class="form-control" type="search" name="searchtxt" autocomplete="off" id="myInput"
-                                placeholder="Search...." value="<?php echo isset($_POST["searchtxt"]) ? $_POST["searchtxt"] : ''; ?>" >
-                            <span id="searchclear" class="glyphicon glyphicon-remove-circle" onclick="document.getElementById('myInput').value = ''"></span>
-                        </div>
-                        <div class="btn-group">
-                            <button type="submit" class="form-control" value="search"><i class="fa fa-search"></i></button>
-                        </div>
-                    </form>
-                    <div class="linkStyle">
-                        <a href="{{ route('songcategory') }}">Search By Category</a>
+                            <form action="/searchsong" method="POST" style="float:right">
+                                {{ csrf_field() }}
+                                <div class="btn-group">
+                                    <input class="form-control" type="search" name="searchtxt" autocomplete="off" id="myInput"
+                                        placeholder="Search...." value="<?php echo isset($_POST["searchtxt"]) ? $_POST["searchtxt"] : ''; ?>" >
+                                    <span id="searchclear" class="glyphicon glyphicon-remove-circle" onclick="document.getElementById('myInput').value = ''"></span>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="submit" class="form-control" value="search"><i class="fa fa-search"></i></button>
+                                </div>
+                            </form>
+                          <div class="linkStyle">
+                              <a href="{{ route('songcategory') }}">Search By Category</a>
+                          </div>
                     </div>
-                        </div>
-                        </div>                  
-                    
+                  </div>                  
                             @foreach ($songs as $song)
+                            <a href="{{url('uploadedSong/displayFullVdo',$song->id)}}" >
                               <ul class="col-sm-4 list-unstyled" style="margin-top:15px">
                                 <li class="subcat-li">                                   
                                   <video  width="300" height="200"  controls>
                                     <source src="{{URL::asset('videos/'.$song->video_path )}}" type="video/mp4">
+                            </a>
                                   </video>                                    
                                 </li>
-
                                 <li class="subcat">
                                   <b>Song Title:&nbsp;&nbsp; </b>  {{$song->title}}<br>  
                                   <b>Artist:&nbsp;&nbsp;  </b>   {{ $song->artist}}<br> 
