@@ -120,15 +120,14 @@ class jtrendyController extends Controller
             if($request->hasFile('myVideo')){ 
                 $title=$request->title;
                 $artist=$request->artist;
-                $song01 =DB::table('song')->where('title',$title)->first();
-                $song02=DB::table('song')->where('artist',$artist)->first();
+                $song =DB::table('song')->where('title',$title) ->where('artist',$artist) ->count();                                       
                 $videoName= $request->file('myVideo')->getClientOriginalName();
                 $file_size=$request->file('myVideo')->getClientSize();
                 $size=number_format($file_size / 1048576,2);
                     if( $size>80){
                         return redirect()->back()->with('videoRequired', 'Cant Upload! Your video is too large');
                     }
-                    if($song01 && $song02)
+                    if($song>0)
                     {
                         return redirect()->back()->withInput($request->input())->with('videoRequired', 'The uploaded song is already exist');
                     }
@@ -232,6 +231,7 @@ class jtrendyController extends Controller
             'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/|unique:users',
             'email' => 'required|string|email|max:255|regex:/^\S+@gmail.com$/|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'gender'=>'required',
         ]);
         $user = Auth::user();   
         DB::table('users')->insert([
@@ -239,6 +239,7 @@ class jtrendyController extends Controller
             'user_type'=> $request->get('user_type'),
             'phone_number'=>$request->get('phone_number'),
             'email'=> $request->get('email'),
+            'gender'=>$request->get('gender'),
             'password'=>bcrypt($request->get('password')),
             'created_user'=>$user->id,
             'updated_user'=>$user->id,
@@ -313,7 +314,19 @@ class jtrendyController extends Controller
             'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/',
            
         ]);
-  
+        $users = DB::table('users')->where('id',$id)->first();
+        $photo=$request->file('my_photo');
+        $oldPhoto=$users->user_photo;
+    if($request->hasFile('my_photo')){
+       if(file_exists(public_path('img/'.$oldPhoto))){
+           unlink(public_path('img/'.$oldPhoto));
+        }
+        $myphoto= $request->file('my_photo')->getClientOriginalName();
+        $photo->move(public_path().'/img/', $myphoto);  
+        }
+    else{
+        $myphoto=$users->user_photo;
+        }
         $now = new DateTime();
         $email=$request->email;
         $phone_number=$request->phone_number;
@@ -346,6 +359,7 @@ class jtrendyController extends Controller
         'phone_number'=>$request->get('phone_number'),
         'email'=>$request->get('email'),
         'password' => bcrypt($request['password']),
+        'user_photo'=>$myphoto,
         'updated_at' => $now,
         ]);
         return redirect()->route('user')->with('message','User Updated!'); 
