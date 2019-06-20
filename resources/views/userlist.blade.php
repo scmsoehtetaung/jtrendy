@@ -80,7 +80,7 @@
                                     <td>{{$user->phone_number}}</td>
                                     <td>{{$user->email}}</td>
                                     <td> <a href="{{ url('userupdate',$user->id) }}" class="btn btn-info btn-sm">Edit</a>
-                                    <a href="{{  url('delete',$user->id) }}" class="btn btn-danger btnStyle11" onclick="return confirm('Are you sure to delete?')">Delete</a>     
+                                    <a  onclick="return confirm('Are you sure?')" href="{{ url('deleteuser',$user->id) }}" class="btn btn-danger btn-sm">Delete</a>    
                                     </td> 
                                 </tr>
                             @endforeach   
