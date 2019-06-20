@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<head>
+<link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+</head>
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -16,6 +21,17 @@
                             {{ session('message') }}
                             </div>
                             @endif
+                    @if (session()->has('success'))
+                    <div class="alert alert-success">
+                    {{ session('success') }}
+                    </div>
+                    @endif
+                    @if (session()->has('fail'))
+                    <div class="alert alert-danger">
+                    {{ session('fail') }}
+                    </div>
+                    @endif
+                    
                         @csrf
 
                         <div class="form-group row">
@@ -92,6 +108,15 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="photo" class="col-md-4 col-sm-1 col-form-label text-md-right">Photo</label>
+                            <div class="form-group col-md-6 col-sm-1">
+                                <input type="button" name="" value="Browse" id="browse_file" class="btn btn-primary" onclick="$('#image').click();">
+                                <input type="file" id="image" onchange="previewFile()" style="visibility:hidden" name="myImage">
+                                <img src="" width="200px" alt="" src="">
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0" style="margin-left:33%; margin-top:30px">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -106,4 +131,23 @@
         </div>
     </div>
 </div>
+
 @endsection
+
+<script>
+function previewFile() {
+  var preview = document.querySelector('img');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  }
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = "";
+  }
+}
+</script>

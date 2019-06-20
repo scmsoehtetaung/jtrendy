@@ -60,7 +60,7 @@ body { padding-top: 50px; }
 
     <!-- Scripts -->
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
    
 

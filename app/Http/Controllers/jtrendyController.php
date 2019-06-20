@@ -232,7 +232,14 @@ class jtrendyController extends Controller
             'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/|unique:users',
             'email' => 'required|string|email|max:255|regex:/^\S+@gmail.com$/|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $now = new DateTime();
+        $image=$request->file('myImage');
+            if($request->hasFile('myImage')){ 
+                $imageName= $request->file('myImage')->getClientOriginalName();
+                $image->move(public_path().'/photos/', $imageName);
+            }
         $user = Auth::user();   
         DB::table('users')->insert([
             'name'=> $request->get('name'),
@@ -244,6 +251,7 @@ class jtrendyController extends Controller
             'updated_user'=>$user->id,
             'created_at'=>$now,
             'updated_at'=>$now,
+            'user_photo'=>$imageName,
         ]);
         return redirect()->back()->with('message','Successfully Registered'); 
     }
