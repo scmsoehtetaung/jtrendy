@@ -79,7 +79,7 @@
                                     @endif
                                     <td>{{$user->phone_number}}</td>
                                     <td>{{$user->email}}</td>
-                                    <td> <a href="{{ url('userupdate',$user->id) }}" style="width:65px" class="btn btn-primary btnStyle11">Edit</a>
+                                    <a href="{{ url('userupdate',$user->id) }}" class="btn btn-info btn-sm">Edit</a>
                                     <a href="{{  url('delete',$user->id) }}" class="btn btn-danger btnStyle11" onclick="return confirm('Are you sure to delete?')">Delete</a>     
                                     </td> 
                                 </tr>
