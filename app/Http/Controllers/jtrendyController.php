@@ -289,7 +289,7 @@ class jtrendyController extends Controller
     public function searchtxt(Request $request){
         $searchtxt = $request->input('searchtxt');
         $test="search";
-        $songs=DB::table('song')->where('title','LIKE','%'.$searchtxt.'%')->get();
+        $songs=DB::table('song')->where('title','LIKE','%'.$searchtxt.'%')->paginate(6);
         return view('uploadedsong',compact('songs','test'));
     }
      
@@ -312,8 +312,7 @@ class jtrendyController extends Controller
         return view('userupdate', compact('users'));  
     }
 
-    public function updateur($id,Request $request) {
-       
+    public function updateur($id,Request $request) {     
         $this->validate($request, [          
             'email' => 'required|string|email',
             'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/',
@@ -339,15 +338,17 @@ class jtrendyController extends Controller
         }
         $now = new DateTime();
         $email=$request->email;
-        $phone_number=$request->phone_number;
+        $phone_number=$request->phone_number%10000000000;
         $password_confirmations=$request->password_confirmation;
-      
+        $gender=$request->gender;
+            
         $user =DB::table('users')->where('email',$email)->where('id','!=',$id)->count();
-        $phone =DB::table('users')->where('phone_number',$phone_number)->where('id','!=',$id)->count();
-       
+        $phone =DB::table('users')->where('phone_number','LIKE', "%{$phone_number}")->where('id','!=',$id)->count();
+        $genders =DB::table('users')->where('gender',$gender)->where('id','!=',$id)->count();
         if(  $password=$request->password){
             $this->validate($request, [ 
             'password' => 'min:6',
+            'password_confirmation' => 'required',
               ]);
         }
 
@@ -370,16 +371,14 @@ class jtrendyController extends Controller
         'email'=>$request->get('email'),
         'password' => bcrypt($request['password']),
         'user_photo'=>$myphoto,
+        'gender'=>$request->get('gender'),
         'updated_at' => $now,
         ]);
         return redirect()->route('user')->with('message','User Updated!'); 
         }
     
-
     public function back(){ 
         return redirect()->route('user'); 
     }
-   
-
 }
     
