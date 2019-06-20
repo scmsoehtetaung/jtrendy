@@ -52,8 +52,8 @@
 
                             <div class="col-md-6">
                                 <select id="user_type" class="form-control{{ $errors->has('user_type') ? ' is-invalid' : '' }}" name="user_type">
-                                <option value="1" selected="selected">Admin</option>
-                                <option value="2">Member</option></select>
+                                <option value="1" {{ old('user_type') == "1" ? 'selected' : '' }}>Admin</option>
+                                <option value="2" {{ old('user_type') == "2" ? 'selected' : '' }} >Member</option></select>
                                
                             </div>
                         </div>

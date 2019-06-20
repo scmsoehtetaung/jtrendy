@@ -143,7 +143,7 @@ class jtrendyController extends Controller
         'artist' =>$artist,
         'description' => $request->description,
         'video_path' => $videoName,
-        'video_size'=> $size."MB",
+        'video_size'=> $size,
         'song_react_count' => '0',
         'song_download_count' => '0',
         'created_user' => $user->id,
@@ -159,7 +159,7 @@ class jtrendyController extends Controller
         $type="pop";
         $shows=[];
         $count = DB::table('song')->where('category', $type)->count();
-        $shows = DB::table('song')->where('category', $type)->paginate(6);
+        $shows = DB::table('song')->where('category', $type)->paginate(3);
         return view('songCategoryList')->with(compact('count','shows','type','counttotal'));    
       }
 
@@ -169,8 +169,8 @@ class jtrendyController extends Controller
         $count=0;
         $shows=[];
         $count = DB::table('song')->where('category', $type)->count();
-        $shows = DB::table('song')->where('category', $type)->paginate(6);
-     return view('songCategoryList')->with(compact('count','shows','type','counttotal'));
+        $shows = DB::table('song')->where('category', $type)->paginate(3);
+        return view('songCategoryList')->with(compact('count','shows','type','counttotal'));
      }
 
     public function profile($id) {
@@ -194,7 +194,7 @@ class jtrendyController extends Controller
     }
 
     public function pouplarSongList(){
-        $popular = DB::table('song')->where('song_react_count','>',0)->orderBy('song_react_count','desc')->take(6)->get();
+        $popular = DB::table('song')->orderBy('song_react_count','desc')->take(6)->get();
         return view('popularSong',compact('popular'));
     }
 
@@ -235,7 +235,7 @@ class jtrendyController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'gender'=>'required',
         ]);
-        $phone=$request->phone_number%1000000000;
+        $phone=$request->phone_number%100000000;
         $phones =DB::table('users')->where('phone_number','LIKE', "%{$phone}")->count();
         if($phones>0){
             return redirect()->back()->withInput($request->input())->with('phone', 'The phone number has already been taken.');
@@ -274,8 +274,9 @@ class jtrendyController extends Controller
     public function searchUser(Request $request){
         $searchUser=$request->input('searchUser');
         $users=DB::table('users')->where('name','LIKE','%'.$searchUser.'%')->paginate(5); 
+        Log::info(count($users));
         return view('userlist',compact('users'));
-    }
+}
 
     public function userdetail($id) {
         $users = DB::table('users')->where('id',$id)->first();
@@ -292,7 +293,8 @@ class jtrendyController extends Controller
     public function uploadedsong() {    
         $songs = DB::table('song')->orderBy('created_at', 'DESC')->paginate(6);   
         $test="upload";  
-        return view('uploadedsong', compact('songs','test'));
+        return view('uploadedsong', compact('songs','test'));  
+        
     }
 
     public function searchtxt(Request $request){
@@ -321,7 +323,7 @@ class jtrendyController extends Controller
         return view('userupdate', compact('users'));  
     }
 
-    public function updateur($id,Request $request) {     
+    public function updateur($id,Request $request) {
         $this->validate($request, [          
             'email' => 'required|string|email',
             'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/',
@@ -383,7 +385,7 @@ class jtrendyController extends Controller
         'gender'=>$request->get('gender'),
         'updated_at' => $now,
         ]);
-        return redirect()->route('user')->with('message','User Updated!'); 
+        return redirect()->route('profile',$user->id)->with('message','User Updated!'); 
         }
     
     public function back(){ 
