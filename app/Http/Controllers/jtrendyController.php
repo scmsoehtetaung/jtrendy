@@ -317,18 +317,20 @@ class jtrendyController extends Controller
             'phone_number' => 'required|min:11|regex:/^(([+]959)?(09)?)[0-9]{9}$/',
            
         ]);
-  
+       
         $now = new DateTime();
         $email=$request->email;
         $phone_number=$request->phone_number%10000000000;
         $password_confirmations=$request->password_confirmation;
+        $gender=$request->gender;
             
         $user =DB::table('users')->where('email',$email)->where('id','!=',$id)->count();
-        $phone =DB::table('users')->where('phone_number','like',"%{$phone_number}%")->where('id','!=',$id)->count();
-       
+        $phone =DB::table('users')->where('phone_number','LIKE', "%{$phone_number}")->where('id','!=',$id)->count();
+        $genders =DB::table('users')->where('gender',$gender)->where('id','!=',$id)->count();
         if(  $password=$request->password){
             $this->validate($request, [ 
             'password' => 'min:6',
+            'password_confirmation' => 'required',
               ]);
         }
 

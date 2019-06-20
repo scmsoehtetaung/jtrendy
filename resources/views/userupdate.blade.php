@@ -67,9 +67,9 @@
                         <div class="form-group row">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
-                            <div class="col-md-6">                         
-                            <input class="form-check-input" type="radio" name="gender" value="0" @if(old('gender',$users->gender)=="0") checked @endif>Male
-                            <input class="form-check-input" type="radio" name="gender" value="1" @if(old('gender',$users->gender)=="1") checked @endif>Female                           
+                            <div class="col-md-6">                            
+                                <input type="radio" class="custom control input" id="gender" name="gender" value="0"  {{ ($users->gender=="0")? "checked" : "" }} >Male</label>
+                                <input type="radio" class="custom control input" id="gender" name="gender" value="1" {{ ($users->gender=="1")? "checked" : "" }} >Female</label>                       
                             </div>
                         </div>
 
@@ -77,18 +77,15 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" placeholder="Enter at least 6 values" name="password" >
-
-                               
+                                <input id="password" type="password" class="form-control" placeholder="Enter at least 6 values" name="password" >                  
                             </div>
                         </div>
                         
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>`
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
-                            
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >                         
                             </div>
                         </div>
                         
@@ -97,13 +94,11 @@
                                 <input type="submit"  value="Update" class="btn btn-primary active"> 
                                 <button type="button"  class="btn btn-default"  onclick="window.location='{{ route("back") }}'">Cancle</button> 
                             </div>    
-                            </div>
-                    
+                            </div>                 
                     </form>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
 @endsection
