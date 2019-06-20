@@ -9,10 +9,28 @@
     word-wrap: break-word;
     width:300px;
 }
+
+#myInput {
+    width: 200px;
+}
+#searchclear {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    color: #D3D3D3;
+}
+.linkStyle {
+    margin-left:965px;
+    font-size: 16px;
+}
 </style>
 
 @section('content')
-
     <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -23,33 +41,36 @@
                   <div class ="row">
                     <div class="row row justify-content-center">
                       <div class="col-9">
-                        <div class="row">                                            
-                          <div class="search" style="float:right; margin-button:15px" >
-                            <form action="/searchsong" method="POST">
-                                  @if(session()->has('searchtxt'))                               
-                                  {{ session()->get('searchtxt') }}
-                                  @endif                             
-                                  {{ csrf_field() }}                             
-                                  <input type="text"  name="searchtxt" autocomplete="off"
-                                  placeholder="Search..." value="<?php echo isset($_POST["searchtxt"]) ? $_POST["searchtxt"] : ''; ?>" >                                
-                                  <input type="submit" value="search"> 
-                            </form>                          
-                            <a href="{{ route('songcategory') }}">Search By Category</a>  
-                          </div>                             
-                        </div>  
-
-                            @if($test=="search" && count($songs) <= 0)
+                        <div class="row">   
+                          @if($test=="search" && count($songs) <= 0)
                             <div class="alert alert-danger">
                                 <p>No Song!</p>
                             </div> 
-                            @endif
+                          @endif  
 
-                            @if($test=="upload" && count($songs) <= 0)                 
+                          @if($test=="upload" && count($songs) <= 0)                 
                             <div class="alert alert-danger">
                               <p>No uploaded song!</p>
                             </div>
-                            @endif     
-                            
+                          @endif     
+                                                                       
+                          <div class="search" style="float:right; margin-button:15px" >
+                            <form action="/searchsong" method="POST" style="float:right">
+                                {{ csrf_field() }}
+                                <div class="btn-group">
+                                    <input class="form-control" type="search" name="searchtxt" autocomplete="off" id="myInput"
+                                        placeholder="Search...." value="<?php echo isset($_POST["searchtxt"]) ? $_POST["searchtxt"] : ''; ?>" >
+                                    <span id="searchclear" class="glyphicon glyphicon-remove-circle" onclick="document.getElementById('myInput').value = ''"></span>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="submit" class="form-control" value="search"><i class="fa fa-search"></i></button>
+                                </div>
+                            </form>
+                          <div class="linkStyle">
+                              <a href="{{ route('songcategory') }}">Search By Category</a>
+                          </div>
+                    </div>
+                  </div>                  
                             @foreach ($songs as $song)
                             <a href="{{url('uploadedSong/displayFullVdo',$song->id)}}" >
                               <ul class="col-sm-4 list-unstyled" style="margin-top:15px">
@@ -70,11 +91,8 @@
                       </div>             
                 </div>
                           <div style="margin-left:550px">
-                            @if($test=="upload")
-                              {{ $songs->links() }}                        
-                            @endif  
+                             {{$songs->appends(request()->except('page'))->links()}}            
                           </div>  
-        </div>
       </div>
     </div>
   </div>
