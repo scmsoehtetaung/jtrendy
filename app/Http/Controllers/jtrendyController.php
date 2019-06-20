@@ -322,9 +322,14 @@ class jtrendyController extends Controller
         $users = DB::table('users')->where('id',$id)->first();
         $photo=$request->file('my_photo');
         $oldPhoto=$users->user_photo;
-    if($request->hasFile('my_photo')){
-       if(file_exists(public_path('img/'.$oldPhoto))){
-           unlink(public_path('img/'.$oldPhoto));
+        
+        if($request->hasFile('my_photo')){
+            if (is_array($oldPhoto) || is_object($oldPhoto)){
+            foreach($oldPhoto as $old){
+                if(file_exists(public_path('img/'.$old))){
+                    unlink(public_path('img/'.$old));
+                }
+            }
         }
         $myphoto= $request->file('my_photo')->getClientOriginalName();
         $photo->move(public_path().'/img/', $myphoto);  
