@@ -48,6 +48,11 @@ body { padding-top: 50px; }
 	color: #fff;
     font-size:13px;
 }
+img{
+    width::24px;
+    height:24px;
+    border-radius:50%;
+}
 </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -129,7 +134,7 @@ body { padding-top: 50px; }
                             <li class="dropdown nav-item">
                             
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-user"></i>{{ Auth::user()->name }}<span class="caret"></span>
+                            <img src="{{URL::asset('user/user2.png')}}">&nbsp;{{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-default" role="menu" aria-labelledby="menu1">
                                     <li>
@@ -158,7 +163,7 @@ body { padding-top: 50px; }
                             </li>
                             <li class="dropdown nav-item">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-user"></i>{{ Auth::user()->name }}<span class="caret"></span>
+                            <img src="{{URL::asset('user/user2.png')}}">&nbsp;{{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">

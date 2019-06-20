@@ -21,18 +21,14 @@
                             {{ session('message') }}
                             </div>
                             @endif
-                    @if (session()->has('success'))
-                    <div class="alert alert-success">
-                    {{ session('success') }}
-                    </div>
-                    @endif
-                    @if (session()->has('fail'))
-                    <div class="alert alert-danger">
-                    {{ session('fail') }}
-                    </div>
-                    @endif
-                    
+                             
+                    @if (session()->has('phone'))
+                            <div class="alert alert-danger">
+                            {{ session('phone') }}
+                            </div>
+                            @endif
                         @csrf
+
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>

@@ -37,10 +37,10 @@ video{
   height: 300px; 
 }
 .left {
-  width: 22%;
+  width: 16%;
 }
 .right {
-  width: 75%;
+  width: 80%;
 }
 .row:after {
   content: "";
@@ -67,7 +67,10 @@ img{
   text-align:center;
   padding-left:5px;
   font-size:15px;
-  margin-right:30px;
+  margin-left:92.1%; 
+}
+.column h4{
+  margin-left:20px;
 }
 .cmt{
   margin-top:-12px;
@@ -84,17 +87,45 @@ p{
   font-style:normal;
   font-size:20px;
 }
-.description{
+.subcat .subdes{
   max-width:1250px;
   word-wrap:break-word;
 }
 h4{
   font-size:23px;
 }
+.subcat .subtitle{
+  margin-left:6px;
+  font-size:21px;
+  color:#344051;
+  text-decoration:none;
+}
+.subcat .subdes{
+  margin-left:6px;
+  font-size:21px;
+  color:#344051;
+  text-decoration:none;
+}
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  width:80px;
+  border: none;
+  outline: none;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
 </style>
 @section('content')
 <div>
-    <div class="col-md-12 col-md-offset-0">
+    <div class="col-md-13 col-md-offset-0">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="panel-title">Popular Song Details</span>
@@ -105,7 +136,7 @@ h4{
 
                     <ul class="col-sm-12 list-unstyled">
                           <li class="subcat-li">
-                            <video id="vdo" width="1220px" height="400px"  controls>
+                            <video id="vdo" width="1100px" height="400px"  controls>
                               <source src="{{URL::asset('videos/'.$popular->video_path )}}" type="video/mp4">
                             </video>
                             <ul class="nav navbar-nav navbar-right">
@@ -124,11 +155,12 @@ h4{
                             </ul>
                           </li><br>
                         <li class="subcat">
-                          <p class="title">Song Title: {{ $popular->title}}   
-                            ( {{ $popular->artist}} )</p><br>
-                          <p class="description">Description: &nbsp;{{$popular->description}} </p><br>
+                          <a href="#" class="title">Song Title:<a href="#" class="subtitle">{{ $popular->title}}
+                            ( {{ $popular->artist}} )</a></a><br>
+                          <a href="#" class="description">Description:</a>&nbsp;<a href="#" class="subdes">{{$popular->description}}&nbsp;</a><br>
                         </li>
                         <h4>Related Videos</h4><br><br>
+                        @if(count($categories)>0)
                         @foreach($categories as $vdo)
                         <ul class="col-sm-4 list-unstyled">
                           <li class="subcat-li">
@@ -138,6 +170,9 @@ h4{
                           </li>
                         </ul>
                         @endforeach
+                        @else
+                        <button type="button" class="btn btn-danger" style="width:102%;height:40px;text-align:left;margin-top:-20px;">No Related Video</button>
+                        @endif
                       </div>
                         <div class="paginate text-center">
                         {{$categories->links() }}
@@ -147,13 +182,13 @@ h4{
                         {{csrf_field()}}
                           <div class="row">
                             <div class="column left">
-                              <h4>Comment :</h4>
+                              <h4>Comment</h4>
                             </div>
                             <div class="column right">
-                              <textarea rows="8" cols="120" name="commentwrite" required>
+                              <textarea rows="8" cols="130" name="commentwrite" required>
                               </textarea><br><br>
                               <input type="hidden" name="c" value="{{$popular->id}}">
-                              <input type="submit"  class="btn btn-info nav navbar-nav navbar-right" value="Comment" id="commentbtn">
+                              <input type="submit"  class="btn btn-info " value="Comment" id="commentbtn">
                             </div>
                           </div>
                         </form>
@@ -165,6 +200,7 @@ h4{
                            {{$commentList->comment}}<br>
                             @endforeach
                         </div>
+                        <button onclick="topFunction()" id="myBtn" title="Go to top"><img src="{{URL::asset('image/chevron-up.png')}}"></button>
                     </ul>
                 </div>
             </div>
@@ -213,6 +249,19 @@ h4{
     });
     document.getElementById("react").innerHTML = counting; 
         }
+        window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+      } else {
+        document.getElementById("myBtn").style.display = "none";
+      }
+    }
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
 </script>
 @endsection
 
