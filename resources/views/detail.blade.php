@@ -5,6 +5,7 @@
     width: 200px;
     text-align: left;
     font-size: 15px;
+    margin-top:5px;
     }​
 
     .container1{
@@ -18,22 +19,19 @@
     }
 
     .container1 .right{
-        margin-top:15px;
+        margin-top:20px;
         float:left;
     }
 
     .button {
         width: 100px;
         background-color: #A0C6DA;
-        border: none;
         color: #0B0B61;
-        padding: 15px 32px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
         margin-left: 200px;
-        cursor: pointer;
         margin-top:30px;
     }
 
