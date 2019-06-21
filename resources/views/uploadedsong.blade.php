@@ -22,11 +22,7 @@
     margin: auto;
     font-size: 14px;
     cursor: pointer;
-    color: #D3D3D3;
-}
-.linkStyle {
-    margin-left:965px;
-    font-size: 16px;
+    color: gray;
 }
 </style>
 
@@ -65,13 +61,13 @@
                                 <div class="btn-group">
                                     <button type="submit" class="form-control" value="search"><i class="fa fa-search"></i></button>
                                 </div>
-                            </form>
-                          <div class="linkStyle">
-                              <a href="{{ route('songcategory') }}">Search By Category</a>
-                          </div>
-                    </div>
-                  </div>                  
-                            @foreach ($songs as $song)
+                            </form>             
+                          </div>                  
+                        </div>     
+                          <a href="{{ route('songcategory') }}" style="float:right; font-size:15px">Search By Category</a>                                                                                                                                                                                                                                               
+                      </div>  
+                    </div>  
+                      @foreach ($songs as $song)
                             <a href="{{url('uploadedSong/displayFullVdo',$song->id)}}" >
                               <ul class="col-sm-4 list-unstyled" style="margin-top:15px">
                                 <li class="subcat-li">                                   
@@ -86,13 +82,12 @@
                                   <b>Category:&nbsp;&nbsp; </b>   {{$song->category}} </b>
                                 </li>
                               </ul>
-                            @endforeach
-                                                                                                                                                                                                                                   
-                      </div>             
-                </div>
+                            @endforeach      
+              </div>   
+               
                           <div style="margin-left:550px">
                              {{$songs->appends(request()->except('page'))->links()}}            
-                          </div>  
+                          </div> 
       </div>
     </div>
   </div>

@@ -1,26 +1,4 @@
 @extends('layouts.app')
-<style>
-
-.button{
-    width: 100px;
-    background-color: #A0C6DA;
-    border: none;
-    color: #0B0B61;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-left: 190px;
-    cursor: pointer;
-    margin-top:20px;
-}
-
-.button1:hover{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
-</style>
 
 @section('content')
 
@@ -52,10 +30,9 @@
                                 <div class="col-md-4">
                                 {{$users->email}}
                                 </div>
-                        </div>
-                        
+                        </div>                  
                     </div>
-                    <a href="javascript:history.back()" button class="btn button button1"><b>OK</b></a>                                       
+                    <a href="javascript:history.back()" class="btn btn-primary active" style="width:80px; margin-left:17%"><b>OK</b></a>                                       
                 </div>             
             </div>
         </div>
