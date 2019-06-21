@@ -54,7 +54,7 @@ Route::get('/uploadedSong/displayFullVdo/{id}','jtrendyController@displayfullvdo
 Route::get('/like/{id}','jtrendyController@likecount')->name('like');
 Route::get('/unlike/{id}','jtrendyController@unlikecount')->name('unlike');
 
-Route::post('/searchsong','jtrendyController@searchtxt')->name('searchsong');
+Route::any('/searchsong','jtrendyController@searchtxt')->name('searchsong');
 Route::get('test', 'jtrendyController@example')->name('example');
 
 Route::get('loadSong','jtrendyController@loadSong')->name('popular');
@@ -67,9 +67,9 @@ Route::post('userRegister', 'jtrendyController@userCreate')->name('memberRegiste
 
 
 Route::post('/comment','jtrendyController@Comment')->name('comment');
-Route::get('userupdate/{id}','jtrendyController@userupdate');
+Route::get('userupdate/{id}','jtrendyController@userupdate')->name('userupdate');
 Route::post('updateur/{id}','jtrendyController@updateur')->name('updateur');
-Route::get('Back','jtrendyController@back')->name('back');
+
 
 
 
