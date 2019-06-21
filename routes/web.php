@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth','App\Http\Middleware\AdminMiddleware']], f
     Route::get('uploadSong/index', array('uses' => 'jtrendyController@cancle', 'as' => 'cancle.index'));
     Route::get('updateSong/{id}', 'jtrendyController@updatesong');
     Route::post('update/{id}','jtrendyController@updated')->name('update');
+    Route::get('memberRegister', 'jtrendyController@userRegister')->name('registeruser');
+    Route::post('userRegister', 'jtrendyController@userCreate')->name('memberRegister');
                                              
     Route::get('userlist','jtrendyController@userlist')->name('user');
     Route::get('/deleteuser/{id}','jtrendyController@deleteuser')->name('deleteuser');
@@ -62,8 +64,7 @@ Route::get('songlist', 'jtrendyController@songlist')->name('list');//to delete
 Route::get('/songlist/detail/{id}', 'jtrendyController@detail')->name('detail');
 Route::post('update/{id}','jtrendyController@updated')->name('update');
 Route::get('cancel','jtrendyController@cancle')->name('cancle');
-Route::get('memberRegister', 'jtrendyController@userRegister')->name('registeruser');
-Route::post('userRegister', 'jtrendyController@userCreate')->name('memberRegister');
+
 
 
 Route::post('/comment','jtrendyController@Comment')->name('comment');

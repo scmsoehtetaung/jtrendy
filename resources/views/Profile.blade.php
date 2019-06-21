@@ -7,10 +7,9 @@
 
 </style>
 @section('content')
-<div class="row">
-    <div class="col-md-13 col-md-offset-0">
-        <div class="panel panel-default">
-            <div class="panel-heading">
+<div class="col-md-13 col-md-offset-0">
+    <div class="panel panel-default">
+        <div class="panel-heading">
             <span class="panel-title">Profile</span>
             </div>
             <div class="panel-body">

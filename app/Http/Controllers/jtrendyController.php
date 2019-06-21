@@ -332,6 +332,9 @@ class jtrendyController extends Controller
             $this->validate($request, [ 
             'password' => 'min:6',
               ]);
+             DB::Table('users')->where('id',$id)->update([
+            'password'=>bcrypt($password),
+            ]);
         }
 
         if(  $password_confirmations!=$password){
@@ -351,14 +354,16 @@ class jtrendyController extends Controller
         'name'=>$request->get('name'),
         'phone_number'=>$request->get('phone_number'),
         'email'=>$request->get('email'),
-        'password' => bcrypt($request['password']),
+        'user_type'=>$request->get('user_type'),
         'updated_at' => $now,
         ]);
+        if($user->id!=$id)
+        {
+            return redirect()->route('user');
+        }
+        else{
         return redirect()->route('profile',$user->id)->with('message','User Updated!'); 
         }
-    
-
-    
-
+    }
 }
     

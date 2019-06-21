@@ -63,14 +63,13 @@
                                 <label for="category" class="col-md-3 col-form-label text-md-right">Categories:</label>
                             <div class="col-md-6">
                                 <select class="form-control "  name="category";>
-                                <option>{{ old( 'category', $song->category) }}</option>
-                                <option >Pop</option>
-                                <option>Rock</option>
-                                <option >Classic</option>
-                                <option >Hip-Hop</option>
-                                <option >Cover songs</option>
-                                <option >Country Music</option>
-                                <option >Jazz</option>
+                                    <option value="pop" {{ old('category', $song->category) == "pop" ? 'selected' : '' }}>Pop</option>
+                                    <option value="rock" {{ old('category', $song->category) == "rock" ? 'selected' : '' }}>Rock</option>
+                                    <option value="classic" {{ old('category', $song->category) == "classic" ? 'selected' : '' }}>Classic</option>
+                                    <option value="hiphop" {{ old('category', $song->category) == "hiphop" ? 'selected' : '' }}>Hip-Hop</option>
+                                    <option value="covered" {{ old('category', $song->category) == "covered" ? 'selected' : '' }}>Cover Songs</option>
+                                    <option value="country" {{ old('category', $song->category) == "country" ? 'selected' : '' }}>Country Music</option>
+                                    <option value="jazz" {{ old('category', $song->category) == "jazz" ? 'selected' : '' }}>Jazz</option>
                                 </select>
                             </div>
                             </div>
@@ -117,7 +116,6 @@
 @endsection
 
 <script>
-
     function readURL(input) {
         if (input.files && input.files[0]) {
           var video = new FileReader();
@@ -131,7 +129,6 @@
         var FileSize = (file.files[0].size / 1024 / 1024).toFixed(2) ; // in MB
         if (FileSize > 80) {
             alert('File size exceeds 80 MB');
-            // document.getElementById("videoid").style.visibility = "";
             document.getElementById('myVideo').value = "";
          } else {
             document.getElementById("videoid").style.visibility = "visible";
