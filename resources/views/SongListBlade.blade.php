@@ -51,6 +51,11 @@ th {
                     @if(session()->has('multiDel_id'))                               
                                     {{ session()->get('multiDel_id') }}
                     @endif
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <form action="/search" method="POST" style="float:right">
                     {{ csrf_field() }}
                         <div class="btn-group">
