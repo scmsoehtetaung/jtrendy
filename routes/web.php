@@ -67,9 +67,9 @@ Route::post('userRegister', 'jtrendyController@userCreate')->name('memberRegiste
 
 
 Route::post('/comment','jtrendyController@Comment')->name('comment');
-Route::get('userupdate/{id}','jtrendyController@userupdate');
+Route::get('userupdate/{id}','jtrendyController@userupdate')->name('userupdate');
 Route::post('updateur/{id}','jtrendyController@updateur')->name('updateur');
-Route::get('Back','jtrendyController@back')->name('back');
+
 
 
 

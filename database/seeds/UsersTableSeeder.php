@@ -24,10 +24,11 @@ class UsersTableSeeder extends Seeder
             'updated_at'=>'2019-5-20 06:56:01',
 
          ]);
-
+      
          DB::table('users')->insert([
             'name' => 'Stella',
-            'phone_number'=>'09966237552',
+            'phone_number'=>'09866237552',
+            'user_photo'=>'evy',
             'email' => 'stella@gmail.com',
             'password' => bcrypt('secret'),
             'user_type' => '1',
@@ -36,8 +37,18 @@ class UsersTableSeeder extends Seeder
             'updated_user'=>'8',
             'created_at'=>'2019-3-1 05:00:00',
             'updated_at'=>'2019-8-16 12:03:56',
-
          ]);
+
+         // DB::table('users')->insert([
+         //    'name' => 'Stella',
+         //    'phone_number'=>'09966237552',
+         //    'email' => 'stella@gmail.com',
+         //    'password' => bcrypt('secret'),
+         //    'user_type' => '1',
+         //    'created_at'=>'2019-3-1 05:00:00',
+         //    'updated_at'=>'2019-8-16 12:03:56',
+
+         // ]);
          
          DB::table('users')->insert([
             'name' => 'John',
@@ -50,7 +61,6 @@ class UsersTableSeeder extends Seeder
             'updated_user'=>'8',
             'created_at'=>'2019-9-9 11:35:09',
             'updated_at'=>'2019-12-30 23:45:40',
-
          ]);
 
          DB::table('users')->insert([
@@ -64,7 +74,6 @@ class UsersTableSeeder extends Seeder
             'updated_user'=>'8',
             'created_at'=>'2019-6-09 09:00:01',
             'updated_at'=>'2019-9-16 3:28:36',
-
          ]);
 
          DB::table('users')->insert([
@@ -78,7 +87,6 @@ class UsersTableSeeder extends Seeder
             'updated_user'=>'8',
             'created_at'=>'2019-5-1 09:54:08',
             'updated_at'=>'2019-8-16 07:03:00',
-
          ]);
     }
 }

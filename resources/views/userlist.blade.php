@@ -5,29 +5,24 @@
         color: black;
         font-weight: bold;
     }
-.btnStyle00 {
-  padding: 10px;
-  height:35px;
-  font-size: 17px;
-  border: 1px solid grey;
-  float: left;
-  width: 80%;
-  background: #f1f1f1;
+
+#myInput {
+    width: 200px;
 }
-.btnStyle01 {
-    float: left;
-    width: 20%;
-    height:35px;
-    padding: 10px;
-    background: #2196F3;
-    color: white;
-    font-size: 17px;
-    border: 1px solid grey;
-    border-left: none; 
+#searchclear {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
     cursor: pointer;
-    }
-    .btnStyle01:hover {
-    background: #0b7dda;
+    color: gray;
+}
+.mydiv{
+    float:right;
+    margin-bottom:10px;
 }
 </style>
 @section('content')
@@ -57,10 +52,16 @@
                     @endif
                         <form action="/searchUser" method="POST" role="search">
                             {{ csrf_field() }}
-                            <div style="float:right">
-                                <input class="btnStyle00" type="text" name="searchUser"  placeholder="Search...">   
-                                <button type="submit" class="btnStyle01" value="search"><i class="fa fa-search"></i></button> 
-                            </div><br><br>
+                           <div class="mydiv">
+                                <div class="btn-group" >
+                                    <input class="form-control" type="search" name="searchUser" autocomplete="off" id="myInput"
+                                    placeholder="Search...." value="<?php echo isset($_POST["searchUser"]) ? $_POST["searchUser"] : ''; ?>" >
+                                    <span id="searchclear" class="glyphicon glyphicon-remove-circle" onclick="document.getElementById('myInput').value = ''"></span>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="submit" class="form-control" value="search"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
                             <table class="table table-striped table-responsive">
                                 <tr>
                                     <th>User Name</th>
@@ -79,8 +80,8 @@
                                     @endif
                                     <td>{{$user->phone_number}}</td>
                                     <td>{{$user->email}}</td>
-                                    <td> <a href="{{ url('userupdate',$user->id) }}" style="width:65px" class="btn btn-primary btnStyle11">Edit</a>
-                                    <a href="{{  url('delete',$user->id) }}" class="btn btn-danger btnStyle11" onclick="return confirm('Are you sure to delete?')">Delete</a>     
+                                    <td> <a href="{{ url('userupdate',$user->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                        <a  onclick="return confirm('Are you sure?')" href="{{ url('deleteuser',$user->id) }}" class="btn btn-danger btn-sm">Delete</a>     
                                     </td> 
                                 </tr>
                             @endforeach   

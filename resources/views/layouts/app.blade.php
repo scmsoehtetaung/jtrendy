@@ -48,7 +48,7 @@ body { padding-top: 50px; }
 	color: #fff;
     font-size:13px;
 }
-img{
+.image{
     width::24px;
     height:24px;
     border-radius:50%;
@@ -65,7 +65,7 @@ img{
 
     <!-- Scripts -->
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
    
 
@@ -134,7 +134,7 @@ img{
                             <li class="dropdown nav-item">
                             
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{URL::asset('user/user2.png')}}">&nbsp;{{ Auth::user()->name }}<span class="caret"></span>
+                            <img class="image" src="{{URL::asset('user/user2.png')}}">&nbsp;{{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-default" role="menu" aria-labelledby="menu1">
                                     <li>
@@ -163,7 +163,7 @@ img{
                             </li>
                             <li class="dropdown nav-item">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{URL::asset('user/user2.png')}}">&nbsp;{{ Auth::user()->name }}<span class="caret"></span>
+                            <img src="{{URL::asset('user/user2.png')}}" class="image">&nbsp;{{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
