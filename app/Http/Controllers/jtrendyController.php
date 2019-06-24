@@ -388,9 +388,5 @@ class jtrendyController extends Controller
         ]);
         return redirect()->route('profile',$user->id)->with('message','User Updated!'); 
         }
-
-        public function back(){ 
-            return redirect()->route('user'); 
-        }
 }
     

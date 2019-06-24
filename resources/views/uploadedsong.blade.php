@@ -37,19 +37,7 @@
                   <div class ="row">
                     <div class="row row justify-content-center">
                       <div class="col-9">
-                        <div class="row">   
-                          @if($test=="search" && count($songs) <= 0)
-                            <div class="alert alert-danger">
-                                <p>No Song!</p>
-                            </div> 
-                          @endif  
-
-                          @if($test=="upload" && count($songs) <= 0)                 
-                            <div class="alert alert-danger">
-                              <p>No uploaded song!</p>
-                            </div>
-                          @endif     
-                                                                       
+                        <div class="row">                                                                                                 
                           <div class="search" style="float:right; margin-button:15px" >
                             <form action="/searchsong" method="POST" style="float:right">
                                 {{ csrf_field() }}
@@ -67,6 +55,17 @@
                           <a href="{{ route('songcategory') }}" style="float:right; font-size:15px">Search By Category</a>                                                                                                                                                                                                                                               
                       </div>  
                     </div>  
+                    @if($test=="search" && count($songs) <= 0)
+                            <div class="alert alert-danger" style="margin-top:10px">
+                                <p>No Song Exit!</p>
+                            </div> 
+                          @endif  
+
+                          @if($test=="upload" && count($songs) <= 0)                 
+                            <div class="alert alert-danger" style="margin-top:10px">
+                              <p>No Song Exit!</p>
+                            </div>
+                          @endif     
                       @foreach ($songs as $song)
                             <a href="{{url('uploadedSong/displayFullVdo',$song->id)}}" >
                               <ul class="col-sm-4 list-unstyled" style="margin-top:15px">
