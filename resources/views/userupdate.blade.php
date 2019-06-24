@@ -55,8 +55,8 @@
                             <label for="user_type" class="col-md-4 col-form-label text-md-right">User Type</label>
                             <div class="col-md-6">
                                 <select id="user_type" class="form-control{{ $errors->has('user_type') ? ' is-invalid' : '' }}" name="user_type" >
-                                <option value="1" {{ old('user_type') == "1" ? 'selected' : '' }}>Admin</option>
-                                <option value="2" {{ old('user_type') == "2" ? 'selected' : '' }} >Member</option></select>
+                                <option value="1" {{ old('user_type', $users->user_type)=="1"? "selected" : "" }}>Admin</option>
+                                <option value="2" {{ old('user_type', $users->user_type)=="2"? "selected" : "" }} >Member</option></select>
                             </div>
                         </div>
                         @endif
@@ -112,7 +112,7 @@
                         </div>           
                         <div class="form-group row" style="margin-left:34.25%; margin-top:30px">
                             <div class="button">
-                                <input type="submit"  value="Update" class="btn btn-primary active"> 
+                            <a href="javascript:history.back()"><input type="submit"  value="Update" class="btn btn-primary active"> </a>
                                 <a href="javascript:history.back()" button  class="btn btn-default">Cancle</a> 
                             </div>    
                         </div>
