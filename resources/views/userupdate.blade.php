@@ -77,8 +77,8 @@
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
                             <div class="col-md-6">                            
-                                <input type="radio" class="custom control input" id="gender" name="gender" value="0"  {{ ($users->gender=="0")? "checked" : "" }} >Male</label>
-                                <input type="radio" class="custom control input" id="gender" name="gender" value="1" {{ ($users->gender=="1")? "checked" : "" }} >Female</label>                       
+                                <input type="radio" class="custom control input" id="gender" name="gender" value="0"  {{old('gender', $users->gender)=="0"? "checked" : "" }} >Male</label>
+                                <input type="radio" class="custom control input" id="gender" name="gender" value="1" {{ old('gender', $users->gender)=="1"? "checked" : "" }} >Female</label>                       
                             </div>
                         </div>
 

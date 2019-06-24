@@ -22,11 +22,7 @@
     margin: auto;
     font-size: 14px;
     cursor: pointer;
-    color: #D3D3D3;
-}
-.linkStyle {
-    margin-left:965px;
-    font-size: 16px;
+    color: gray;
 }
 </style>
 
@@ -41,19 +37,7 @@
                   <div class ="row">
                     <div class="row row justify-content-center">
                       <div class="col-9">
-                        <div class="row">   
-                          @if($test=="search" && count($songs) <= 0)
-                            <div class="alert alert-danger">
-                                <p>No Song!</p>
-                            </div> 
-                          @endif  
-
-                          @if($test=="upload" && count($songs) <= 0)                 
-                            <div class="alert alert-danger">
-                              <p>No uploaded song!</p>
-                            </div>
-                          @endif     
-                                                                       
+                        <div class="row">                                                                                                 
                           <div class="search" style="float:right; margin-button:15px" >
                             <form action="/searchsong" method="POST" style="float:right">
                                 {{ csrf_field() }}
@@ -65,13 +49,24 @@
                                 <div class="btn-group">
                                     <button type="submit" class="form-control" value="search"><i class="fa fa-search"></i></button>
                                 </div>
-                            </form>
-                          <div class="linkStyle">
-                              <a href="{{ route('songcategory') }}">Search By Category</a>
-                          </div>
-                    </div>
-                  </div>                  
-                            @foreach ($songs as $song)
+                            </form>             
+                          </div>                  
+                        </div>     
+                          <a href="{{ route('songcategory') }}" style="float:right; font-size:15px">Search By Category</a>                                                                                                                                                                                                                                               
+                      </div>  
+                    </div>  
+                    @if($test=="search" && count($songs) <= 0)
+                            <div class="alert alert-danger" style="margin-top:10px">
+                                <p>No Song Exit!</p>
+                            </div> 
+                          @endif  
+
+                          @if($test=="upload" && count($songs) <= 0)                 
+                            <div class="alert alert-danger" style="margin-top:10px">
+                              <p>No Song Exit!</p>
+                            </div>
+                          @endif     
+                      @foreach ($songs as $song)
                             <a href="{{url('uploadedSong/displayFullVdo',$song->id)}}" >
                               <ul class="col-sm-4 list-unstyled" style="margin-top:15px">
                                 <li class="subcat-li">                                   
@@ -86,13 +81,12 @@
                                   <b>Category:&nbsp;&nbsp; </b>   {{$song->category}} </b>
                                 </li>
                               </ul>
-                            @endforeach
-                                                                                                                                                                                                                                   
-                      </div>             
-                </div>
+                            @endforeach      
+              </div>   
+               
                           <div style="margin-left:550px">
                              {{$songs->appends(request()->except('page'))->links()}}            
-                          </div>  
+                          </div> 
       </div>
     </div>
   </div>
