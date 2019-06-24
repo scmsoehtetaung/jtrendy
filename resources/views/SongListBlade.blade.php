@@ -18,13 +18,15 @@ div a:hover {
     cursor: pointer;
     color: gray;
 }
-.btnStyle11 {
-    width: 62px;
-    height: 35px;
+.labelStyle {
+    font-size: 25px;
+    color: #2F4F4F;
 }
 .linkStyle {
-    margin-left:965px;
-    font-size: 16px;
+    margin-left:980px;
+}
+th {
+    color: #1E90FF;
 }
 </style>
 @section('content')
@@ -52,7 +54,7 @@ div a:hover {
                     <form action="/search" method="POST" style="float:right">
                     {{ csrf_field() }}
                         <div class="btn-group">
-                            <input class="form-control" type="search" name="searchSongTitle" autocomplete="off" id="myInput"
+                            <input class="form-control" type="search" name="searchSongTitle" autocomplete="on" id="myInput"
                                 placeholder="Search...." value="<?php echo isset($_POST["searchSongTitle"]) ? $_POST["searchSongTitle"] : ''; ?>" >
                             <span id="searchclear" class="glyphicon glyphicon-remove-circle" onclick="document.getElementById('myInput').value = ''"></span>
                         </div>
@@ -63,7 +65,9 @@ div a:hover {
                     <div class="linkStyle">
                         <a href="{{ route('songcategory') }}">Search By Category</a>
                     </div>
-                    <label for="total" style="font-size:22px">Total : {{$totalCount}}</label><br>
+                    <div class="labelStyle">
+                    <label for="total"><i>Total: <span class="label label-primary label-bs ">{{$totalCount}}</i></span></label>
+                    </div>
                     @if(session()->has('delete'))
                         <div class="alert alert-danger">
                             {{ session()->get('delete') }}
@@ -82,30 +86,30 @@ div a:hover {
                     <form action="{{ url('/multiDel')}}" method="POST">
                     {{ csrf_field() }}
                     @if($totalCount!=0)
-                        <button style="margin-bottom: 15px" class="btn btn-danger" type="submit" id="btnSubmit" onclick="return confirm('Are you sure to delete?')">Delete All Selected</button>                                                                                      
+                    <div id="next-container" style="display:none;">
+                        <button style="margin-bottom: 15px"  id="btnSubmit" class="btn btn-danger" type="submit" onclick="return confirm('Are you sure to delete?')"><i class="fa fa-trash"></i> Delete All </button>                                                                                      
+                    </div>
                     @endif
-                        <table style="width:100%" class="table table-bordered table-hover">
-                            <tr style="font-size:20px">
-                                <th><input type="checkbox" id="selectall"></th>
-                                <th>Song Title</th>
-                                <th>Like Count</th>
-                                <th>Artist</th>
-                                <th>Date</th>
-                                <th>Option</th>
-                            </tr>
+                        <table style="width:100%" class="table table-hover">
+                                <tr style="font-size:20px">
+                                    <th><input type="checkbox" id="selectall"></th>
+                                    <th>Song Title</th>
+                                    <th>Like Count</th>
+                                    <th>Artist</th>
+                                    <th>Category</th>
+                                    <th>Option</th>
+                                </tr>
                             @if(count($jsongListCompact)>0)
                             @foreach($jsongListCompact as $songInfo)
-                            <tr style="font-size:16px">
+                            <tr style="font-size:15px">
                                 <td><input type="checkbox" class="multiDel_id" name="multiDel_id[]" value="{{$songInfo->id}}"></td>
                                 <td><a href="{{ url('songlist/detail', $songInfo->id) }}" >{{$songInfo->title}}</td>
                                 <td>{{$songInfo->song_react_count}}</td> 
                                 <td>{{$songInfo->artist}}</td>
-                                <td>{{$songInfo->updated_at}}</td>
+                                <td>{{$songInfo->category}}</td>
                                 <td>
-                                    <div style="text-align:center">
-                                        <a href="{{ url('updateSong',$songInfo->id) }}" class="btn btn-primary btnStyle11">Edit</a>
-                                        <a href="{{  url('delete',$songInfo->id) }}" class="btn btn-danger btnStyle11" onclick="return confirm('Are you sure to delete?')">Delete</a>                                                
-                                    </div>
+                                    <a href="{{ url('updateSong',$songInfo->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="{{  url('delete',$songInfo->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')"><i class="fa fa-trash"></i> Delete</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -147,20 +151,27 @@ $(document).ready(function() {
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script>
  
- $(document).ready(function() { 
-  
-    $('#btnSubmit').attr("disabled",true);
+ $(document).ready(function(){
 
-    $('.multiDel_id').change(function() {
-       $('#btnSubmit').attr('disabled', $('.multiDel_id:checked').length == 0);
+    $("#selectall").click(function(){
+        $("#next-container").toggle();
     });
-  
-    $('#selectall').change(function() {
-       $('#btnSubmit').attr('disabled', $('#selectall:checked').length == 0);
+
+    $(".multiDel_id").click(function() {
+  $('#next-container').toggle( $(".multiDel_id:checked").length > 0 );
+    
     });
-  
- });
+
+});
   
  </script>
+
+ <script>
+
+
+
+ </script>
+
+ 
  
 
