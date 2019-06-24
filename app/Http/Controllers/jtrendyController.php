@@ -244,7 +244,7 @@ class jtrendyController extends Controller
         $image=$request->file('myImage');
         if($request->hasFile('myImage')){ 
             $imageName= $request->file('myImage')->getClientOriginalName();
-            $image->move(public_path().'/photos/', $imageName);
+            $image->move(public_path().'/image/', $imageName);
         }
         $user = Auth::user();   
         DB::table('users')->insert([
@@ -336,13 +336,13 @@ class jtrendyController extends Controller
         if($request->hasFile('my_photo')){
             if (is_array($oldPhoto) || is_object($oldPhoto)){
             foreach($oldPhoto as $old){
-                if(file_exists(public_path('img/'.$old))){
-                    unlink(public_path('img/'.$old));
+                if(file_exists(public_path('image/'.$old))){
+                    unlink(public_path('image/'.$old));
                 }
             }
         }
         $myphoto= $request->file('my_photo')->getClientOriginalName();
-        $photo->move(public_path().'/img/', $myphoto);  
+        $photo->move(public_path().'/image/', $myphoto);  
         }
     else{
         $myphoto=$users->user_photo;
@@ -377,13 +377,17 @@ class jtrendyController extends Controller
         if($phone>0){
             return redirect()->back()->withInput($request->input())->with('alreadyExist', 'PhoneNumber is already exist');
         }
-
+        if(  $user_type=$request->user_type){
+            DB::Table('users')->where('id',$id)->update([
+                'user_type'=>$request->get('user_type'),
+                ]);
+        }
         $user = Auth::user(); 
         DB::Table('users')->where('id',$id)->update([
         'name'=>$request->get('name'),
         'phone_number'=>$request->get('phone_number'),
         'email'=>$request->get('email'),
-        'user_type'=>$request->get('user_type'),
+        
         'user_photo'=>$myphoto,
         'gender'=>$request->get('gender'),
         'updated_at' => $now,
